@@ -1,1 +1,1 @@
-# admin-panel
+# DevOps GPT Admin Panel
