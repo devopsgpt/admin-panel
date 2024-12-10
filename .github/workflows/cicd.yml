@@ -94,3 +94,12 @@ jobs:
         port: ${{ secrets.HOST_PORT }}
         script: docker compose -f devopsgpt-adminPanel/docker-compose-adminPanel.yml down adminPanel_dev && docker compose -f devopsgpt-adminPanel/docker-compose-adminPanel.yml up -d --pull always adminPanel_dev
 
+    - name: Removing dangle images on the remote server
+      uses: appleboy/ssh-action@v1.2.0
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.HOST_USERNAME }}
+        password: ${{ secrets.HOST_PASSWORD }}
+        port: ${{ secrets.HOST_PORT }}
+        script: docker image prune -f
+
