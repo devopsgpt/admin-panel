@@ -59,7 +59,7 @@ jobs:
         context: .
         push: true
         tags: |
-          ${{ secrets.DOCKER_USERNAME }}/devopsgpt-landing:${{ github.ref_name }}
+          ${{ secrets.DOCKER_USERNAME }}/devopsgpt-admin-panel:${{ github.ref_name }}
         build-args: |
           "VITE_API_CLIENT_BASE_URL=${{ secrets.VITE_API_CLIENT_BASE_URL_PROD }}"
 
@@ -70,7 +70,7 @@ jobs:
         context: .
         push: true
         tags: |
-          ${{ secrets.DOCKER_USERNAME }}/devopsgpt-landing:${{ github.ref_name }}
+          ${{ secrets.DOCKER_USERNAME }}/devopsgpt-admin-panel:${{ github.ref_name }}
         build-args: |
           "VITE_API_CLIENT_BASE_URL=${{ secrets.VITE_API_CLIENT_BASE_URL_DEV }}"
 
