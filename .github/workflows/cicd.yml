@@ -6,7 +6,7 @@ on:
       - master
       - dev
     paths-ignore:
-    # - 'README.md'
+      - 'README.md'
       - 'Dockerfile'
       - 'nginx/**'
       - '.github/**'
