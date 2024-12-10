@@ -8,6 +8,8 @@ on:
     paths-ignore:
       - 'README.md'
       - 'Dockerfile'
+      - '.gitignore'
+      - '.prettierignore'
       - 'nginx/**'
       - '.github/**'
 
