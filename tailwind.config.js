@@ -4,6 +4,9 @@ export default {
   content: ["./src/**/*.{html,js,ts,tsx,jsx}"],
   theme: {
     extend: {
+      backgroundImage: {
+        "vignette-radial": "radial-gradient(50% 50% at 80%, #320D37 0%, #0D0316 80%)",
+      },
       fontFamily: {
         figtree: ['figtree', 'sans-serif']
       },
@@ -17,10 +20,10 @@ export default {
       }
     }
   },
-  plugins: [require("tailwind-scrollbar"), require('daisyui')],
   daisyui: {
     themes: ["light", "dark"],
   },
-  darkMode: ['selector', '[data-theme="dark"]']
+  darkMode: ['selector', '[data-theme="dark"]'],
+  plugins: [require("tailwind-scrollbar"), require('daisyui')],
 }
 

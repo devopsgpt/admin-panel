@@ -28,7 +28,7 @@ const Auth: FC = () => {
   };
 
   return (
-    <section className="h-dvh w-full">
+    <section className="bg-vignette-radial h-dvh w-full">
       <div className="flex h-full items-center justify-center">
         <div className="flex w-full max-w-sm flex-col items-center justify-center">
           <div className="mb-10 flex w-full items-center justify-around">

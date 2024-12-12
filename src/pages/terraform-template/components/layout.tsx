@@ -27,7 +27,7 @@ const menu = [
 const TerraformTemplate: FC = () => {
   return (
     <div className="flex h-[calc(100vh-56px)] items-center">
-      <div className="flex h-full w-full max-w-96 flex-col items-center justify-center divide-y divide-gray-500 border-r border-gray-500">
+      <div className="flex h-full w-full max-w-96 flex-col items-center justify-center divide-y divide-gray-500">
         {menu.map((link) => (
           <NavLink
             key={link.url}
