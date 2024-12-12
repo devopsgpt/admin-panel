@@ -43,7 +43,7 @@ const Navbar: FC = () => {
   }, [darkMode]);
 
   return (
-    <nav className="flex h-14 items-center border-b border-gray-500 p-4">
+    <nav className="flex h-14 items-center">
       <div className="flex w-full items-center justify-between gap-4">
         <img src="/images/logo-svg.svg" className="mr-8" width={60} />
         <div className="flex items-center gap-5">
