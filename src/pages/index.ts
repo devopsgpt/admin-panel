@@ -11,6 +11,7 @@ import NginxAnsible from './ansible/nginx/nginx';
 import DockerAnsible from './ansible/docker/docker';
 import KubernetesAnsible from './ansible/kuber/kuber';
 import DockerCompose from './docker-compose/docker-compose';
+import Auth from './auth/auth';
 
 export {
   Argocd,
@@ -26,4 +27,5 @@ export {
   DockerAnsible,
   KubernetesAnsible,
   DockerCompose,
+  Auth,
 };
