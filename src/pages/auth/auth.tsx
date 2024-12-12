@@ -14,18 +14,17 @@ const Auth: FC = () => {
   };
 
   const handleLoginWithGoogle = async () => {
-    const { data, error } = await supabaseClient.auth.signInWithOAuth({
+    await supabaseClient.auth.signInWithOAuth({
       provider: 'google',
       options: { redirectTo: '/' },
     });
+  };
 
-    if (error) {
-      console.log(error);
-    }
-
-    if (data) {
-      console.log(data);
-    }
+  const handleLoginWithGithub = async () => {
+    await supabaseClient.auth.signInWithOAuth({
+      provider: 'github',
+      options: { redirectTo: '/' },
+    });
   };
 
   return (
@@ -67,6 +66,13 @@ const Auth: FC = () => {
           >
             <img src="/images/google.svg" width={24} />
             Continue with google
+          </button>
+          <button
+            onClick={handleLoginWithGithub}
+            className="mt-3 flex w-full items-center justify-center gap-4 rounded-md border border-gray-500 py-4 text-sm"
+          >
+            <img src="/images/github.svg" width={24} />
+            Continue with github
           </button>
         </div>
       </div>
