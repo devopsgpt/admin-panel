@@ -3,6 +3,7 @@ import MainLayout from '@/components/layouts/main-layout/main-layout';
 import TerraformTemplate from '@/pages/terraform-template/components/layout';
 import {
   Argocd,
+  Auth,
   Basic,
   BugFix,
   Docker,
