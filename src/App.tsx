@@ -3,6 +3,7 @@ import MainLayout from '@/components/layouts/main-layout/main-layout';
 import TerraformTemplate from '@/pages/terraform-template/components/layout';
 import {
   Argocd,
+  Auth,
   Basic,
   BugFix,
   Docker,
@@ -22,6 +23,7 @@ function App() {
   const location = useLocation();
   return (
     <Routes location={location}>
+      <Route path="/auth" element={<Auth />} />
       <Route element={<MainLayout />}>
         <Route index element={<Basic />} />
         <Route path="bug-fix" element={<BugFix />} />
