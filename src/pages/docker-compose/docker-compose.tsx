@@ -12,7 +12,6 @@ import {
   INetworkConfig,
   TDockerCompose,
 } from './docker-compose.type';
-import type { DockerCompose } from './docker-compose.type';
 import { cn } from '@/lib/utils';
 import ServiceNetworkFields from './components/service-network-fields';
 import ServiceDependsOnFields from './components/service-depends-on-fields';

@@ -45,4 +45,4 @@ export const nginxAnsibleSchema = zod.object({
   }),
 });
 
-export type NginxAnsible = zod.infer<typeof nginxAnsibleSchema>;
+export type NginxAnsibleType = zod.infer<typeof nginxAnsibleSchema>;

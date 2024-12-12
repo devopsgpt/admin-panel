@@ -144,7 +144,7 @@ export const DockerComposeSchema = zod.object({
 
 export type TDockerCompose = zod.infer<typeof DockerComposeSchema>;
 
-export type DockerCompose = {
+export type DockerComposeType = {
   version: string;
   services: {
     [key: string]: {

@@ -45,4 +45,4 @@ export const dockerAnsibleSchema = zod.object({
   }),
 });
 
-export type DockerAnsible = zod.infer<typeof dockerAnsibleSchema>;
+export type DockerAnsibleType = zod.infer<typeof dockerAnsibleSchema>;

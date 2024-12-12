@@ -17,7 +17,7 @@ import { FormInput } from '@/components/form/form-input';
 import { FormSelect } from '@/components/form/form-select';
 import HostsField from './components/hosts-field';
 import { OSOptions, VersionOptions } from './data/select-options';
-import type { NginxAnsible } from './nginx.types';
+import type { NginxAnsibleType } from './nginx.types';
 
 const NginxAnsible: FC = () => {
   const defaultValues = {
@@ -30,7 +30,7 @@ const NginxAnsible: FC = () => {
     },
   };
 
-  const methods = useForm<NginxAnsible>({
+  const methods = useForm<NginxAnsibleType>({
     resolver: zodResolver(nginxAnsibleSchema),
     defaultValues,
   });
@@ -47,7 +47,7 @@ const NginxAnsible: FC = () => {
     folderName: 'MyAnsible',
   });
 
-  const handleSubmit = async (data: NginxAnsible) => {
+  const handleSubmit = async (data: NginxAnsibleType) => {
     try {
       const body = {
         ...data,

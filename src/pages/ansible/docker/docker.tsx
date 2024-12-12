@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import {
   dockerAnsibleSchema,
-  type DockerAnsible,
+  type DockerAnsibleType,
   type DockerAnsibleBody,
   type DockerAnsibleResponse,
   type dockerTemplateValidationError,
@@ -30,7 +30,7 @@ const DockerAnsible: FC = () => {
     },
   };
 
-  const methods = useForm<DockerAnsible>({
+  const methods = useForm<DockerAnsibleType>({
     resolver: zodResolver(dockerAnsibleSchema),
     defaultValues,
   });
@@ -47,7 +47,7 @@ const DockerAnsible: FC = () => {
     folderName: 'MyAnsible',
   });
 
-  const handleSubmit = async (data: DockerAnsible) => {
+  const handleSubmit = async (data: DockerAnsibleType) => {
     try {
       const body = {
         ...data,

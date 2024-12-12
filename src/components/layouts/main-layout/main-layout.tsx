@@ -6,7 +6,9 @@ const MainLayout: FC = () => {
   return (
     <>
       <Navbar />
-      <Outlet />
+      <div className="container mx-auto h-dvh max-w-7xl border-l border-r border-gray-700">
+        <Outlet />
+      </div>
     </>
   );
 };

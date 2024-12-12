@@ -7,6 +7,11 @@ import Installation from './installation/installation';
 import Basic from './basic/basic';
 import BugFix from './bug-fix/bug-fix';
 import HelmTemplate from './helm-template/helm-template';
+import Auth from './auth/auth';
+import NginxAnsible from './ansible/nginx/nginx';
+import DockerAnsible from './ansible/docker/docker';
+import KubernetesAnsible from './ansible/kuber/kuber';
+import DockerCompose from './docker-compose/docker-compose';
 
 export {
   Argocd,
@@ -18,4 +23,9 @@ export {
   Basic,
   BugFix,
   HelmTemplate,
+  Auth,
+  NginxAnsible,
+  DockerAnsible,
+  KubernetesAnsible,
+  DockerCompose,
 };
