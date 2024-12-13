@@ -18,7 +18,7 @@ const menu = [
 
 export const AnsibleLayout: FC = () => {
   return (
-    <div className="flex h-[calc(100vh-56px)] items-center">
+    <div className="flex h-full items-center">
       <div className="flex h-full w-full max-w-96 flex-col items-center justify-center">
         {menu.map((link) => (
           <NavLink

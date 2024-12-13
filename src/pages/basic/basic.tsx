@@ -66,7 +66,7 @@ const Basic: FC = () => {
   };
 
   return (
-    <div className="flex h-[calc(100vh-56px)] w-full items-center justify-center text-white">
+    <div className="flex h-full w-full items-center justify-center text-white">
       <div className="w-full max-w-[1024px]">
         <div className="w-full rounded-md p-2">
           <div className="flex h-full w-full items-center justify-center gap-3">

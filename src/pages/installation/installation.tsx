@@ -69,7 +69,7 @@ const Installation: FC = () => {
   return (
     <form
       onSubmit={handleInstall}
-      className="flex h-[calc(100vh-56px)] w-full items-center justify-center"
+      className="flex h-full w-full items-center justify-center"
     >
       <div className="w-full max-w-96">
         <div className="divide-y-gray-800 rounded-md border border-gray-800">
