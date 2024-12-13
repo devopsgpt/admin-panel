@@ -71,7 +71,7 @@ const DockerAnsible: FC = () => {
   };
 
   return (
-    <div className="w-full max-w-96 text-black dark:text-white">
+    <div className="w-full max-w-96 text-white">
       <FormWrapper methods={methods} onSubmit={handleSubmit}>
         <div className="mb-4">
           <FormInput

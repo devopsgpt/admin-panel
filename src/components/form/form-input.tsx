@@ -43,7 +43,7 @@ export const FormInput = ({
             'w-full rounded-md border border-gray-500 px-3 py-2 outline-none transition-all focus:border-orange-base',
             inputClass,
             {
-              'border-red-500 dark:border': errorMessage,
+              'border-red-500': errorMessage,
             },
           )}
           {...register(name, { ...(isNumber && { valueAsNumber: true }) })}

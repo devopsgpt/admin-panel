@@ -21,8 +21,8 @@ export const selectStyle = (
       ...styles,
       border: 'none',
       borderRadius: controlRadius,
-      background: isDark ? '#121212' : '#fff',
-      color: isDark ? '#fff' : '#121212',
+      background: '#121212',
+      color: '#fff',
       ':focus-within': {
         border: 'none',
         boxShadow: '0 0 0 1px #f86609',
@@ -33,13 +33,13 @@ export const selectStyle = (
     }),
     menu: (styles) => ({
       ...styles,
-      background: isDark ? '#121212' : '#fff',
+      background: '#121212',
       border: 'none',
     }),
     option: (styles) => ({
       ...styles,
-      background: isDark ? '#121212' : '#fff',
-      color: isDark ? '#fff' : '#121212',
+      background: '#121212',
+      color: '#fff',
       ':hover': {
         background: '#f86609',
         color: '#fff',

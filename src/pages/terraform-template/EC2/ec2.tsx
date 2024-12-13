@@ -54,10 +54,7 @@ const EC2: FC = () => {
   };
 
   return (
-    <form
-      onSubmit={handleForm}
-      className="w-full max-w-96 text-black dark:text-white"
-    >
+    <form onSubmit={handleForm} className="w-full max-w-96 text-white">
       <div className="rounded-md border border-gray-500">
         <div className="divide-y divide-gray-500">
           <div className="flex w-full items-center justify-between px-3 py-3">

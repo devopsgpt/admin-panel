@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: ["class"],
   content: ["./src/**/*.{html,js,ts,tsx,jsx}"],
   theme: {
     extend: {
@@ -20,10 +19,6 @@ export default {
       }
     }
   },
-  daisyui: {
-    themes: ["light", "dark"],
-  },
-  darkMode: ['selector', '[data-theme="dark"]'],
   plugins: [require("tailwind-scrollbar"), require('daisyui')],
 }
 

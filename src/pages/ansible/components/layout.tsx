@@ -25,7 +25,7 @@ export const AnsibleLayout: FC = () => {
             key={link.url}
             to={link.url}
             className={({ isActive }) =>
-              `block w-full p-4 text-center text-black outline-none transition-all dark:text-white ${isActive ? 'bg-orange-base text-white' : ''}`
+              `block w-full p-4 text-center text-white outline-none transition-all ${isActive ? 'bg-orange-base text-white' : ''}`
             }
           >
             {link.title}

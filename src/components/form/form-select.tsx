@@ -4,7 +4,6 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { FormFieldProps } from '../../types/form.types';
 import Select from 'react-select';
 import { getNestedValue } from '@/lib/helper';
-import { useStyle } from '@/hooks';
 import { cn } from '@/lib/utils';
 import { selectStyle } from '@/styles/select.styles';
 
@@ -33,8 +32,6 @@ export const FormSelect = ({
     formState: { errors },
   } = useFormContext();
 
-  const { darkMode } = useStyle();
-
   const fieldError = getNestedValue(errors, name);
   const errorMessage = fieldError?.message as string;
 
@@ -61,7 +58,7 @@ export const FormSelect = ({
               placeholder={placeholder}
               className="w-full"
               {...props}
-              styles={selectStyle(darkMode, !!errorMessage)}
+              styles={selectStyle(!!errorMessage)}
             />
           )}
         />

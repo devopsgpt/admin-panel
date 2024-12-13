@@ -31,8 +31,8 @@ function App() {
       setLoading(true);
       const { error } = await supabaseClient.auth.getUser();
       if (error) {
-        console.log(error);
         navigate('/auth', { replace: true });
+      } else {
       }
       setLoading(false);
     }

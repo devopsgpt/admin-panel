@@ -38,9 +38,9 @@ const ServicePortsFields: FC<ServicePortsFieldsProps> = ({ serviceIndex }) => {
               placeholder="8080:80"
               inputClass={cn({
                 'pr-8': idx > 0,
-                'divide-red-500 border-red-500 dark:divide-red-500 dark:border-red-500':
-                  control.getFieldState(`services.${serviceIndex}.ports.${idx}`)
-                    .invalid,
+                'divide-red-500 border-red-500': control.getFieldState(
+                  `services.${serviceIndex}.ports.${idx}`,
+                ).invalid,
               })}
             />
             {idx > 0 && (

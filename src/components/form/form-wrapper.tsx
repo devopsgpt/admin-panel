@@ -19,7 +19,7 @@ export const FormWrapper = <T extends z.ZodType>({
     <FormProvider {...methods}>
       <Form.Root
         onSubmit={methods.handleSubmit(onSubmit)}
-        className="text-black dark:text-white"
+        className="text-white"
       >
         {children}
       </Form.Root>

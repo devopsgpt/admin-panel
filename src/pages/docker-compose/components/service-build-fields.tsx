@@ -21,8 +21,8 @@ export const ServiceBuildFields: FC<ServiceBuildFieldsProps> = ({
   });
 
   return (
-    <div className="mt-6 mb-2">
-      <div className="flex items-center justify-between mb-4">
+    <div className="mb-2 mt-6">
+      <div className="mb-4 flex items-center justify-between">
         <p className="text-base font-bold">Build Configuration</p>
         <FormCheckbox
           name={`services.${serviceIndex}.build.enabled`}
@@ -31,7 +31,7 @@ export const ServiceBuildFields: FC<ServiceBuildFieldsProps> = ({
       </div>
 
       {buildEnabled && (
-        <div className="p-4 space-y-4 border border-gray-200 rounded-md dark:border-gray-500">
+        <div className="space-y-4 rounded-md border border-gray-500 p-4">
           <div className="flex gap-2 [&>div]:flex-1">
             <FormInput
               name={`services.${serviceIndex}.build.context`}
@@ -51,7 +51,7 @@ export const ServiceBuildFields: FC<ServiceBuildFieldsProps> = ({
               <button
                 type="button"
                 onClick={() => append({ key: '', value: '' })}
-                className="ml-4 btn btn-xs"
+                className="btn btn-xs ml-4"
               >
                 Add <Plus className="size-3" />
               </button>
@@ -61,9 +61,9 @@ export const ServiceBuildFields: FC<ServiceBuildFieldsProps> = ({
               {fields.map((field, idx) => (
                 <div
                   className={cn(
-                    'relative mb-4 flex items-center divide-x-2 divide-gray-200 rounded-md border border-gray-200 dark:divide-gray-500 dark:border-gray-500 [&>div]:mb-0',
+                    'relative mb-4 flex items-center divide-x-2 divide-gray-500 rounded-md border border-gray-500 [&>div]:mb-0',
                     {
-                      'divide-red-500 border-red-500 dark:divide-red-500 dark:border-red-500':
+                      'divide-red-500 border-red-500':
                         control.getFieldState(
                           `services.${serviceIndex}.build.args.${idx}.key`,
                         ).invalid ||

@@ -18,14 +18,14 @@ const ServiceEnvironmentFields: FC<ServiceEnvironmentFieldsProps> = ({
   });
 
   return (
-    <div className="mt-6 mb-2">
-      <div className="flex items-center mb-2">
+    <div className="mb-2 mt-6">
+      <div className="mb-2 flex items-center">
         <p className="text-base font-bold">Environments</p>
 
         <button
           type="button"
           onClick={() => append({ name: '', value: '' })}
-          className="ml-4 btn btn-xs"
+          className="btn btn-xs ml-4"
         >
           Add <Plus className="size-3" />
         </button>
@@ -34,12 +34,11 @@ const ServiceEnvironmentFields: FC<ServiceEnvironmentFieldsProps> = ({
         {fields.map((field, envIdx) => (
           <div
             className={cn(
-              'relative mb-4 flex items-center divide-x-2 divide-gray-200 rounded-md border border-gray-200 dark:divide-gray-500 dark:border-gray-500 [&>div]:mb-0',
+              'relative mb-4 flex items-center divide-x-2 divide-gray-500 rounded-md border border-gray-500 [&>div]:mb-0',
               {
-                'divide-red-500 border-red-500 dark:divide-red-500 dark:border-red-500':
-                  control.getFieldState(
-                    `services.${serviceIndex}.environment.${envIdx}.name`,
-                  ).invalid,
+                'divide-red-500 border-red-500': control.getFieldState(
+                  `services.${serviceIndex}.environment.${envIdx}.name`,
+                ).invalid,
               },
             )}
             key={field.id}

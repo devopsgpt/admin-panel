@@ -28,19 +28,15 @@ const Auth: FC = () => {
   };
 
   return (
-    <section className="bg-vignette-radial h-dvh w-full">
+    <section className="h-dvh w-full bg-vignette-radial">
       <div className="flex h-full items-center justify-center">
         <div className="flex w-full max-w-sm flex-col items-center justify-center">
           <div className="mb-10 flex w-full items-center justify-around">
             <button
               onClick={() => handleAuthType('sign in')}
-              className={cn(
-                'text-lg font-bold text-black transition-all dark:text-white',
-                {
-                  'text-orange-base dark:text-orange-base':
-                    authType === 'sign in',
-                },
-              )}
+              className={cn('text-lg font-bold text-white transition-all', {
+                'text-orange-base': authType === 'sign in',
+              })}
             >
               Sign In
             </button>

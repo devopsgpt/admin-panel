@@ -253,7 +253,7 @@ const DockerCompose: FC = () => {
   };
 
   return (
-    <div className="flex h-[calc(100%-56px)] w-full justify-center overflow-y-auto p-4 text-black-1 scrollbar-thin dark:text-white">
+    <div className="flex h-[calc(100%-56px)] w-full justify-center overflow-y-auto p-4 text-white scrollbar-thin">
       <div className="h-full w-full max-w-[768px]">
         <FormWrapper methods={methods} onSubmit={handleSubmit}>
           <div className="mb-4 flex w-full flex-col">
