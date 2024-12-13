@@ -12,7 +12,6 @@ import Select, { SingleValue } from 'react-select';
 import { osSelectOptions, toolSelectOptions } from './data/select-options';
 import { selectStyle } from './styles/select';
 import { OptionType } from '@/types/select.types';
-import { useStyle } from '@/hooks';
 
 const Installation: FC = () => {
   const { mutateAsync, isPending } = usePost<
@@ -22,7 +21,6 @@ const Installation: FC = () => {
 
   const [os, setOs] = useState<SingleValue<OptionType>>();
   const [tool, setTool] = useState<SingleValue<OptionType>>();
-  const { darkMode } = useStyle();
 
   const handleInstall = async (e: FormEvent) => {
     e.preventDefault();
@@ -71,29 +69,29 @@ const Installation: FC = () => {
   return (
     <form
       onSubmit={handleInstall}
-      className="flex h-[calc(100vh-56px)] w-full items-center justify-center"
+      className="flex h-full w-full items-center justify-center"
     >
       <div className="w-full max-w-96">
-        <div className="border border-gray-500 divide-y divide-gray-500 rounded-md">
+        <div className="divide-y-gray-800 rounded-md border border-gray-800">
           <Select
             options={osSelectOptions}
             placeholder="os"
             value={os}
             onChange={(newValue) => setOs(newValue)}
-            styles={selectStyle('6px 6px 0 0', darkMode)}
+            styles={selectStyle('6px 6px 0 0')}
           />
           <Select
             options={toolSelectOptions}
             placeholder="tool"
             value={tool}
             onChange={(newValue) => setTool(newValue)}
-            styles={selectStyle('0 0 6px 6px', darkMode)}
+            styles={selectStyle('0 0 6px 6px')}
           />
         </div>
         <button
           type="submit"
           disabled={isPending || !os || !tool}
-          className="w-full mt-3 text-white btn bg-orange-base hover:bg-orange-base/70 disabled:bg-orange-base/50 disabled:text-white/70"
+          className="bg-orchid-medium hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 btn mt-3 w-full text-white disabled:text-white/70"
         >
           {isPending ? 'Wait...' : 'Generate'}
         </button>

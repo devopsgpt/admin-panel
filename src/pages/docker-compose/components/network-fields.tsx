@@ -40,7 +40,7 @@ const NetworkFields: FC = () => {
 
   return (
     <div>
-      <div className="mb-4 flex items-center justify-between">
+      <div className="my-4 flex items-center justify-between">
         <div className="flex items-center">
           <p className="text-2xl font-bold">Networks</p>
           <button
@@ -58,48 +58,43 @@ const NetworkFields: FC = () => {
       </div>
 
       <div className="space-y-4">
-        <div className="flex w-full flex-col gap-4 rounded-md border border-gray-500 p-5">
+        <div className="flex w-full flex-col gap-4 rounded-md">
           {fields.map((field, index) => (
             <div key={field.id} className="mb-4">
-              <div className="mb-4 flex items-center justify-between">
-                <p className="font-semibold">Network #{index + 1}</p>
+              <div className="flex items-center gap-3 [&>div]:flex-1">
+                <FormInput
+                  name={`networks.app_network.${index}.network_name`}
+                  label="App Network"
+                  placeholder="network_name"
+                  showError={false}
+                />
+                {!customNetwork && (
+                  <FormSelect
+                    name={`networks.app_network.${index}.driver`}
+                    label="Network Driver"
+                    options={defaultNetworkDrivers.map((driver) => ({
+                      label: driver,
+                      value: driver,
+                    }))}
+                  />
+                )}
+                {customNetwork && (
+                  <FormInput
+                    name={`networks.app_network.${index}.name`}
+                    label="Name"
+                    placeholder="Name"
+                    showError={false}
+                  />
+                )}
                 {index > 0 && (
                   <button
                     type="button"
+                    className="mt-6"
                     onClick={() => handleRemoveNetwork(index)}
                   >
-                    <Trash2 className="size-4" color="red" />
+                    <Trash2 className="size-4" color="white" />
                   </button>
                 )}
-              </div>
-
-              <div>
-                <div className="flex items-center gap-3 [&>div]:flex-1">
-                  <FormInput
-                    name={`networks.app_network.${index}.network_name`}
-                    label="App Network"
-                    placeholder="network_name"
-                    showError={false}
-                  />
-                  {!customNetwork && (
-                    <FormSelect
-                      name={`networks.app_network.${index}.driver`}
-                      label="Network Driver"
-                      options={defaultNetworkDrivers.map((driver) => ({
-                        label: driver,
-                        value: driver,
-                      }))}
-                    />
-                  )}
-                  {customNetwork && (
-                    <FormInput
-                      name={`networks.app_network.${index}.name`}
-                      label="Name"
-                      placeholder="Name"
-                      showError={false}
-                    />
-                  )}
-                </div>
               </div>
             </div>
           ))}

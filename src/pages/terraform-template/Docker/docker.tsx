@@ -52,28 +52,26 @@ const Docker: FC = () => {
   };
 
   return (
-    <form
-      onSubmit={handleForm}
-      className="w-full text-black max-w-96 dark:text-white"
-    >
-      <div className="border border-gray-500 rounded-md">
-        <div className="divide-y divide-gray-500">
-          <div className="flex items-center justify-between w-full px-3 py-3">
+    <form onSubmit={handleForm} className="w-full max-w-96 text-white">
+      <div className="rounded-md border border-gray-800">
+        <div className="divide-y divide-gray-800">
+          <div className="flex w-full items-center justify-between px-3 py-3">
             <p>Key Pair</p>
             <input
               type="checkbox"
-              className={cn('toggle border-gray-500 bg-gray-500', {
-                'bg-orange-base hover:bg-orange-base/70': services.docker_image,
+              className={cn('toggle border-gray-800 bg-gray-500', {
+                'bg-orchid-medium hover:bg-orchid-medium/80':
+                  services.docker_image,
               })}
               onChange={() => handleServices('docker_image')}
             />
           </div>
-          <div className="flex items-center justify-between w-full px-3 py-3">
+          <div className="flex w-full items-center justify-between px-3 py-3">
             <p>Security Group</p>
             <input
               type="checkbox"
-              className={cn('toggle border-gray-500 bg-gray-500', {
-                'bg-orange-base hover:bg-orange-base/70':
+              className={cn('toggle border-gray-800 bg-gray-500', {
+                'bg-orchid-medium hover:bg-orchid-medium/80':
                   services.docker_container,
               })}
               onChange={() => handleServices('docker_container')}
@@ -84,7 +82,7 @@ const Docker: FC = () => {
       <button
         type="submit"
         disabled={dockerPending || downloadPending}
-        className="w-full mt-3 text-white btn bg-orange-base hover:bg-orange-base/70 disabled:bg-orange-base/50 disabled:text-white/70"
+        className="bg-orchid-medium hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 btn mt-3 w-full text-white disabled:text-white/70"
       >
         {dockerPending
           ? 'Wait...'

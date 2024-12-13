@@ -20,37 +20,37 @@ import {
 import { AnsibleLayout } from './pages/ansible/components/layout';
 import { useEffect, useState } from 'react';
 import { supabaseClient } from './lib/supabase';
+import MainLoading from './components/main-loading/main-loading';
+import { useUserStore } from './store';
 
 function App() {
   const location = useLocation();
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { setUser } = useUserStore();
 
   useEffect(() => {
     async function getUserData() {
       setLoading(true);
-      const { error } = await supabaseClient.auth.getUser();
+      const { data, error } = await supabaseClient.auth.getUser();
       if (error) {
-        console.log(error);
         navigate('/auth', { replace: true });
+      }
+
+      if (data) {
+        setUser(data.user);
       }
       setLoading(false);
     }
     getUserData();
   }, []);
 
+  if (loading) {
+    return <MainLoading />;
+  }
+
   return (
     <>
-      {loading && (
-        <div className="absolute left-0 top-0 z-50 h-dvh w-full bg-[#000]">
-          <div className="flex h-full items-center justify-center text-white">
-            <img
-              src="/images/loading.gif"
-              className="h-full w-full object-none"
-            />
-          </div>
-        </div>
-      )}
       <Routes location={location}>
         <Route path="/auth" element={<Auth />} />
         <Route element={<MainLayout />}>

@@ -25,12 +25,7 @@ export const FormInput = ({
   const errorMessage = fieldError?.message as string;
 
   return (
-    <Form.Field
-      className={cn('form-field relative', {
-        'mb-6': errorMessage && showError,
-      })}
-      name={name}
-    >
+    <Form.Field className={'form-field relative'} name={name}>
       {label && (
         <div className="mb-1 flex items-baseline justify-between">
           <Form.Label className="form-label">{label}</Form.Label>
@@ -40,23 +35,16 @@ export const FormInput = ({
         <input
           type={inputType}
           className={cn(
-            'w-full rounded-md border border-gray-500 px-3 py-2 outline-none transition-all focus:border-orange-base',
+            'focus:border-orchid-light w-full rounded-md border border-gray-800 px-3 py-2 outline-none transition-all hover:border-gray-700',
             inputClass,
             {
-              'border-red-500 dark:border': errorMessage,
+              'border-red-500': errorMessage,
             },
           )}
           {...register(name, { ...(isNumber && { valueAsNumber: true }) })}
           {...restProps}
         />
       </Form.Control>
-      {showError && errorMessage && (
-        <div className="absolute left-0 top-full">
-          <Form.Message className="form-message ml-auto text-sm text-red-500">
-            {errorMessage}
-          </Form.Message>
-        </div>
-      )}
     </Form.Field>
   );
 };

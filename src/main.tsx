@@ -18,7 +18,7 @@ createRoot(document.getElementById('root')!).render(
       position="bottom-right"
       toastOptions={{
         closeButton: true,
-        className: 'bg-orange-base text-white',
+        className: 'bg-orchid-medium text-white',
         classNames: {
           closeButton: 'text-black',
         },

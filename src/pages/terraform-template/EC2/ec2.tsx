@@ -54,18 +54,15 @@ const EC2: FC = () => {
   };
 
   return (
-    <form
-      onSubmit={handleForm}
-      className="w-full max-w-96 text-black dark:text-white"
-    >
-      <div className="rounded-md border border-gray-500">
-        <div className="divide-y divide-gray-500">
+    <form onSubmit={handleForm} className="w-full max-w-96 text-white">
+      <div className="rounded-md border border-gray-800">
+        <div className="divide-y divide-gray-800">
           <div className="flex w-full items-center justify-between px-3 py-3">
             <p>Key Pair</p>
             <input
               type="checkbox"
-              className={cn('toggle border-gray-500 bg-gray-500', {
-                'bg-orange-base hover:bg-orange-base/70': services.key_pair,
+              className={cn('toggle border-gray-800 bg-gray-500', {
+                'bg-orchid-medium hover:bg-orchid-medium/80': services.key_pair,
               })}
               onChange={() => handleServices('key_pair')}
             />
@@ -74,8 +71,8 @@ const EC2: FC = () => {
             <p>Security Group</p>
             <input
               type="checkbox"
-              className={cn('toggle border-gray-500 bg-gray-500', {
-                'bg-orange-base hover:bg-orange-base/70':
+              className={cn('toggle border-gray-800 bg-gray-500', {
+                'bg-orchid-medium hover:bg-orchid-medium/80':
                   services.security_group,
               })}
               onChange={() => handleServices('security_group')}
@@ -85,8 +82,9 @@ const EC2: FC = () => {
             <p>AWS Instance</p>
             <input
               type="checkbox"
-              className={cn('toggle border-gray-500 bg-gray-500', {
-                'bg-orange-base hover:bg-orange-base/70': services.aws_instance,
+              className={cn('toggle border-gray-800 bg-gray-500', {
+                'bg-orchid-medium hover:bg-orchid-medium/80':
+                  services.aws_instance,
               })}
               onChange={() => handleServices('aws_instance')}
             />
@@ -95,8 +93,8 @@ const EC2: FC = () => {
             <p>AMI From Instance</p>
             <input
               type="checkbox"
-              className={cn('toggle border-gray-500 bg-gray-500', {
-                'bg-orange-base hover:bg-orange-base/70':
+              className={cn('toggle border-gray-800 bg-gray-500', {
+                'bg-orchid-medium hover:bg-orchid-medium/80':
                   services.ami_from_instance,
               })}
               onChange={() => handleServices('ami_from_instance')}
@@ -107,7 +105,7 @@ const EC2: FC = () => {
       <button
         type="submit"
         disabled={ec2Pending || downloadPending}
-        className="btn mt-3 w-full bg-orange-base text-white hover:bg-orange-base/70 disabled:bg-orange-base/50 disabled:text-white/70"
+        className="bg-orchid-medium hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 btn mt-3 w-full text-white disabled:text-white/70"
       >
         {ec2Pending
           ? 'Wait...'

@@ -70,7 +70,7 @@ const KubernetesAnsible: FC = () => {
   };
 
   return (
-    <div className="w-full max-w-96 text-black dark:text-white">
+    <div className="w-full max-w-96 text-white">
       <FormWrapper methods={methods} onSubmit={handleSubmit}>
         <div className="mb-4">
           <FormInput
@@ -115,7 +115,7 @@ const KubernetesAnsible: FC = () => {
         <button
           type="submit"
           disabled={kuberAnsiblePending}
-          className="btn mt-3 w-full bg-orange-base text-white hover:bg-orange-base/70 disabled:bg-orange-base/50 disabled:text-white/70"
+          className="bg-orchid-medium hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 btn mt-3 w-full text-white disabled:text-white/70"
         >
           {kuberAnsiblePending
             ? 'Generating...'

@@ -253,7 +253,7 @@ const DockerCompose: FC = () => {
   };
 
   return (
-    <div className="flex h-[calc(100%-56px)] w-full justify-center overflow-y-auto p-4 text-black-1 scrollbar-thin dark:text-white">
+    <div className="flex h-[calc(100dvh-100px)] w-full justify-center overflow-y-auto p-4 text-white scrollbar-thin">
       <div className="h-full w-full max-w-[768px]">
         <FormWrapper methods={methods} onSubmit={handleSubmit}>
           <div className="mb-4 flex w-full flex-col">
@@ -263,7 +263,7 @@ const DockerCompose: FC = () => {
             <NetworkFields />
           </div>
 
-          <div className="mb-4 flex items-center">
+          <div className="my-4 flex items-center">
             <h1 className="text-2xl font-bold">Services</h1>
             <button
               type="button"
@@ -276,17 +276,11 @@ const DockerCompose: FC = () => {
 
           <div className="space-y-4">
             {services.map((service, index) => (
-              <div
-                key={service.id}
-                className="w-full rounded-md border border-gray-500 p-5"
-              >
+              <div key={service.id} className="w-full rounded-md">
                 <div
-                  className={cn(
-                    'flex items-center justify-between transition-all delay-200',
-                    {
-                      'mb-7': openService === index,
-                    },
-                  )}
+                  className={
+                    'flex items-center justify-between transition-all delay-200'
+                  }
                 >
                   <p className="font-semibold">Service #{index + 1}</p>
                   <div className="flex items-center gap-2">
@@ -310,50 +304,47 @@ const DockerCompose: FC = () => {
                 </div>
                 <div
                   className={cn(
-                    'h-full max-h-0 overflow-y-auto px-1 transition-all duration-500',
+                    'h-full max-h-0 overflow-y-auto px-1 transition-all duration-500 scrollbar-thin',
                     {
                       'max-h-[1000px]': openService === index,
                     },
                   )}
                 >
-                  <div className="mb-4 flex flex-col">
-                    <FormInput
-                      id="service_name"
-                      name={`services.${index}.name`}
-                      label="Name"
-                      placeholder="service name"
-                    />
+                  <div className="pt-4">
+                    <div className="grid grid-cols-2 gap-2 gap-y-4">
+                      <FormInput
+                        id="service_name"
+                        name={`services.${index}.name`}
+                        label="Name"
+                        placeholder="service name"
+                      />
+                      <FormInput
+                        id="image"
+                        name={`services.${index}.image`}
+                        label="Image"
+                        placeholder="image"
+                      />
+                      <FormInput
+                        id="container_name"
+                        name={`services.${index}.container_name`}
+                        label="Container Name"
+                        placeholder="container_name"
+                      />
+                      <FormInput
+                        id="command"
+                        name={`services.${index}.command`}
+                        label="Command"
+                        placeholder="command..."
+                      />
+                    </div>
+
+                    <ServiceBuildFields serviceIndex={index} />
+                    <ServicePortsFields serviceIndex={index} />
+                    <ServiceVolumesFields serviceIndex={index} />
+                    <ServiceNetworkFields serviceIndex={index} />
+                    <ServiceDependsOnFields serviceIndex={index} />
+                    <ServiceEnvironmentFields serviceIndex={index} />
                   </div>
-                  <div className="mb-4 flex flex-col">
-                    <FormInput
-                      id="image"
-                      name={`services.${index}.image`}
-                      label="Image"
-                      placeholder="image"
-                    />
-                  </div>
-                  <div className="mb-4 flex flex-col">
-                    <FormInput
-                      id="container_name"
-                      name={`services.${index}.container_name`}
-                      label="Container Name"
-                      placeholder="container_name"
-                    />
-                  </div>
-                  <div className="mb-4 flex flex-col">
-                    <FormInput
-                      id="command"
-                      name={`services.${index}.command`}
-                      label="Command"
-                      placeholder="command..."
-                    />
-                  </div>
-                  <ServiceBuildFields serviceIndex={index} />
-                  <ServicePortsFields serviceIndex={index} />
-                  <ServiceVolumesFields serviceIndex={index} />
-                  <ServiceNetworkFields serviceIndex={index} />
-                  <ServiceDependsOnFields serviceIndex={index} />
-                  <ServiceEnvironmentFields serviceIndex={index} />
                 </div>
               </div>
             ))}
@@ -361,7 +352,7 @@ const DockerCompose: FC = () => {
           <button
             type="submit"
             disabled={dockerComposePending}
-            className="btn mt-3 w-full bg-orange-base text-white hover:bg-orange-base/70 disabled:bg-orange-base/50 disabled:text-white/70"
+            className="bg-orchid-medium hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 btn mt-3 w-full text-white disabled:text-white/70"
           >
             {dockerComposePending
               ? 'Generating...'
