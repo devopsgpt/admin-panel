@@ -72,7 +72,7 @@ const Installation: FC = () => {
       className="flex h-[calc(100vh-56px)] w-full items-center justify-center"
     >
       <div className="w-full max-w-96">
-        <div className="divide-y divide-gray-500 rounded-md border border-gray-500">
+        <div className="divide-y-gray-800 rounded-md border border-gray-800">
           <Select
             options={osSelectOptions}
             placeholder="os"
@@ -91,7 +91,7 @@ const Installation: FC = () => {
         <button
           type="submit"
           disabled={isPending || !os || !tool}
-          className="btn mt-3 w-full bg-orange-base text-white hover:bg-orange-base/70 disabled:bg-orange-base/50 disabled:text-white/70"
+          className="bg-orchid-medium hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 btn mt-3 w-full text-white disabled:text-white/70"
         >
           {isPending ? 'Wait...' : 'Generate'}
         </button>

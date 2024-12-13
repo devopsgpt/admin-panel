@@ -113,7 +113,7 @@ const DockerAnsible: FC = () => {
         <button
           type="submit"
           disabled={dockerAnsiblePending}
-          className="btn mt-3 w-full bg-orange-base text-white hover:bg-orange-base/70 disabled:bg-orange-base/50 disabled:text-white/70"
+          className="bg-orchid-medium hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 btn mt-3 w-full text-white disabled:text-white/70"
         >
           {dockerAnsiblePending
             ? 'Generating...'

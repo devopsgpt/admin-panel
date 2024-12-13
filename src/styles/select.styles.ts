@@ -18,23 +18,26 @@ export const selectStyle = (
   return {
     control: (styles) => ({
       ...styles,
-      border: error ? '1px solid #ef4444' : '1px solid #6b7280',
+      border: error ? '1px solid #ef4444' : '1px solid #1f2937',
       borderRadius: '6px',
       background: '#121212',
       color: '#fff',
       height: '40px',
       ':focus-within': {
         border: 'none',
-        boxShadow: '0 0 0 1px #f86609',
+        boxShadow: '0 0 0 1px #b230ca',
       },
       ':active': {
         border: 'none',
+      },
+      ':hover': {
+        borderColor: '#374151 ',
       },
     }),
     menu: (styles) => ({
       ...styles,
       background: '#121212',
-      border: '1px solid #fff',
+      border: '1px solid #1f2937',
       borderRadius: '6px',
       boxShadow: '0 10px 10px 4px #000',
     }),
@@ -44,7 +47,7 @@ export const selectStyle = (
       background: '#121212',
       color: '#fff',
       ':hover': {
-        background: '#f86609',
+        background: '#b230ca',
       },
     }),
     singleValue: (styles) => ({

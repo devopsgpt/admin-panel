@@ -2,7 +2,6 @@ import { GroupBase, StylesConfig } from 'react-select';
 
 export const selectStyle = (
   controlRadius: string,
-  isDark?: boolean,
 ):
   | StylesConfig<
       {
@@ -25,7 +24,7 @@ export const selectStyle = (
       color: '#fff',
       ':focus-within': {
         border: 'none',
-        boxShadow: '0 0 0 1px #f86609',
+        boxShadow: '0 0 0 1px #b230ca',
       },
       ':active': {
         border: 'none',
@@ -41,13 +40,13 @@ export const selectStyle = (
       background: '#121212',
       color: '#fff',
       ':hover': {
-        background: '#f86609',
+        background: '#b230ca',
         color: '#fff',
       },
     }),
     singleValue: (styles) => ({
       ...styles,
-      color: isDark ? '#fff' : '#121212',
+      color: '#fff',
     }),
   };
 };

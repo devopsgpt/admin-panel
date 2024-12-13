@@ -23,7 +23,7 @@ export const SignUp: FC = () => {
         />
       </div>
       <button
-        className="mt-4 w-full rounded-md bg-orange-base py-3 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-50"
+        className="bg-orchid-medium hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 mt-4 w-full rounded-md py-3 text-sm font-semibold disabled:cursor-not-allowed"
         disabled={true}
       >
         Coming Soon

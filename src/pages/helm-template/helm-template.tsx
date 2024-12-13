@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, Fragment, useState } from 'react';
 import { ChevronDown, Plus, Trash2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { usePost } from '@/core/react-query';
@@ -129,7 +129,7 @@ const HelmTemplate: FC = () => {
               isNumber={true}
             />
           </div>
-          <div className="mb-4 flex items-center">
+          <div className="mb-4 mt-8 flex items-center">
             <h1 className="text-2xl font-bold">Pods</h1>
             <button
               type="button"
@@ -140,141 +140,145 @@ const HelmTemplate: FC = () => {
               Add <Plus className="size-3" />
             </button>
           </div>
-          <div className="space-y-4">
+          <div className="space-y-6">
             {pods.map((pod, index) => (
-              <div
-                key={pod.id}
-                className="w-full rounded-md border border-gray-500 p-5"
-              >
-                <div
-                  className={cn(
-                    'flex items-center justify-between transition-all delay-200',
-                    {
-                      'mb-7': openPod === index,
-                    },
-                  )}
-                >
-                  <p className="font-semibold">Pod #{index + 1}</p>
-                  <div className="flex items-center gap-2">
-                    {index > 0 && (
-                      <button
-                        type="button"
-                        onClick={() => handleRemovePod(index)}
-                      >
-                        <Trash2 className="size-4" />
-                      </button>
-                    )}
-                    <ChevronDown
-                      className={cn('cursor-pointer transition-all', {
-                        'rotate-180': openPod === index,
-                      })}
-                      onClick={() => setOpenPod(openPod === index ? -1 : index)}
-                    />
-                  </div>
-                </div>
-                <div
-                  className={cn(
-                    'h-full max-h-0 overflow-auto px-1 transition-all duration-500 scrollbar-thin',
-                    {
-                      'max-h-[1000px]': openPod === index,
-                    },
-                  )}
-                >
-                  <div className="grid grid-cols-2 gap-4">
-                    <FormInput
-                      id="pods_name"
-                      name={`pods.${index}.name`}
-                      label="Name"
-                      placeholder="web"
-                    />
-                    <FormInput
-                      id="pods_image"
-                      name={`pods.${index}.image`}
-                      label="Image"
-                      placeholder="nginx"
-                    />
-                    <FormInput
-                      id="pods_target_port"
-                      name={`pods.${index}.target_port`}
-                      label="Target Port"
-                      placeholder="80"
-                      inputType="number"
-                      isNumber={true}
-                    />
-                    <FormInput
-                      id="pods_replicas"
-                      name={`pods.${index}.replicas`}
-                      label="Replicas"
-                      placeholder="1"
-                      inputType="number"
-                      isNumber={true}
-                    />
-                  </div>
-                  <p className="mb-2 mt-6 text-base font-bold">Persistence</p>
-                  <div className="mb-2 flex flex-col">
-                    <p className="mb-1">Size</p>
-                    <div className="flex gap-3 [&>div]:flex-1">
-                      <FormInput
-                        name={`pods.${index}.persistance.size`}
-                        label=""
-                        placeholder="Value"
-                      />
-                      <FormSelect
-                        name={`pods.${index}.persistance.mode`}
-                        label=""
-                        placeholder="Select..."
-                        options={sizeOptions}
+              <Fragment key={pod.id}>
+                <div className="w-full rounded-md">
+                  <div
+                    className={
+                      'flex items-center justify-between transition-all delay-200'
+                    }
+                  >
+                    <p className="font-semibold">
+                      {pod.name || `Pod #${index + 1}`}
+                    </p>
+                    <div className="flex items-center gap-2">
+                      {index > 0 && (
+                        <button
+                          type="button"
+                          onClick={() => handleRemovePod(index)}
+                        >
+                          <Trash2 className="size-4" />
+                        </button>
+                      )}
+                      <ChevronDown
+                        className={cn('cursor-pointer transition-all', {
+                          'rotate-180': openPod === index,
+                        })}
+                        onClick={() =>
+                          setOpenPod(openPod === index ? -1 : index)
+                        }
                       />
                     </div>
                   </div>
-                  <div className="mb-2 flex flex-col">
-                    <label className="mb-1">Access Modes</label>
-                    <FormSelect
-                      name={`pods.${index}.persistance.accessModes`}
-                      options={accessModesOptions}
-                      label=""
-                      placeholder="Select..."
-                    />
-                  </div>
+                  <div
+                    className={cn(
+                      'h-full max-h-0 overflow-auto px-0.5 transition-all duration-500 scrollbar-thin',
+                      {
+                        'max-h-[1000px]': openPod === index,
+                      },
+                    )}
+                  >
+                    <div className="pt-7">
+                      <div className="grid grid-cols-2 gap-4">
+                        <FormInput
+                          id="pods_name"
+                          name={`pods.${index}.name`}
+                          label="Name"
+                          placeholder="web"
+                        />
+                        <FormInput
+                          id="pods_image"
+                          name={`pods.${index}.image`}
+                          label="Image"
+                          placeholder="nginx"
+                        />
+                        <FormInput
+                          id="pods_target_port"
+                          name={`pods.${index}.target_port`}
+                          label="Target Port"
+                          placeholder="80"
+                          inputType="number"
+                          isNumber={true}
+                        />
+                        <FormInput
+                          id="pods_replicas"
+                          name={`pods.${index}.replicas`}
+                          label="Replicas"
+                          placeholder="1"
+                          inputType="number"
+                          isNumber={true}
+                        />
+                      </div>
+                      <p className="mb-2 mt-6 text-base font-bold">
+                        Persistence
+                      </p>
+                      <div className="mb-2 flex flex-col">
+                        <p className="mb-1">Size</p>
+                        <div className="flex gap-3 [&>div]:flex-1">
+                          <FormInput
+                            name={`pods.${index}.persistance.size`}
+                            label=""
+                            placeholder="Value"
+                          />
+                          <FormSelect
+                            name={`pods.${index}.persistance.mode`}
+                            label=""
+                            placeholder="Select..."
+                            options={sizeOptions}
+                          />
+                        </div>
+                      </div>
+                      <div className="mb-2 flex flex-col">
+                        <label className="mb-1">Access Modes</label>
+                        <FormSelect
+                          name={`pods.${index}.persistance.accessModes`}
+                          options={accessModesOptions}
+                          label=""
+                          placeholder="Select..."
+                        />
+                      </div>
 
-                  <PodEnvironmentFields podIndex={index} />
-                  <div className="mb-2 mt-7 flex justify-between">
-                    <label htmlFor="pods_stateless" className="mb-1">
-                      Stateless
-                    </label>
-                    <FormCheckbox
-                      id="pods_stateless"
-                      name={`pods.${index}.stateless`}
-                      label=""
-                    />
-                  </div>
-                  <p className="mb-2 mt-6 text-base font-bold">Ingress</p>
-                  <div className="mb-2 mt-3 flex justify-between">
-                    <label htmlFor="pods_stateless" className="mb-1">
-                      Enabled
-                    </label>
-                    <FormCheckbox
-                      id="pods_ingress_enabled"
-                      name={`pods.${index}.ingress.enabled`}
-                      label=""
-                    />
-                  </div>
-                  <div className="mb-2 mt-3 flex flex-col">
-                    <FormInput
-                      id="pods_ingress_host"
-                      name={`pods.${index}.ingress.host`}
-                      label="Host"
-                      placeholder="www.example.com"
-                    />
+                      <PodEnvironmentFields podIndex={index} />
+                      <div className="mb-2 mt-4 flex justify-between">
+                        <label htmlFor="pods_stateless" className="mb-1">
+                          Stateless
+                        </label>
+                        <FormCheckbox
+                          id="pods_stateless"
+                          name={`pods.${index}.stateless`}
+                          label=""
+                        />
+                      </div>
+                      <p className="mb-2 mt-6 text-base font-bold">Ingress</p>
+                      <div className="mb-2 mt-3 flex justify-between">
+                        <label htmlFor="pods_stateless" className="mb-1">
+                          Enabled
+                        </label>
+                        <FormCheckbox
+                          id="pods_ingress_enabled"
+                          name={`pods.${index}.ingress.enabled`}
+                          label=""
+                        />
+                      </div>
+                      <div className="mb-2 mt-3 flex flex-col">
+                        <FormInput
+                          id="pods_ingress_host"
+                          name={`pods.${index}.ingress.host`}
+                          label="Host"
+                          placeholder="www.example.com"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Fragment>
             ))}
           </div>
           <button
             type="submit"
             disabled={helmTemplatePending}
-            className="btn mt-3 w-full bg-orange-base text-white hover:bg-orange-base/70 disabled:bg-orange-base/50 disabled:text-white/70"
+            className="bg-orchid-medium hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 btn mt-3 w-full text-white disabled:text-white/70"
           >
             {helmTemplatePending
               ? 'Generating...'

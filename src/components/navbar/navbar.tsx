@@ -36,14 +36,13 @@ const Navbar: FC = () => {
   return (
     <nav className="flex h-14 items-center">
       <div className="flex w-full items-center justify-between gap-4">
-        <img src="/images/logo-svg.svg" className="mr-8" width={60} />
         <div className="flex items-center gap-5">
           {navbar.map((link) => (
             <NavLink
               key={link.url}
               to={link.url}
               className={({ isActive }) =>
-                isActive ? 'text-orange-base' : 'text-gray-400'
+                isActive ? 'text-orchid-light' : 'text-gray-400'
               }
             >
               {link.title}

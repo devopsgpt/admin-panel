@@ -21,7 +21,7 @@ export const ServiceBuildFields: FC<ServiceBuildFieldsProps> = ({
   });
 
   return (
-    <div className="mb-2 mt-6">
+    <div className="my-8">
       <div className="mb-4 flex items-center justify-between">
         <p className="text-base font-bold">Build Configuration</p>
         <FormCheckbox
@@ -31,7 +31,7 @@ export const ServiceBuildFields: FC<ServiceBuildFieldsProps> = ({
       </div>
 
       {buildEnabled && (
-        <div className="space-y-4 rounded-md border border-gray-500 p-4">
+        <div className="space-y-4 rounded-md">
           <div className="flex gap-2 [&>div]:flex-1">
             <FormInput
               name={`services.${serviceIndex}.build.context`}
@@ -61,7 +61,7 @@ export const ServiceBuildFields: FC<ServiceBuildFieldsProps> = ({
               {fields.map((field, idx) => (
                 <div
                   className={cn(
-                    'relative mb-4 flex items-center divide-x-2 divide-gray-500 rounded-md border border-gray-500 [&>div]:mb-0',
+                    'focus-within:border-orchid-light focus-within:divide-orchid-light relative flex items-center divide-x-2 divide-gray-800 rounded-md border border-gray-800 transition-all',
                     {
                       'divide-red-500 border-red-500':
                         control.getFieldState(

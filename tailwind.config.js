@@ -5,6 +5,7 @@ export default {
     extend: {
       backgroundImage: {
         "vignette-radial": "radial-gradient(50% 50% at 80%, #320D37 0%, #0D0316 80%)",
+        "linear": "linear-gradient(90deg, #0d0316 0%, #b230ca 50%, #0d0316 100%)"
       },
       fontFamily: {
         figtree: ['figtree', 'sans-serif']
@@ -15,7 +16,11 @@ export default {
         orange: {
           base: "#f86609"
         },
-        "black-1": "#121212"
+        "black-1": "#121212",
+        orchid: {
+          "light": "#d180e0",
+          medium: "#b230ca",
+        }
       }
     }
   },

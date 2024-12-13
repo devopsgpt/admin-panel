@@ -53,14 +53,14 @@ const IAM: FC = () => {
 
   return (
     <form onSubmit={handleForm} className="w-full max-w-96 text-white">
-      <div className="rounded-md border border-gray-500">
-        <div className="divide-y divide-gray-500">
+      <div className="rounded-md border border-gray-800">
+        <div className="divide-y divide-gray-800">
           <div className="flex w-full items-center justify-between px-3 py-3">
             <p>IAM User</p>
             <input
               type="checkbox"
-              className={cn('toggle border-gray-500 bg-gray-500', {
-                'bg-orange-base hover:bg-orange-base/70': services.iam_user,
+              className={cn('toggle border-gray-800 bg-gray-500', {
+                'bg-orchid-medium hover:bg-orchid-medium/80': services.iam_user,
               })}
               onChange={() => handleServices('iam_user')}
             />
@@ -69,8 +69,9 @@ const IAM: FC = () => {
             <p>IAM Group</p>
             <input
               type="checkbox"
-              className={cn('toggle border-gray-500 bg-gray-500', {
-                'bg-orange-base hover:bg-orange-base/70': services.iam_group,
+              className={cn('toggle border-gray-800 bg-gray-500', {
+                'bg-orchid-medium hover:bg-orchid-medium/80':
+                  services.iam_group,
               })}
               onChange={() => handleServices('iam_group')}
             />
@@ -80,7 +81,7 @@ const IAM: FC = () => {
       <button
         type="submit"
         disabled={iamPending || downloadPending}
-        className="btn mt-3 w-full bg-orange-base text-white hover:bg-orange-base/70 disabled:bg-orange-base/50 disabled:text-white/70"
+        className="bg-orchid-medium hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 btn mt-3 w-full text-white disabled:text-white/70"
       >
         {iamPending
           ? 'Wait...'

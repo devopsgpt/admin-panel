@@ -35,7 +35,7 @@ const Auth: FC = () => {
             <button
               onClick={() => handleAuthType('sign in')}
               className={cn('text-lg font-bold text-white transition-all', {
-                'text-orange-base': authType === 'sign in',
+                'text-orchid-light': authType === 'sign in',
               })}
             >
               Sign In
@@ -43,7 +43,7 @@ const Auth: FC = () => {
             <button
               onClick={() => handleAuthType('sign up')}
               className={cn('text-lg font-bold transition-all', {
-                'text-orange-base': authType === 'sign up',
+                'text-orchid-light': authType === 'sign up',
               })}
             >
               Sign Up
@@ -52,24 +52,26 @@ const Auth: FC = () => {
           {authType === 'sign in' && <SignIn />}
           {authType === 'sign up' && <SignUp />}
           <div className="my-7 flex w-full items-center gap-4">
-            <div className="h-px flex-1 bg-gray-500" />
+            <div className="h-px flex-1 bg-gray-800" />
             <p className="text-sm font-semibold">OR</p>
-            <div className="h-px flex-1 bg-gray-500" />
+            <div className="h-px flex-1 bg-gray-800" />
           </div>
-          <button
-            onClick={handleLoginWithGoogle}
-            className="flex w-full items-center justify-center gap-4 rounded-md border border-gray-500 py-4 text-sm"
-          >
-            <img src="/images/google.svg" width={24} />
-            Continue with google
-          </button>
-          <button
-            onClick={handleLoginWithGithub}
-            className="mt-3 flex w-full items-center justify-center gap-4 rounded-md border border-gray-500 py-4 text-sm"
-          >
-            <img src="/images/github.svg" width={24} />
-            Continue with github
-          </button>
+          <div className="w-full space-y-2">
+            <button
+              onClick={handleLoginWithGoogle}
+              className="hover:bg-orchid-medium/50 flex w-full items-center justify-center gap-4 rounded-md border border-gray-800 py-4 text-sm font-semibold text-white transition-all"
+            >
+              <img src="/images/google.svg" width={24} />
+              Continue with google
+            </button>
+            <button
+              onClick={handleLoginWithGithub}
+              className="hover:bg-orchid-medium/50 flex w-full items-center justify-center gap-4 rounded-md border border-gray-800 py-4 text-sm font-semibold text-white transition-all"
+            >
+              <img src="/images/github.svg" width={24} />
+              Continue with github
+            </button>
+          </div>
         </div>
       </div>
     </section>

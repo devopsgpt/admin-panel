@@ -19,13 +19,13 @@ const menu = [
 export const AnsibleLayout: FC = () => {
   return (
     <div className="flex h-[calc(100vh-56px)] items-center">
-      <div className="flex h-full w-full max-w-96 flex-col items-center justify-center divide-y divide-gray-500">
+      <div className="flex h-full w-full max-w-96 flex-col items-center justify-center">
         {menu.map((link) => (
           <NavLink
             key={link.url}
             to={link.url}
             className={({ isActive }) =>
-              `block w-full p-4 text-center text-white outline-none transition-all ${isActive ? 'bg-orange-base text-white' : ''}`
+              `block w-full rounded-md p-4 text-center text-white outline-none transition-all ${isActive ? 'bg-orchid-medium text-white' : ''}`
             }
           >
             {link.title}
