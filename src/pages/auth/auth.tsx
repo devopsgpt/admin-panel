@@ -16,14 +16,14 @@ const Auth: FC = () => {
   const handleLoginWithGoogle = async () => {
     await supabaseClient.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: '/' },
+      options: { redirectTo: '/', queryParams: { prompt: 'select_account' } },
     });
   };
 
   const handleLoginWithGithub = async () => {
     await supabaseClient.auth.signInWithOAuth({
       provider: 'github',
-      options: { redirectTo: '/' },
+      options: { redirectTo: '/', queryParams: { prompt: 'select_account' } },
     });
   };
 
@@ -59,14 +59,14 @@ const Auth: FC = () => {
           <div className="w-full space-y-2">
             <button
               onClick={handleLoginWithGoogle}
-              className="hover:bg-orchid-medium/50 flex w-full items-center justify-center gap-4 rounded-md border border-gray-800 py-4 text-sm font-semibold text-white transition-all"
+              className="flex w-full items-center justify-center gap-4 rounded-md border border-gray-800 py-4 text-sm font-semibold text-white transition-all hover:bg-orchid-medium/50"
             >
               <img src="/images/google.svg" width={24} />
               Continue with google
             </button>
             <button
               onClick={handleLoginWithGithub}
-              className="hover:bg-orchid-medium/50 flex w-full items-center justify-center gap-4 rounded-md border border-gray-800 py-4 text-sm font-semibold text-white transition-all"
+              className="flex w-full items-center justify-center gap-4 rounded-md border border-gray-800 py-4 text-sm font-semibold text-white transition-all hover:bg-orchid-medium/50"
             >
               <img src="/images/github.svg" width={24} />
               Continue with github
