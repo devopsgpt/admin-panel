@@ -21,19 +21,24 @@ import { AnsibleLayout } from './pages/ansible/components/layout';
 import { useEffect, useState } from 'react';
 import { supabaseClient } from './lib/supabase';
 import MainLoading from './components/main-loading/main-loading';
+import { useUserStore } from './store';
 
 function App() {
   const location = useLocation();
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { setUser } = useUserStore();
 
   useEffect(() => {
     async function getUserData() {
       setLoading(true);
-      const { error } = await supabaseClient.auth.getUser();
+      const { data, error } = await supabaseClient.auth.getUser();
       if (error) {
         navigate('/auth', { replace: true });
-      } else {
+      }
+
+      if (data) {
+        setUser(data.user);
       }
       setLoading(false);
     }

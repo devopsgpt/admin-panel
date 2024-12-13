@@ -32,7 +32,7 @@ const PodEnvironmentFields: FC<PodEnvironmentFieldsProps> = ({ podIndex }) => {
         {fields.map((field, envIdx) => (
           <div
             className={cn(
-              'focus-within:border-orchid-light focus-within:divide-orchid-light relative mb-4 flex items-center divide-x-2 divide-gray-800 rounded-md border border-gray-800 transition-all [&>div]:mb-0',
+              'focus-within:border-orchid-light focus-within:divide-orchid-light relative flex items-center divide-x-2 divide-gray-800 rounded-md border border-gray-800 transition-all',
               {
                 'divide-red-500 border-red-500':
                   control.getFieldState(

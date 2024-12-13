@@ -1,5 +1,7 @@
 import { FC } from 'react';
 import { NavLink } from 'react-router';
+import { User } from './components/user';
+import { cn } from '@/lib/utils';
 
 const navbar = [
   {
@@ -34,7 +36,7 @@ const navbar = [
 
 const Navbar: FC = () => {
   return (
-    <nav className="flex h-14 items-center">
+    <nav className="flex h-20 items-center">
       <div className="flex w-full items-center justify-between gap-4">
         <div className="flex items-center gap-5">
           {navbar.map((link) => (
@@ -42,13 +44,16 @@ const Navbar: FC = () => {
               key={link.url}
               to={link.url}
               className={({ isActive }) =>
-                isActive ? 'text-orchid-light' : 'text-gray-400'
+                cn('text-gray-400 transition-all', {
+                  'text-orchid-light': isActive,
+                })
               }
             >
               {link.title}
             </NavLink>
           ))}
         </div>
+        <User />
       </div>
     </nav>
   );
