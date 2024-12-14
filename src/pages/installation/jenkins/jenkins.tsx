@@ -23,7 +23,7 @@ const JenkinsInstallation: FC = () => {
     isPending: jenkinsInstallationPending,
   } = usePost<JenkinsInstallationResponse, JenkinsInstallationBody>(
     INSTALLATION.Jenkins,
-    'installation-docker',
+    'installation-jenkins',
   );
   const { download, isPending: downloadPending } = useDownload({
     downloadFileName: 'JenkinsInstallation',
