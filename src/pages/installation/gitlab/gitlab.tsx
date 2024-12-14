@@ -28,7 +28,7 @@ const GitlabInstallation: FC = () => {
   const { download, isPending: downloadPending } = useDownload({
     downloadFileName: 'GitlabInstallation',
     source: 'gitlab',
-    folderName: 'MyBash',
+    folderName: 'MyCompose',
   });
 
   const methods = useForm<gitlabInstallationType>({
