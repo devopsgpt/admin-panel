@@ -21,7 +21,7 @@ export enum AnsibleTemplateAPI {
 
 export enum INSTALLATION {
   Docker = '/docker/installation',
-  Github = '/gitlab/installation',
+  Gitlab = '/gitlab/installation',
   Jenkins = '/jenkins/installation',
   Terraform = '/IaC-install',
 }
