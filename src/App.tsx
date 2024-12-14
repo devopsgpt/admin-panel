@@ -9,19 +9,23 @@ import {
   Docker,
   DockerAnsible,
   DockerCompose,
+  DockerInstallation,
   EC2,
+  GitlabInstallation,
   HelmTemplate,
   IAM,
-  Installation,
+  JenkinsInstallation,
   KubernetesAnsible,
   NginxAnsible,
   S3,
+  TerraformInstallation,
 } from '@/pages';
 import { AnsibleLayout } from './pages/ansible/components/layout';
 import { useEffect, useState } from 'react';
 import { supabaseClient } from './lib/supabase';
 import MainLoading from './components/main-loading/main-loading';
 import { useUserStore } from './store';
+import InstallationLayout from './pages/installation/components/layout';
 
 function App() {
   const location = useLocation();
@@ -70,7 +74,12 @@ function App() {
             <Route path="nginx" element={<NginxAnsible />} />
             <Route path="kuber" element={<KubernetesAnsible />} />
           </Route>
-          <Route path="installation" element={<Installation />} />
+          <Route path="installation" element={<InstallationLayout />}>
+            <Route path="docker" element={<DockerInstallation />} />
+            <Route path="jenkins" element={<JenkinsInstallation />} />
+            <Route path="gitlab" element={<GitlabInstallation />} />
+            <Route path="terraform" element={<TerraformInstallation />} />
+          </Route>
         </Route>
       </Routes>
     </>
