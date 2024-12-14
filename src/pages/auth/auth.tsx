@@ -16,14 +16,14 @@ const Auth: FC = () => {
   const handleLoginWithGoogle = async () => {
     await supabaseClient.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: '/', queryParams: { prompt: 'select_account' } },
+      options: { queryParams: { prompt: 'select_account' } },
     });
   };
 
   const handleLoginWithGithub = async () => {
     await supabaseClient.auth.signInWithOAuth({
       provider: 'github',
-      options: { redirectTo: '/', queryParams: { prompt: 'select_account' } },
+      options: { queryParams: { prompt: 'select_account' } },
     });
   };
 
