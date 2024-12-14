@@ -9,13 +9,19 @@ export enum TerraformTemplateAPI {
 export enum API {
   Basic = '/IaC-basic',
   BugFix = '/IaC-bugfix',
-  Installation = '/IaC-install',
   HelmTemplate = '/Helm-template',
-  DockerCompose = "/docker-compose"
+  DockerCompose = '/docker-compose',
 }
 
 export enum AnsibleTemplateAPI {
   Docker = '/ansible-install/docker',
   Nginx = '/ansible-install/nginx',
   Kubernetes = '/ansible-install/kuber',
+}
+
+export enum INSTALLATION {
+  Docker = '/docker/installation',
+  Github = '/gitlab/installation',
+  Jenkins = '/jenkins/installation',
+  Terraform = '/IaC-install',
 }
