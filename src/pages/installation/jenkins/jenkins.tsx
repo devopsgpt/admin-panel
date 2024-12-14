@@ -25,11 +25,20 @@ const JenkinsInstallation: FC = () => {
     INSTALLATION.Jenkins,
     'installation-jenkins',
   );
-  const { download, isPending: downloadPending } = useDownload({
-    downloadFileName: 'JenkinsInstallation',
-    source: 'jenkins',
-    folderName: 'MyBash',
-  });
+
+  const { download: downloadCompose, isPending: downloadComposePending } =
+    useDownload({
+      downloadFileName: 'JenkinsInstallation',
+      source: 'jenkins',
+      folderName: 'MyCompose',
+    });
+
+  const { download: downloadBash, isPending: downloadBashPending } =
+    useDownload({
+      downloadFileName: 'JenkinsInstallation',
+      source: 'jenkins',
+      folderName: 'MyBash',
+    });
 
   const methods = useForm<jenkinsInstallationType>({
     resolver: zodResolver(jenkinsInstallationSchema),
@@ -41,9 +50,13 @@ const JenkinsInstallation: FC = () => {
         os: data.os.value,
         environment: data.environment.value,
       };
-
+      console.log(body);
       await jenkinsInstallationMutate(body);
-      await download();
+      if (body.environment === 'Docker') {
+        await downloadCompose();
+      } else if (body.environment === 'Linux') {
+        await downloadBash();
+      }
     } catch (error) {
       if (isAxiosError<jenkinsInstallationError>(error)) {
         toast.error(
@@ -78,7 +91,7 @@ const JenkinsInstallation: FC = () => {
           >
             {jenkinsInstallationPending
               ? 'Generating...'
-              : downloadPending
+              : downloadBashPending || downloadComposePending
                 ? 'Downloading...'
                 : 'Generate'}
           </button>
