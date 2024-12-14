@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, FormEvent, useEffect, useRef, useState } from 'react';
 import { CornerRightUp, Settings } from 'lucide-react';
 import { toast } from 'sonner';
 import { usePost } from '@/core/react-query';
@@ -67,7 +67,7 @@ const Basic: FC = () => {
     }
   };
 
-  const handleInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
+  const handleInput = (e: FormEvent<HTMLTextAreaElement>) => {
     const currentContent = e.currentTarget.value;
     setInput(currentContent);
   };
@@ -143,18 +143,6 @@ const Basic: FC = () => {
                 </div>
                 <div className="flex w-full flex-col">
                   <label htmlFor="min_token" className="mb-1 text-sm">
-                    Max Token
-                  </label>
-                  <input
-                    id="max_token"
-                    type="number"
-                    value={maxToken}
-                    onChange={(e) => setMaxToken(e.target.value)}
-                    className="w-full rounded-md border border-gray-800 bg-black-1 p-2 outline-none"
-                  />
-                </div>
-                <div className="flex w-full flex-col">
-                  <label htmlFor="max_token" className="mb-1 text-sm">
                     Max Token
                   </label>
                   <input
