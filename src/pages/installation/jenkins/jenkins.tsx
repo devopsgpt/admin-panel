@@ -45,7 +45,8 @@ const JenkinsInstallation: FC = () => {
   const handleSubmit = async (data: jenkinsInstallationType) => {
     try {
       const body = {
-        os: data.os.value,
+        ...(data.environment.value !== 'Docker' &&
+          data.os && { os: data.os.value }),
         environment: data.environment.value,
       };
       console.log(body);
