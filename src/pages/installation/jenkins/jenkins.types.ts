@@ -1,15 +1,29 @@
 import { z as zod } from 'zod';
 
-export const jenkinsInstallationSchema = zod.object({
-  os: zod.object({
-    label: zod.string(),
-    value: zod.string(),
-  }),
-  environment: zod.object({
-    label: zod.string(),
-    value: zod.string(),
-  }),
-});
+export const jenkinsInstallationSchema = zod
+  .object({
+    os: zod
+      .object({
+        label: zod.string(),
+        value: zod.string(),
+      })
+      .optional(),
+    environment: zod.object({
+      label: zod.string(),
+      value: zod.string(),
+    }),
+  })
+  .refine(
+    (data) => {
+      if (data.environment.value === 'Docker') {
+        return true;
+      }
+      return data.os !== undefined;
+    },
+    {
+      path: ['os'],
+    },
+  );
 
 export type jenkinsInstallationType = zod.infer<
   typeof jenkinsInstallationSchema
@@ -20,7 +34,7 @@ export type JenkinsInstallationResponse = {
 };
 
 export type JenkinsInstallationBody = {
-  os: string;
+  os?: string;
   environment: string;
 };
 
