@@ -15,7 +15,6 @@ const EC2: FC = () => {
   const { download, isPending: downloadPending } = useDownload({
     folderName: 'MyTerraform',
     source: 'ec2',
-    downloadFileName: 'EC2',
   });
 
   const [services, setServices] = useState({
@@ -41,7 +40,7 @@ const EC2: FC = () => {
       };
 
       await ec2Mutate(ec2Body);
-      await download();
+      await download({ fileName: 'EC2' });
     } catch (error) {
       if (isAxiosError(error)) {
         if (error.response?.data.detail) {
@@ -105,7 +104,7 @@ const EC2: FC = () => {
       <button
         type="submit"
         disabled={ec2Pending || downloadPending}
-        className="bg-orchid-medium hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 btn mt-3 w-full text-white disabled:text-white/70"
+        className="btn mt-3 w-full bg-orchid-medium text-white hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
       >
         {ec2Pending
           ? 'Wait...'

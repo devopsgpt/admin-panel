@@ -31,7 +31,6 @@ const HelmTemplate: FC = () => {
     );
 
   const { download, isPending: downloadPending } = useDownload({
-    downloadFileName: 'helm-template',
     source: 'helm',
     folderName: 'MyHelm',
   });
@@ -102,7 +101,7 @@ const HelmTemplate: FC = () => {
       };
 
       await helmTemplateMutate(body);
-      await download();
+      await download({ fileName: 'Helm Template.zip' });
     } catch (error) {
       console.log(error);
       if (isAxiosError<helmTemplateValidationError>(error)) {
@@ -278,7 +277,7 @@ const HelmTemplate: FC = () => {
           <button
             type="submit"
             disabled={helmTemplatePending}
-            className="bg-orchid-medium hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 btn mt-3 w-full text-white disabled:text-white/70"
+            className="btn mt-3 w-full bg-orchid-medium text-white hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
           >
             {helmTemplatePending
               ? 'Generating...'

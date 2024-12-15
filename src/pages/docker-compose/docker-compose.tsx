@@ -37,7 +37,6 @@ const DockerCompose: FC = () => {
     );
 
   const { download, isPending: downloadPending } = useDownload({
-    downloadFileName: 'DockerCompose',
     source: 'docker',
     folderName: 'MyCompose',
   });
@@ -240,7 +239,7 @@ const DockerCompose: FC = () => {
       };
 
       await dockerComposeMutate(requestBody);
-      await download();
+      await download({ fileName: 'Docker Compose.zip' });
     } catch (error) {
       if (isAxiosError<DockerComposeValidationError>(error)) {
         toast.error(
@@ -352,7 +351,7 @@ const DockerCompose: FC = () => {
           <button
             type="submit"
             disabled={dockerComposePending}
-            className="bg-orchid-medium hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 btn mt-3 w-full text-white disabled:text-white/70"
+            className="btn mt-3 w-full bg-orchid-medium text-white hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
           >
             {dockerComposePending
               ? 'Generating...'

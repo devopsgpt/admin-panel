@@ -28,7 +28,6 @@ const KubernetesAnsible: FC = () => {
     );
 
   const { download, isPending: downloadPending } = useDownload({
-    downloadFileName: 'KubernetesAnsible',
     source: 'kubernetes',
     folderName: 'MyAnsible',
   });
@@ -56,7 +55,7 @@ const KubernetesAnsible: FC = () => {
       };
 
       await kuberAnsibleMutate(body);
-      await download();
+      await download({ fileName: 'Kubernetes Ansible.zip' });
     } catch (error) {
       console.log(error);
       if (isAxiosError<kuberTemplateValidationError>(error)) {
@@ -115,7 +114,7 @@ const KubernetesAnsible: FC = () => {
         <button
           type="submit"
           disabled={kuberAnsiblePending}
-          className="bg-orchid-medium hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 btn mt-3 w-full text-white disabled:text-white/70"
+          className="btn mt-3 w-full bg-orchid-medium text-white hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
         >
           {kuberAnsiblePending
             ? 'Generating...'

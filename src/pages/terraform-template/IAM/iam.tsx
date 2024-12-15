@@ -15,7 +15,6 @@ const IAM: FC = () => {
   const { download, isPending: downloadPending } = useDownload({
     folderName: 'MyTerraform',
     source: 'iam',
-    downloadFileName: 'Iam',
   });
 
   const [services, setServices] = useState({
@@ -39,7 +38,7 @@ const IAM: FC = () => {
       };
 
       await iamMutate(iamBody);
-      await download();
+      await download({ fileName: 'Iam' });
     } catch (error) {
       if (isAxiosError(error)) {
         if (error.response?.data.detail) {
@@ -81,7 +80,7 @@ const IAM: FC = () => {
       <button
         type="submit"
         disabled={iamPending || downloadPending}
-        className="bg-orchid-medium hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 btn mt-3 w-full text-white disabled:text-white/70"
+        className="btn mt-3 w-full bg-orchid-medium text-white hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
       >
         {iamPending
           ? 'Wait...'

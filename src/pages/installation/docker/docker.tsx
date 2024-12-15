@@ -26,7 +26,6 @@ const DockerInstallation: FC = () => {
     'installation-docker',
   );
   const { download, isPending: downloadPending } = useDownload({
-    downloadFileName: 'DockerInstallation',
     source: 'docker',
     folderName: 'MyBash',
   });
@@ -43,7 +42,7 @@ const DockerInstallation: FC = () => {
       };
 
       await dockerInstallationMutate(body);
-      await download();
+      await download({ fileName: `Docker ${body.environment} Install.zip` });
     } catch (error) {
       if (isAxiosError<dockerInstallationError>(error)) {
         toast.error(

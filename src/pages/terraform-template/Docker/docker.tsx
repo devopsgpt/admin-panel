@@ -15,7 +15,6 @@ const Docker: FC = () => {
   const { download, isPending: downloadPending } = useDownload({
     folderName: 'MyTerraform',
     source: 'docker',
-    downloadFileName: 'Docker',
   });
 
   const [services, setServices] = useState({
@@ -39,7 +38,7 @@ const Docker: FC = () => {
       };
 
       await dockerMutate(dockerBody);
-      await download();
+      await download({ fileName: 'Docker.zip' });
     } catch (error) {
       if (isAxiosError(error)) {
         if (error.response?.data.detail) {
@@ -82,7 +81,7 @@ const Docker: FC = () => {
       <button
         type="submit"
         disabled={dockerPending || downloadPending}
-        className="bg-orchid-medium hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 btn mt-3 w-full text-white disabled:text-white/70"
+        className="btn mt-3 w-full bg-orchid-medium text-white hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
       >
         {dockerPending
           ? 'Wait...'
