@@ -38,7 +38,7 @@ const S3: FC = () => {
       };
 
       await s3Mutate(s3Body);
-      await download({ fileName: 'S3.zip' });
+      await download({ fileName: 'S3Terraform.zip' });
     } catch (error) {
       if (isAxiosError(error)) {
         if (error.response?.data.detail) {

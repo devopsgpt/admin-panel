@@ -38,7 +38,7 @@ const Docker: FC = () => {
       };
 
       await dockerMutate(dockerBody);
-      await download({ fileName: 'Docker.zip' });
+      await download({ fileName: 'DockerTerraform.zip' });
     } catch (error) {
       if (isAxiosError(error)) {
         if (error.response?.data.detail) {

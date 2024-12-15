@@ -42,7 +42,9 @@ const DockerInstallation: FC = () => {
       };
 
       await dockerInstallationMutate(body);
-      await download({ fileName: `Docker ${body.environment} Install.zip` });
+      await download({
+        fileName: `Docker${body.environment}${body.os}Installation.zip`,
+      });
     } catch (error) {
       if (isAxiosError<dockerInstallationError>(error)) {
         toast.error(

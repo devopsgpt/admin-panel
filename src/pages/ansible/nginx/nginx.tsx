@@ -56,7 +56,7 @@ const NginxAnsible: FC = () => {
       };
 
       await nginxAnsibleMutate(body);
-      await download({ fileName: 'NginxAnsible' });
+      await download({ fileName: 'NginxAnsible.zip' });
     } catch (error) {
       console.log(error);
       if (isAxiosError<nginxTemplateValidationError>(error)) {

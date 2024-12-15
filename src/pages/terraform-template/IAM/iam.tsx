@@ -38,7 +38,7 @@ const IAM: FC = () => {
       };
 
       await iamMutate(iamBody);
-      await download({ fileName: 'Iam' });
+      await download({ fileName: 'IamTerraform.zip' });
     } catch (error) {
       if (isAxiosError(error)) {
         if (error.response?.data.detail) {

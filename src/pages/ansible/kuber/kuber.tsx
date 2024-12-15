@@ -55,7 +55,7 @@ const KubernetesAnsible: FC = () => {
       };
 
       await kuberAnsibleMutate(body);
-      await download({ fileName: 'Kubernetes Ansible.zip' });
+      await download({ fileName: 'KubernetesAnsible.zip' });
     } catch (error) {
       console.log(error);
       if (isAxiosError<kuberTemplateValidationError>(error)) {

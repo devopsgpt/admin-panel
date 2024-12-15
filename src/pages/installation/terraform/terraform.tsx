@@ -43,7 +43,7 @@ const TerraformInstallation: FC = () => {
 
       await terraformInstallationMutate(body);
       await download({
-        fileName: `Terraform ${body.environment} Installation.zip`,
+        fileName: `Terraform${body.environment}${body.os}Installation.zip`,
       });
     } catch (error) {
       if (isAxiosError<terraformInstallationError>(error)) {

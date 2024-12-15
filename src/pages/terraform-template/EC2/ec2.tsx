@@ -40,7 +40,7 @@ const EC2: FC = () => {
       };
 
       await ec2Mutate(ec2Body);
-      await download({ fileName: 'EC2' });
+      await download({ fileName: 'EC2Terraform.zip' });
     } catch (error) {
       if (isAxiosError(error)) {
         if (error.response?.data.detail) {

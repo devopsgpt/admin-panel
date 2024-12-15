@@ -101,7 +101,7 @@ const HelmTemplate: FC = () => {
       };
 
       await helmTemplateMutate(body);
-      await download({ fileName: 'Helm Template.zip' });
+      await download({ fileName: 'HelmTemplate.zip' });
     } catch (error) {
       console.log(error);
       if (isAxiosError<helmTemplateValidationError>(error)) {

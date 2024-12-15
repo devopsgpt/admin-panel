@@ -42,7 +42,7 @@ const GitlabInstallation: FC = () => {
 
       await gitlabInstallationMutate(body);
       await download({
-        fileName: `Gitlab ${body.environment} Installation.zip`,
+        fileName: `Gitlab${body.environment}Installation.zip`,
       });
     } catch (error) {
       if (isAxiosError<gitlabInstallationError>(error)) {

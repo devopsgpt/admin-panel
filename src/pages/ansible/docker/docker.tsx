@@ -56,7 +56,7 @@ const DockerAnsible: FC = () => {
       };
 
       await dockerAnsibleMutate(body);
-      await download({ fileName: 'Docker Ansible.zip' });
+      await download({ fileName: 'DockerAnsible.zip' });
     } catch (error) {
       console.log(error);
       if (isAxiosError<dockerTemplateValidationError>(error)) {

@@ -239,7 +239,7 @@ const DockerCompose: FC = () => {
       };
 
       await dockerComposeMutate(requestBody);
-      await download({ fileName: 'Docker Compose.zip' });
+      await download({ fileName: 'DockerCompose.zip' });
     } catch (error) {
       if (isAxiosError<DockerComposeValidationError>(error)) {
         toast.error(

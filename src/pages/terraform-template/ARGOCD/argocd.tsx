@@ -61,7 +61,7 @@ const Argocd: FC = () => {
       };
 
       await argocdMutate(argocdBody);
-      await download({ fileName: 'Argocd.zip' });
+      await download({ fileName: 'ArgocdTerraform.zip' });
     } catch (error) {
       if (isAxiosError(error)) {
         if (error.response?.data.detail) {

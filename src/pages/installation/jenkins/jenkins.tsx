@@ -52,9 +52,11 @@ const JenkinsInstallation: FC = () => {
       console.log(body);
       await jenkinsInstallationMutate(body);
       if (body.environment === 'Docker') {
-        await downloadCompose({ fileName: 'Jenkins Docker installation.zip' });
+        await downloadCompose({ fileName: 'JenkinsDockerInstallation.zip' });
       } else if (body.environment === 'Linux') {
-        await downloadBash({ fileName: 'Jenkins Linux installation.zip' });
+        await downloadBash({
+          fileName: `JenkinsLinux${body.os}Installation.zip`,
+        });
       }
     } catch (error) {
       if (isAxiosError<jenkinsInstallationError>(error)) {
