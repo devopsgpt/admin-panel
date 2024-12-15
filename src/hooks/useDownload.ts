@@ -1,41 +1,34 @@
 import { useGet } from '@/core/react-query';
-import { useEffect } from 'react';
 
 type UseDownloadProps = {
   folderName: string;
   source: string;
-  downloadFileName: string;
 };
 
-const useDownload = ({
-  folderName,
-  source,
-  downloadFileName,
-}: UseDownloadProps) => {
-  const { mutateAsync, isSuccess, data, isPending } = useGet<string, undefined>(
+const useDownload = ({ folderName, source }: UseDownloadProps) => {
+  const { mutateAsync, isSuccess, isPending } = useGet<string, undefined>(
     `/download-folder${folderName}/${source}`,
     'download',
     undefined,
     { responseType: 'blob' },
   );
 
-  useEffect(() => {
-    if (isSuccess) {
+  const download = async ({ fileName }: { fileName: string }) => {
+    try {
+      const data = await mutateAsync(undefined);
       const blob = new Blob([data.data], {
-        type: data.headers['content-type'],
+        type: data.headers['Content-Type'] as string,
       });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
-      link.download = `${downloadFileName}.zip`;
+      link.download = `${fileName}`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(link.href);
+    } catch (error) {
+      return error;
     }
-  }, [isSuccess, data]);
-
-  const download = async () => {
-    return await mutateAsync(undefined);
   };
 
   return { download, isSuccess, isPending };

@@ -28,14 +28,12 @@ const JenkinsInstallation: FC = () => {
 
   const { download: downloadCompose, isPending: downloadComposePending } =
     useDownload({
-      downloadFileName: 'JenkinsInstallation',
       source: 'jenkins',
       folderName: 'MyCompose',
     });
 
   const { download: downloadBash, isPending: downloadBashPending } =
     useDownload({
-      downloadFileName: 'JenkinsInstallation',
       source: 'jenkins',
       folderName: 'MyBash',
     });
@@ -53,9 +51,9 @@ const JenkinsInstallation: FC = () => {
       console.log(body);
       await jenkinsInstallationMutate(body);
       if (body.environment === 'Docker') {
-        await downloadCompose();
+        await downloadCompose({ fileName: 'Jenkins Docker installation.zip' });
       } else if (body.environment === 'Linux') {
-        await downloadBash();
+        await downloadBash({ fileName: 'Jenkins Linux installation.zip' });
       }
     } catch (error) {
       if (isAxiosError<jenkinsInstallationError>(error)) {

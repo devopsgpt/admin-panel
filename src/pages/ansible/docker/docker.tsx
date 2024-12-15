@@ -42,7 +42,6 @@ const DockerAnsible: FC = () => {
     );
 
   const { download, isPending: downloadPending } = useDownload({
-    downloadFileName: 'DockerAnsible',
     source: 'docker',
     folderName: 'MyAnsible',
   });
@@ -57,7 +56,7 @@ const DockerAnsible: FC = () => {
       };
 
       await dockerAnsibleMutate(body);
-      await download();
+      await download({ fileName: 'Docker Ansible.zip' });
     } catch (error) {
       console.log(error);
       if (isAxiosError<dockerTemplateValidationError>(error)) {
@@ -113,7 +112,7 @@ const DockerAnsible: FC = () => {
         <button
           type="submit"
           disabled={dockerAnsiblePending}
-          className="bg-orchid-medium hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 btn mt-3 w-full text-white disabled:text-white/70"
+          className="btn mt-3 w-full bg-orchid-medium text-white hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
         >
           {dockerAnsiblePending
             ? 'Generating...'

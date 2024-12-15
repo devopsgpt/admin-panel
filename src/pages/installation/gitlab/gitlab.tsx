@@ -26,7 +26,6 @@ const GitlabInstallation: FC = () => {
     'installation-gitlab',
   );
   const { download, isPending: downloadPending } = useDownload({
-    downloadFileName: 'GitlabInstallation',
     source: 'gitlab',
     folderName: 'MyCompose',
   });
@@ -42,7 +41,9 @@ const GitlabInstallation: FC = () => {
       };
 
       await gitlabInstallationMutate(body);
-      await download();
+      await download({
+        fileName: `Gitlab ${body.environment} Installation.zip`,
+      });
     } catch (error) {
       if (isAxiosError<gitlabInstallationError>(error)) {
         toast.error(

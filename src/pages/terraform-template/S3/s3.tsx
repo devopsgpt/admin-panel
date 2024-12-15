@@ -15,7 +15,6 @@ const S3: FC = () => {
   const { download, isPending: downloadPending } = useDownload({
     folderName: 'MyTerraform',
     source: 's3',
-    downloadFileName: 'S3',
   });
 
   const [services, setServices] = useState({
@@ -39,7 +38,7 @@ const S3: FC = () => {
       };
 
       await s3Mutate(s3Body);
-      await download();
+      await download({ fileName: 'S3.zip' });
     } catch (error) {
       if (isAxiosError(error)) {
         if (error.response?.data.detail) {
@@ -82,7 +81,7 @@ const S3: FC = () => {
       <button
         type="submit"
         disabled={s3Pending || downloadPending}
-        className="bg-orchid-medium hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 btn mt-3 w-full text-white disabled:text-white/70"
+        className="btn mt-3 w-full bg-orchid-medium text-white hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
       >
         {s3Pending
           ? 'Wait...'

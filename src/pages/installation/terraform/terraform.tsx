@@ -26,7 +26,6 @@ const TerraformInstallation: FC = () => {
     'installation-terraform',
   );
   const { download, isPending: downloadPending } = useDownload({
-    downloadFileName: 'TerraformInstallation',
     source: 'terraform',
     folderName: 'MyBash',
   });
@@ -43,7 +42,9 @@ const TerraformInstallation: FC = () => {
       };
 
       await terraformInstallationMutate(body);
-      await download();
+      await download({
+        fileName: `Terraform ${body.environment} Installation.zip`,
+      });
     } catch (error) {
       if (isAxiosError<terraformInstallationError>(error)) {
         toast.error(
