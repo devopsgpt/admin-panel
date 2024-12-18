@@ -31,15 +31,32 @@ const navbar = [
         title: 'Ansible Template',
         link: '/ansible-template',
       },
+      {
+        title: 'Docker Compose',
+        link: '/docker-compose',
+      },
     ],
   },
   {
-    title: 'Docker Compose',
-    link: '/docker-compose',
-  },
-  {
     title: 'Installation',
-    link: '/installation',
+    subMenu: [
+      {
+        title: 'Docker',
+        link: '/installation/docker',
+      },
+      {
+        title: 'Jenkins',
+        link: '/installation/jenkins',
+      },
+      {
+        title: 'Gitlab',
+        link: '/installation/gitlab',
+      },
+      {
+        title: 'Terraform',
+        link: '/installation/terraform',
+      },
+    ],
   },
 ];
 
@@ -60,9 +77,7 @@ const Navbar: FC = () => {
         (ref) => ref.current?.textContent === menu,
       );
       if (buttonRef?.current) {
-        console.log(buttonRef.current);
         const buttonLeft = buttonRef.current.offsetLeft;
-        console.log(buttonLeft);
         setPosition({ left: buttonLeft });
       }
     }
@@ -91,39 +106,29 @@ const Navbar: FC = () => {
   };
 
   return (
-    <div className="relative flex w-full justify-center">
+    <div className="relative mt-4 flex w-full justify-center">
       <nav
         ref={navRef}
-        className="isolate mb-4 flex w-full items-center justify-between rounded-lg border border-gray-800 bg-gray-500 bg-opacity-10 bg-clip-padding pr-4 backdrop-blur backdrop-contrast-100 backdrop-saturate-100 backdrop-filter"
+        className="isolate flex w-full items-center justify-between rounded-lg border border-gray-800 bg-gray-500 bg-opacity-10 bg-clip-padding pr-4 backdrop-blur backdrop-contrast-100 backdrop-saturate-100 backdrop-filter"
       >
         <div className="flex items-center">
-          {navbar.map((item, index) =>
-            item.subMenu ? (
-              <button
-                ref={buttonRefs.current[index]}
-                onClick={() => handleButtonClick(item.title)}
-                key={item.title}
-                className="w-full cursor-pointer whitespace-nowrap px-4 py-3 text-center"
-              >
-                {item.title}
-              </button>
-            ) : (
-              <Link
-                to={item.link}
-                onClick={() => setMenu(undefined)}
-                className="w-full whitespace-nowrap px-4 py-3 text-center"
-              >
-                {item.title}
-              </Link>
-            ),
-          )}
+          {navbar.map((item, index) => (
+            <button
+              ref={buttonRefs.current[index]}
+              onClick={() => handleButtonClick(item.title)}
+              key={item.title}
+              className="w-full cursor-pointer whitespace-nowrap px-4 py-3 text-center"
+            >
+              {item.title}
+            </button>
+          ))}
         </div>
         <User />
       </nav>
       {menu && (
         <div
           ref={menuRef}
-          className="absolute bottom-20 z-[60] w-fit rounded-md transition-all"
+          className="absolute top-14 z-[60] w-fit rounded-md transition-all"
           style={{
             left: position.left,
           }}
