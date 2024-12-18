@@ -17,23 +17,43 @@ const navbar = [
     ],
   },
   {
-    title: 'Generate Templates',
+    title: 'Template Generation',
     subMenu: [
       {
-        title: 'Terraform Template',
+        title: 'Terraform',
         link: '/terraform-template',
       },
       {
-        title: 'Helm Template',
+        title: 'Helm',
         link: '/helm-template',
       },
       {
-        title: 'Ansible Template',
+        title: 'Ansible',
         link: '/ansible-template',
       },
       {
         title: 'Docker Compose',
         link: '/docker-compose',
+      },
+      {
+        title: 'AWS CloudFormation',
+        link: '/aws-cloudformation',
+      },
+      {
+        title: 'Pulumi',
+        link: '/pulumi',
+      },
+      {
+        title: 'GitHub Actions',
+        link: '/gitHub-actions',
+      },
+      {
+        title: 'Grafana',
+        link: '/grafana',
+      },
+      {
+        title: 'Hashicorp Packer',
+        link: '/hashicorp-packer',
       },
     ],
   },
@@ -109,7 +129,7 @@ const Navbar: FC = () => {
     <div className="relative mt-4 flex w-full justify-center">
       <nav
         ref={navRef}
-        className="isolate flex w-full items-center justify-between rounded-lg border border-gray-800 bg-gray-500 bg-opacity-10 bg-clip-padding pr-4 backdrop-blur backdrop-contrast-100 backdrop-saturate-100 backdrop-filter"
+        className="isolate flex w-full items-center justify-between rounded-lg border border-gray-800 bg-gray-500/10 bg-clip-padding pr-4 backdrop-blur backdrop-contrast-100 backdrop-saturate-100 backdrop-filter"
       >
         <div className="flex items-center">
           {navbar.map((item, index) => (
@@ -133,7 +153,7 @@ const Navbar: FC = () => {
             left: position.left,
           }}
         >
-          <div className="flex h-fit w-full flex-col gap-2 rounded-lg border border-gray-800 bg-gray-500 bg-opacity-10 bg-clip-padding backdrop-blur backdrop-contrast-100 backdrop-saturate-100 backdrop-filter">
+          <div className="flex h-fit w-full flex-col gap-2 rounded-lg border border-gray-800 bg-gray-400/10 bg-clip-padding backdrop-blur-lg backdrop-contrast-100 backdrop-saturate-100 backdrop-filter">
             {menu &&
               navbar
                 .find((item) => item.title === menu)
