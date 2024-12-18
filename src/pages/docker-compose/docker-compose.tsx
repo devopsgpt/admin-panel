@@ -34,11 +34,13 @@ const DockerCompose: FC = () => {
     usePost<DockerComposeResponse, DockerComposeBody>(
       API.DockerCompose,
       'docker-compose',
+      true,
     );
 
   const { download, isPending: downloadPending } = useDownload({
     source: 'docker',
     folderName: 'MyCompose',
+    isEngine: true,
   });
 
   const defaultValues = {

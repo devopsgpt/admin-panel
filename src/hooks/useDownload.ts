@@ -3,12 +3,14 @@ import { useGet } from '@/core/react-query';
 type UseDownloadProps = {
   folderName: string;
   source: string;
+  isEngine: boolean;
 };
 
-const useDownload = ({ folderName, source }: UseDownloadProps) => {
+const useDownload = ({ folderName, source, isEngine }: UseDownloadProps) => {
   const { mutateAsync, isSuccess, isPending } = useGet<string, undefined>(
     `/download-folder${folderName}/${source}`,
     'download',
+    isEngine,
     undefined,
     { responseType: 'blob' },
   );

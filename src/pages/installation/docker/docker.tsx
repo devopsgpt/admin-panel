@@ -24,10 +24,12 @@ const DockerInstallation: FC = () => {
   } = usePost<DockerInstallationResponse, DockerInstallationBody>(
     INSTALLATION.Docker,
     'installation-docker',
+    true,
   );
   const { download, isPending: downloadPending } = useDownload({
     source: 'docker',
     folderName: 'MyBash',
+    isEngine: true,
   });
 
   const methods = useForm<dockerInstallationType>({

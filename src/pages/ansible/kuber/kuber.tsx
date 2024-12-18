@@ -25,11 +25,13 @@ const KubernetesAnsible: FC = () => {
     usePost<KuberAnsibleResponse, KuberAnsibleBody>(
       AnsibleTemplateAPI.Kubernetes,
       'ansible-docker',
+      true,
     );
 
   const { download, isPending: downloadPending } = useDownload({
     source: 'kubernetes',
     folderName: 'MyAnsible',
+    isEngine: true,
   });
 
   const defaultValues = {

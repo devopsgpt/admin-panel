@@ -11,10 +11,11 @@ const Docker: FC = () => {
   const { mutateAsync: dockerMutate, isPending: dockerPending } = usePost<
     DockerResponse,
     DockerBody
-  >(TerraformTemplateAPI.Docker, 'docker');
+  >(TerraformTemplateAPI.Docker, 'docker', true);
   const { download, isPending: downloadPending } = useDownload({
     folderName: 'MyTerraform',
     source: 'docker',
+    isEngine: true,
   });
 
   const [services, setServices] = useState({

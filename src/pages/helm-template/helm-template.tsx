@@ -28,11 +28,13 @@ const HelmTemplate: FC = () => {
     usePost<HelmTemplateResponse, HelmTemplateBody>(
       API.HelmTemplate,
       'helm-template',
+      true,
     );
 
   const { download, isPending: downloadPending } = useDownload({
     source: 'helm',
     folderName: 'MyHelm',
+    isEngine: true,
   });
 
   const defaultValues = {

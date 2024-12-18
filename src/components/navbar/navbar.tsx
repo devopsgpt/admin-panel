@@ -45,7 +45,7 @@ const navbar = [
       },
       {
         title: 'GitHub Actions',
-        link: '/gitHub-actions',
+        link: '/github-actions',
       },
       {
         title: 'Grafana',
