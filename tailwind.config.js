@@ -8,14 +8,9 @@ export default {
         "linear": "linear-gradient(90deg, #0d0316 0%, #b230ca 50%, #0d0316 100%)"
       },
       fontFamily: {
-        figtree: ['figtree', 'sans-serif']
+        figtree: ['figtree']
       },
       colors: {
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
-        orange: {
-          base: "#f86609"
-        },
         "black-1": "#121212",
         orchid: {
           "light": "#d180e0",
@@ -24,6 +19,10 @@ export default {
       }
     }
   },
+  corePlugins: {
+    preflight: true,
+  },
+
   plugins: [require("tailwind-scrollbar"), require('daisyui')],
 }
 
