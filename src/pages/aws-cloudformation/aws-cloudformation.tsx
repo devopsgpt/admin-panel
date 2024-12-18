@@ -11,7 +11,6 @@ import {
 import { FormSelect } from '@/components/form/form-select';
 import { PuffLoader } from 'react-spinners';
 import { externalTemplateInstance } from '@/lib/axios';
-import ExportTemplateModal from '@/components/modal/external-template';
 
 const AWSCloudFormation: FC = () => {
   const getServices = useGet<string[], unknown>(

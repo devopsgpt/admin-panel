@@ -1,9 +1,16 @@
-import { Route, Routes, useLocation, useNavigate } from 'react-router';
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from 'react-router';
 import MainLayout from '@/components/layouts/main-layout/main-layout';
 import TerraformTemplate from '@/pages/terraform-template/components/layout';
 import {
   Argocd,
   Auth,
+  AWSCloudFormation,
   Basic,
   BugFix,
   Docker,
@@ -79,7 +86,9 @@ function App() {
           <Route path="gitlab" element={<GitlabInstallation />} />
           <Route path="terraform" element={<TerraformInstallation />} />
         </Route>
+        <Route path="aws-cloudformation" element={<AWSCloudFormation />} />
       </Route>
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
 }

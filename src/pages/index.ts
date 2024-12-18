@@ -15,6 +15,7 @@ import DockerInstallation from './installation/docker/docker';
 import JenkinsInstallation from './installation/jenkins/jenkins';
 import GitlabInstallation from './installation/gitlab/gitlab';
 import TerraformInstallation from './installation/terraform/terraform';
+import AWSCloudFormation from './aws-cloudformation/aws-cloudformation';
 
 export {
   Argocd,
@@ -34,4 +35,5 @@ export {
   JenkinsInstallation,
   GitlabInstallation,
   TerraformInstallation,
+  AWSCloudFormation,
 };
