@@ -25,6 +25,7 @@ import {
   JenkinsInstallation,
   KubernetesAnsible,
   NginxAnsible,
+  Pulumi,
   S3,
   TerraformInstallation,
 } from '@/pages';
@@ -89,6 +90,7 @@ function App() {
         </Route>
         <Route path="aws-cloudformation" element={<AWSCloudFormation />} />
         <Route path="github-actions" element={<GithubActions />} />
+        <Route path="pulumi" element={<Pulumi />} />
       </Route>
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>

@@ -17,6 +17,7 @@ import GitlabInstallation from './installation/gitlab/gitlab';
 import TerraformInstallation from './installation/terraform/terraform';
 import AWSCloudFormation from './aws-cloudformation/aws-cloudformation';
 import GithubActions from './github-actions/github-actions';
+import Pulumi from './pulumi/pulumi';
 
 export {
   Argocd,
@@ -38,4 +39,5 @@ export {
   TerraformInstallation,
   AWSCloudFormation,
   GithubActions,
+  Pulumi,
 };
