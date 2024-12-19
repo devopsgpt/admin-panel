@@ -18,6 +18,7 @@ import TerraformInstallation from './installation/terraform/terraform';
 import AWSCloudFormation from './aws-cloudformation/aws-cloudformation';
 import GithubActions from './github-actions/github-actions';
 import Pulumi from './pulumi/pulumi';
+import AlertRules from './grafana/alert-rules/alert-rules';
 
 export {
   Argocd,
@@ -40,4 +41,5 @@ export {
   AWSCloudFormation,
   GithubActions,
   Pulumi,
+  AlertRules,
 };
