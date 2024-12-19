@@ -18,6 +18,7 @@ import {
   DockerCompose,
   DockerInstallation,
   EC2,
+  GithubActions,
   GitlabInstallation,
   HelmTemplate,
   IAM,
@@ -87,6 +88,7 @@ function App() {
           <Route path="terraform" element={<TerraformInstallation />} />
         </Route>
         <Route path="aws-cloudformation" element={<AWSCloudFormation />} />
+        <Route path="github-actions" element={<GithubActions />} />
       </Route>
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
