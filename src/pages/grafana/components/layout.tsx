@@ -6,6 +6,10 @@ const menu = [
     url: 'alert-rules',
     title: 'Alert Rules',
   },
+  {
+    url: 'loki-logql',
+    title: 'Loki LogQL',
+  },
 ];
 
 export const GrafanaLayout: FC = () => {

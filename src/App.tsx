@@ -25,6 +25,7 @@ import {
   IAM,
   JenkinsInstallation,
   KubernetesAnsible,
+  LokiLogQL,
   NginxAnsible,
   Pulumi,
   S3,
@@ -95,6 +96,7 @@ function App() {
         </Route>
         <Route path="grafana" element={<GrafanaLayout />}>
           <Route path="alert-rules" element={<AlertRules />} />
+          <Route path="loki-logql" element={<LokiLogQL />} />
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" />} />

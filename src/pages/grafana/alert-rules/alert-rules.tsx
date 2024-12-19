@@ -27,10 +27,10 @@ const AlertRules: FC = () => {
   });
 
   useEffect(() => {
-    getCloudFormationServices();
+    getAlertRulesServices();
   }, []);
 
-  async function getCloudFormationServices() {
+  async function getAlertRulesServices() {
     try {
       const { data } = await getServices.mutateAsync(undefined);
       setCloudFormationServices(
