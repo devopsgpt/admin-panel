@@ -14,6 +14,10 @@ const menu = [
     url: 'alertmanager',
     title: 'Alertmanager Datasource',
   },
+  {
+    url: 'elasticsearch',
+    title: 'Elasticsearch Datasource',
+  },
 ];
 
 export const GrafanaLayout: FC = () => {

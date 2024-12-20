@@ -20,6 +20,7 @@ import {
   DockerCompose,
   DockerInstallation,
   EC2,
+  ElasticSearchDatasource,
   GithubActions,
   GitlabInstallation,
   GrafanaAlertingAsCode,
@@ -104,6 +105,7 @@ function App() {
           <Route path="alert-rules" element={<AlertRules />} />
           <Route path="loki-logql" element={<LokiLogQL />} />
           <Route path="alertmanager" element={<AlertManager />} />
+          <Route path="elasticsearch" element={<ElasticSearchDatasource />} />
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" />} />

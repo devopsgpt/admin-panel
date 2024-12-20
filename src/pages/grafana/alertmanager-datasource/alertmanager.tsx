@@ -47,7 +47,6 @@ const AlertManager: FC = () => {
 
   const handleGetTemplate = async (data: AlertManagerSchema) => {
     try {
-      console.log(1);
       const body = {
         ...data,
         basic_auth: basicAuth
@@ -74,7 +73,7 @@ const AlertManager: FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full h-full text-white">
+    <div className="flex h-full w-full items-center justify-center text-white">
       <div className="w-full max-w-96">
         <FormWrapper methods={templateMethods} onSubmit={handleGetTemplate}>
           <div className="flex flex-col gap-3">
@@ -86,7 +85,7 @@ const AlertManager: FC = () => {
               name="implementation"
               options={implementationOptions}
             />
-            <div className="flex items-center justify-between my-1">
+            <div className="my-1 flex items-center justify-between">
               <label
                 htmlFor="handleGrafanaManagedAlerts"
                 className="cursor-pointer"
@@ -105,7 +104,7 @@ const AlertManager: FC = () => {
                 })}
               />
             </div>
-            <div className="flex items-center justify-between my-1">
+            <div className="my-1 flex items-center justify-between">
               <label htmlFor="editable" className="cursor-pointer">
                 Editable
               </label>
@@ -122,7 +121,7 @@ const AlertManager: FC = () => {
               />
             </div>
             <div>
-              <div className="flex items-center justify-between my-1">
+              <div className="my-1 flex items-center justify-between">
                 <label htmlFor="basic-auth" className="cursor-pointer">
                   Basic Auth
                 </label>
@@ -156,7 +155,7 @@ const AlertManager: FC = () => {
               disabled={
                 generateTemplate.isPending || downloadTemplate.isPending
               }
-              className="w-full mt-3 text-white btn bg-orchid-medium hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
+              className="btn mt-3 w-full bg-orchid-medium text-white hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
             >
               {generateTemplate.isPending
                 ? 'Wait...'
