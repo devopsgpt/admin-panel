@@ -1,6 +1,5 @@
 import {
   AxiosError,
-  AxiosHeaders,
   AxiosInstance,
   AxiosRequestConfig,
   AxiosResponse,
@@ -13,7 +12,7 @@ async function request<R, B, E = unknown>(
   method: 'get' | 'post' | 'put' | 'patch',
   url: string,
   body?: B,
-  headers?: AxiosHeaders,
+  headers?: any,
   config?: AxiosRequestConfig,
 ): Promise<AxiosResponse<R>> {
   try {
@@ -34,7 +33,7 @@ function mutationHook(method: 'get' | 'post' | 'put' | 'patch') {
     url: string,
     key: string,
     isEngine: boolean,
-    headers?: AxiosHeaders,
+    headers?: any,
     configs?: AxiosRequestConfig,
   ) {
     return useMutation<AxiosResponse<R>, AxiosError<E>, B>({

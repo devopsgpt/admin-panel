@@ -29,6 +29,7 @@ import {
   NginxAnsible,
   Pulumi,
   S3,
+  TerraformGrafana,
   TerraformInstallation,
 } from '@/pages';
 import { AnsibleLayout } from './pages/ansible/components/layout';
@@ -97,6 +98,7 @@ function App() {
         <Route path="grafana" element={<GrafanaLayout />}>
           <Route path="alert-rules" element={<AlertRules />} />
           <Route path="loki-logql" element={<LokiLogQL />} />
+          <Route path="terraform" element={<TerraformGrafana />} />
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" />} />
