@@ -42,6 +42,7 @@ import MainLoading from './components/main-loading/main-loading';
 import { useUserStore } from './store';
 import InstallationLayout from './pages/installation/components/layout';
 import { GrafanaLayout } from './pages/grafana/components/layout';
+import MimirDatasource from './pages/grafana/mimir-datasource/mimir';
 
 function App() {
   const location = useLocation();
@@ -111,6 +112,7 @@ function App() {
             element={<ElasticSearchDatasource />}
           />
           <Route path="loki-datasource" element={<LokiDatasource />} />
+          <Route path="mimir-datasource" element={<MimirDatasource />} />
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" />} />

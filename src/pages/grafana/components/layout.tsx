@@ -22,6 +22,10 @@ const menu = [
     url: 'loki-datasource',
     title: 'Loki Datasource',
   },
+  {
+    url: 'mimir-datasource',
+    title: 'Mimir Datasource',
+  },
 ];
 
 export const GrafanaLayout: FC = () => {
