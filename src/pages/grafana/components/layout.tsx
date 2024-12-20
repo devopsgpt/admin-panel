@@ -30,6 +30,10 @@ const menu = [
     url: 'mysql-datasource',
     title: 'MySQL Datasource',
   },
+  {
+    url: 'postgres-datasource',
+    title: 'Postgres Datasource',
+  },
 ];
 
 export const GrafanaLayout: FC = () => {

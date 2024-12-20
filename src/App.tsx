@@ -44,6 +44,7 @@ import { useUserStore } from './store';
 import InstallationLayout from './pages/installation/components/layout';
 import { GrafanaLayout } from './pages/grafana/components/layout';
 import MimirDatasource from './pages/grafana/mimir-datasource/mimir';
+import PostgresDatasource from './pages/grafana/postgress-datasource/postgress';
 
 function App() {
   const location = useLocation();
@@ -115,6 +116,7 @@ function App() {
           <Route path="loki-datasource" element={<LokiDatasource />} />
           <Route path="mimir-datasource" element={<MimirDatasource />} />
           <Route path="mysql-datasource" element={<MySQLDatasource />} />
+          <Route path="postgres-datasource" element={<PostgresDatasource />} />
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" />} />

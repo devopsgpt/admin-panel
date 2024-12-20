@@ -25,6 +25,7 @@ import AlertManager from './grafana/alertmanager-datasource/alertmanager';
 import ElasticSearchDatasource from './grafana/elasitcsearch-datasource/elasticsearch';
 import LokiDatasource from './grafana/loki-datasource/loki';
 import MySQLDatasource from './grafana/mysql-datasource/mysql';
+import PostgressDatasource from './grafana/postgress-datasource/postgress';
 
 export {
   Argocd,
@@ -54,4 +55,5 @@ export {
   ElasticSearchDatasource,
   LokiDatasource,
   MySQLDatasource,
+  PostgressDatasource,
 };
