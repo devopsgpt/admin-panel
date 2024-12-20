@@ -187,7 +187,7 @@ const GrafanaAlertingAsCode: FC = () => {
             </div>
             <div className="px-3 py-2 space-y-1">
               <label className="justify-between gap-2 cursor-pointer label">
-                <span>Create Mute Timing</span>
+                <span>Create Notification Policy</span>
                 <input
                   type="checkbox"
                   className={cn('toggle border-gray-800 bg-gray-500', {
