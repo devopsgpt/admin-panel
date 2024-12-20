@@ -34,6 +34,10 @@ const menu = [
     url: 'postgres-datasource',
     title: 'Postgres Datasource',
   },
+  {
+    url: 'prometheus-datasource',
+    title: 'Prometheus Datasource',
+  },
 ];
 
 export const GrafanaLayout: FC = () => {

@@ -26,6 +26,7 @@ import ElasticSearchDatasource from './grafana/elasitcsearch-datasource/elastics
 import LokiDatasource from './grafana/loki-datasource/loki';
 import MySQLDatasource from './grafana/mysql-datasource/mysql';
 import PostgressDatasource from './grafana/postgress-datasource/postgress';
+import PrometheusDatasource from './grafana/prometheus-datasource/prometheus';
 
 export {
   Argocd,
@@ -56,4 +57,5 @@ export {
   LokiDatasource,
   MySQLDatasource,
   PostgressDatasource,
+  PrometheusDatasource,
 };

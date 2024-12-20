@@ -32,6 +32,7 @@ import {
   LokiLogQL,
   MySQLDatasource,
   NginxAnsible,
+  PrometheusDatasource,
   Pulumi,
   S3,
   TerraformInstallation,
@@ -117,6 +118,10 @@ function App() {
           <Route path="mimir-datasource" element={<MimirDatasource />} />
           <Route path="mysql-datasource" element={<MySQLDatasource />} />
           <Route path="postgres-datasource" element={<PostgresDatasource />} />
+          <Route
+            path="prometheus-datasource"
+            element={<PrometheusDatasource />}
+          />
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" />} />
