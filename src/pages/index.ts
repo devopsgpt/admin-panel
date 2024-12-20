@@ -20,7 +20,7 @@ import GithubActions from './github-actions/github-actions';
 import Pulumi from './pulumi/pulumi';
 import AlertRules from './grafana/alert-rules/alert-rules';
 import LokiLogQL from './grafana/loki-logql/loki-logql';
-import TerraformGrafana from './grafana/terraform/terraform-grafana';
+import GrafanaAlertingAsCode from './terraform-template/grafana-alerting-as-code/grafana-alerting-as-code';
 
 export {
   Argocd,
@@ -45,5 +45,5 @@ export {
   Pulumi,
   AlertRules,
   LokiLogQL,
-  TerraformGrafana,
+  GrafanaAlertingAsCode,
 };

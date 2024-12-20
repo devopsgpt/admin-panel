@@ -10,10 +10,6 @@ const menu = [
     url: 'loki-logql',
     title: 'Loki LogQL',
   },
-  {
-    url: 'terraform',
-    title: 'Terraform',
-  },
 ];
 
 export const GrafanaLayout: FC = () => {

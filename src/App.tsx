@@ -21,6 +21,7 @@ import {
   EC2,
   GithubActions,
   GitlabInstallation,
+  GrafanaAlertingAsCode,
   HelmTemplate,
   IAM,
   JenkinsInstallation,
@@ -29,7 +30,6 @@ import {
   NginxAnsible,
   Pulumi,
   S3,
-  TerraformGrafana,
   TerraformInstallation,
 } from '@/pages';
 import { AnsibleLayout } from './pages/ansible/components/layout';
@@ -83,6 +83,10 @@ function App() {
           <Route path="s3" element={<S3 />} />
           <Route path="iam" element={<IAM />} />
           <Route path="argocd" element={<Argocd />} />
+          <Route
+            path="grafana-alerting-as-code"
+            element={<GrafanaAlertingAsCode />}
+          />
         </Route>
         <Route path="ansible-template" element={<AnsibleLayout />}>
           <Route path="docker" element={<DockerAnsible />} />
@@ -98,7 +102,6 @@ function App() {
         <Route path="grafana" element={<GrafanaLayout />}>
           <Route path="alert-rules" element={<AlertRules />} />
           <Route path="loki-logql" element={<LokiLogQL />} />
-          <Route path="terraform" element={<TerraformGrafana />} />
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" />} />

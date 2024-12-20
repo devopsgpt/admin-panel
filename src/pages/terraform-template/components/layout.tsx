@@ -22,12 +22,16 @@ const menu = [
     url: 'argocd',
     title: 'ArgoCD Service',
   },
+  {
+    url: 'grafana-alerting-as-code',
+    title: 'Grafana Alerting As Code',
+  },
 ];
 
 const TerraformTemplate: FC = () => {
   return (
-    <div className="flex h-full items-center">
-      <div className="flex h-full w-full max-w-96 flex-col items-center justify-center">
+    <div className="flex items-center h-full">
+      <div className="flex flex-col items-center justify-center w-full h-full max-w-96">
         {menu.map((link) => (
           <NavLink
             key={link.url}
@@ -40,7 +44,7 @@ const TerraformTemplate: FC = () => {
           </NavLink>
         ))}
       </div>
-      <div className="flex h-full w-2/3 items-center justify-center">
+      <div className="flex items-center justify-center w-2/3 h-full">
         <Outlet />
       </div>
     </div>

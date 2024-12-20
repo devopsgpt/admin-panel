@@ -6,7 +6,7 @@ import {
   GetTfVarsBody,
   terraformGrafanaSchema,
   TerraformGrafanaSchema,
-} from './terraform-grafana.types';
+} from './grafana-alerting-as-code.types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { usePost } from '@/core/react-query';
 import { toast } from 'sonner';
@@ -22,7 +22,7 @@ const defaultValues: TerraformGrafanaSchema = {
   create_notification_policy: false,
 };
 
-const TerraformGrafana: FC = () => {
+const GrafanaAlertingAsCode: FC = () => {
   const getTfvars = usePost<File, GetTfVarsBody>(
     '/grafana/terraform',
     'get-tfvars-file',
@@ -30,6 +30,7 @@ const TerraformGrafana: FC = () => {
   );
 
   const [getTemplatePending, setGetTemplatePending] = useState(false);
+  const [ccp, setCcp] = useState(false);
 
   const getTfVarsFileMethods = useForm<TerraformGrafanaSchema>({
     resolver: zodResolver(terraformGrafanaSchema),
@@ -39,8 +40,7 @@ const TerraformGrafana: FC = () => {
   const handleGetTfVars = async (data: TerraformGrafanaSchema) => {
     const body = {
       ...data,
-      ...(data.create_contact_point.use_email ||
-      data.create_contact_point.use_slack
+      ...(ccp
         ? {
             create_contact_point: {
               use_email: data.create_contact_point.use_email,
@@ -91,66 +91,84 @@ const TerraformGrafana: FC = () => {
         <div className="border border-gray-800 rounded-md">
           <div className="divide-y divide-gray-800">
             <div className="px-3 py-2 space-y-1">
-              <p className="font-semibold">Create Contact Point</p>
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <label className="gap-2 cursor-pointer label">
-                    <span className="text-white">Use Email</span>
-
-                    <input
-                      id="use_email"
-                      type="checkbox"
-                      className={cn('toggle border-gray-800 bg-gray-500', {
-                        'bg-orchid-medium hover:bg-orchid-medium/80':
-                          getTfVarsFileMethods.watch(
-                            'create_contact_point.use_email',
-                          ),
-                      })}
-                      {...getTfVarsFileMethods.register(
-                        'create_contact_point.use_email',
-                        {
-                          setValueAs: (v) => !!v,
-                        },
-                      )}
-                    />
-                  </label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <label className="gap-2 cursor-pointer label">
-                    <span>Use Slack</span>
-                    <input
-                      type="checkbox"
-                      className={cn('toggle border-gray-800 bg-gray-500', {
-                        'bg-orchid-medium hover:bg-orchid-medium/80':
-                          getTfVarsFileMethods.watch(
-                            'create_contact_point.use_slack',
-                          ),
-                      })}
-                      {...getTfVarsFileMethods.register(
-                        'create_contact_point.use_slack',
-                        {
-                          setValueAs: (v) => !!v,
-                        },
-                      )}
-                    />
-                  </label>
-                </div>
+                <label htmlFor="ccp" className="font-semibold">
+                  Create Contact Point
+                </label>
+                <input
+                  id="ccp"
+                  type="checkbox"
+                  className={cn('toggle border-gray-800 bg-gray-500', {
+                    'bg-orchid-medium hover:bg-orchid-medium/80': ccp,
+                  })}
+                  onChange={(e) => setCcp(e.target.checked)}
+                />
               </div>
             </div>
-            <div className="px-3 py-2 space-y-1">
-              <label className="justify-between gap-2 cursor-pointer label">
-                <span>Create Message Template</span>
+            <div
+              className={cn(
+                'max-h-0 w-full divide-y divide-gray-800 overflow-hidden transition-all',
+                {
+                  'max-h-96': ccp,
+                },
+              )}
+            >
+              <label className="justify-between w-full gap-2 py-3 pl-6 pr-3 cursor-pointer label">
+                <span className="text-white">Use Email</span>
+                <input
+                  id="use_email"
+                  type="checkbox"
+                  className={cn('toggle border-gray-800 bg-gray-500', {
+                    'bg-orchid-medium hover:bg-orchid-medium/80':
+                      getTfVarsFileMethods.watch(
+                        'create_contact_point.use_email',
+                      ),
+                  })}
+                  {...getTfVarsFileMethods.register(
+                    'create_contact_point.use_email',
+                    {
+                      setValueAs: (v) => !!v,
+                    },
+                  )}
+                />
+              </label>
+
+              <label className="justify-between w-full gap-2 py-3 pl-6 pr-3 cursor-pointer label">
+                <span>Use Slack</span>
                 <input
                   type="checkbox"
                   className={cn('toggle border-gray-800 bg-gray-500', {
                     'bg-orchid-medium hover:bg-orchid-medium/80':
-                      getTfVarsFileMethods.watch('create_message_template'),
+                      getTfVarsFileMethods.watch(
+                        'create_contact_point.use_slack',
+                      ),
                   })}
-                  {...getTfVarsFileMethods.register('create_message_template', {
-                    setValueAs: (v) => !!v,
-                  })}
+                  {...getTfVarsFileMethods.register(
+                    'create_contact_point.use_slack',
+                    {
+                      setValueAs: (v) => !!v,
+                    },
+                  )}
                 />
               </label>
+              <div className="px-3 py-2 space-y-1">
+                <label className="justify-between gap-2 cursor-pointer label">
+                  <span>Create Message Template</span>
+                  <input
+                    type="checkbox"
+                    className={cn('toggle border-gray-800 bg-gray-500', {
+                      'bg-orchid-medium hover:bg-orchid-medium/80':
+                        getTfVarsFileMethods.watch('create_message_template'),
+                    })}
+                    {...getTfVarsFileMethods.register(
+                      'create_message_template',
+                      {
+                        setValueAs: (v) => !!v,
+                      },
+                    )}
+                  />
+                </label>
+              </div>
             </div>
             <div className="px-3 py-2 space-y-1">
               <label className="justify-between gap-2 cursor-pointer label">
@@ -199,4 +217,4 @@ const TerraformGrafana: FC = () => {
   );
 };
 
-export default TerraformGrafana;
+export default GrafanaAlertingAsCode;
