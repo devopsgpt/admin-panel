@@ -10,6 +10,7 @@ export interface LokiBody {
   url: string;
   editable: boolean;
   timeout: number;
+  maxLines: number;
   basic_auth: {
     basicAuthUser: string;
     basicAuthPassword: string;
@@ -22,6 +23,7 @@ export const lokiSchema = zod.object({
   url: zod.string().min(1, 'URL is required'),
   editable: zod.boolean(),
   timeout: zod.number().min(1, 'Timeout is required'),
+  maxLines: zod.number().min(1, 'Max Lines is required'),
   basic_auth: zod.object({
     basicAuthUser: zod.string(),
     basicAuthPassword: zod.string(),

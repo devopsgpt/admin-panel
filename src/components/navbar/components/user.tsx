@@ -29,7 +29,7 @@ export const User: FC = () => {
         />
       </button>
       {menu && (
-        <div className="absolute -bottom-14 right-0 z-50 w-full">
+        <div className="absolute -bottom-14 right-0 z-[80] w-full">
           <div className="w-full overflow-hidden rounded-md border border-gray-800 bg-gray-900">
             <button
               onClick={handleSignOut}
