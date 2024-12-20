@@ -76,14 +76,14 @@ const MySQLDatasource: FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full h-full text-white">
+    <div className="flex w-full items-center justify-center text-white">
       <div className="w-full max-w-96">
         <FormWrapper methods={templateMethods} onSubmit={handleGetTemplate}>
-          <div className="flex max-h-[500px] flex-col gap-3 overflow-y-auto">
+          <div className="flex flex-col gap-3">
             <FormInput label="Name" name="name" />
             <FormInput label="URL" name="url" />
             <FormInput label="User" name="user" />
-            <div className="flex items-center justify-between my-1">
+            <div className="my-1 flex items-center justify-between">
               <label htmlFor="editable" className="cursor-pointer">
                 Editable
               </label>
@@ -112,7 +112,7 @@ const MySQLDatasource: FC = () => {
               inputType="number"
               isNumber={true}
             />
-            <div className="flex items-center justify-between my-1">
+            <div className="my-1 flex items-center justify-between">
               <label htmlFor="maxIdleConnsAuto" className="cursor-pointer">
                 Max Idle Conns Auto
               </label>
@@ -136,7 +136,7 @@ const MySQLDatasource: FC = () => {
             />
             <FormInput label="Password" name="password" />
             <div>
-              <div className="flex items-center justify-between my-1">
+              <div className="my-1 flex items-center justify-between">
                 <label htmlFor="tls" className="cursor-pointer">
                   TLS
                 </label>
@@ -155,10 +155,10 @@ const MySQLDatasource: FC = () => {
                   'max-h-96': tls,
                 })}
               >
-                <div className="flex flex-col gap-2 mt-2">
+                <div className="mt-2 flex flex-col gap-2">
                   <FormInput label="TLS Client Cert" name="tls.tlsClientCert" />
                   <FormInput label="TLS CA Cert" name="tls.tlsCACert" />
-                  <div className="flex items-center justify-between my-1">
+                  <div className="my-1 flex items-center justify-between">
                     <label htmlFor="tlsAuth" className="cursor-pointer">
                       TLS Auth
                     </label>
@@ -174,7 +174,7 @@ const MySQLDatasource: FC = () => {
                       })}
                     />
                   </div>
-                  <div className="flex items-center justify-between my-1">
+                  <div className="my-1 flex items-center justify-between">
                     <label htmlFor="tlsSkipVerify" className="cursor-pointer">
                       TLS Skip Verify
                     </label>
@@ -197,7 +197,7 @@ const MySQLDatasource: FC = () => {
                 disabled={
                   generateTemplate.isPending || downloadTemplate.isPending
                 }
-                className="w-full mt-3 text-white btn bg-orchid-medium hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
+                className="btn mt-3 w-full bg-orchid-medium text-white hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
               >
                 {generateTemplate.isPending
                   ? 'Wait...'

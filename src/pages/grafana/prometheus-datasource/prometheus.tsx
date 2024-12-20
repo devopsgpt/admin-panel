@@ -63,10 +63,10 @@ const PrometheusDatasource: FC = () => {
   };
 
   return (
-    <div className="flex h-full w-full items-center justify-center text-white">
+    <div className="flex w-full items-center justify-center text-white">
       <div className="w-full max-w-96">
         <FormWrapper methods={templateMethods} onSubmit={handleGetTemplate}>
-          <div className="flex max-h-[500px] flex-col gap-3 overflow-y-auto">
+          <div className="flex flex-col gap-3">
             <FormInput label="Name" name="name" />
             <FormInput label="URL" name="url" />
             <div className="my-1 flex items-center justify-between">

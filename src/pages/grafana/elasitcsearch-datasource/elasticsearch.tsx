@@ -60,13 +60,13 @@ const ElasticSearchDatasource: FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full h-full text-white">
+    <div className="flex w-full items-center justify-center text-white">
       <div className="w-full max-w-96">
         <FormWrapper methods={templateMethods} onSubmit={handleGetTemplate}>
           <div className="flex flex-col gap-3">
             <FormInput label="Name" name="name" />
             <FormInput label="URL" name="url" />
-            <div className="flex items-center justify-between my-1">
+            <div className="my-1 flex items-center justify-between">
               <label htmlFor="editable" className="cursor-pointer">
                 Editable
               </label>
@@ -91,7 +91,7 @@ const ElasticSearchDatasource: FC = () => {
               disabled={
                 generateTemplate.isPending || downloadTemplate.isPending
               }
-              className="w-full mt-3 text-white btn bg-orchid-medium hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
+              className="btn mt-3 w-full bg-orchid-medium text-white hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
             >
               {generateTemplate.isPending
                 ? 'Wait...'
