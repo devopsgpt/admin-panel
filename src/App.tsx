@@ -40,7 +40,6 @@ import MainLoading from './components/main-loading/main-loading';
 import { useUserStore } from './store';
 import InstallationLayout from './pages/installation/components/layout';
 import { GrafanaLayout } from './pages/grafana/components/layout';
-import { GrafanaDataSourcesLayout } from './pages/grafana-datasources/components/layout';
 
 function App() {
   const location = useLocation();
@@ -104,11 +103,6 @@ function App() {
         <Route path="grafana" element={<GrafanaLayout />}>
           <Route path="alert-rules" element={<AlertRules />} />
           <Route path="loki-logql" element={<LokiLogQL />} />
-        </Route>
-        <Route
-          path="grafana-datasources"
-          element={<GrafanaDataSourcesLayout />}
-        >
           <Route path="alertmanager" element={<AlertManager />} />
         </Route>
       </Route>

@@ -52,10 +52,6 @@ const navbar = [
         link: '/grafana',
       },
       {
-        title: 'Grafana Datasources',
-        link: '/grafana-datasources',
-      },
-      {
         title: 'Hashicorp Packer',
         link: '/hashicorp-packer',
       },

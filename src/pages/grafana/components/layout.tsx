@@ -10,6 +10,10 @@ const menu = [
     url: 'loki-logql',
     title: 'Loki LogQL',
   },
+  {
+    url: 'alertmanager',
+    title: 'Alertmanager Datasource',
+  },
 ];
 
 export const GrafanaLayout: FC = () => {
