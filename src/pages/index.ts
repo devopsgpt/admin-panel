@@ -23,6 +23,7 @@ import LokiLogQL from './grafana/loki-logql/loki-logql';
 import GrafanaAlertingAsCode from './terraform-template/grafana-alerting-as-code/grafana-alerting-as-code';
 import AlertManager from './grafana/alertmanager-datasource/alertmanager';
 import ElasticSearchDatasource from './grafana/elasitcsearch-datasource/elasticsearch';
+import LokiDatasource from './grafana/loki-datasource/loki';
 
 export {
   Argocd,
@@ -50,4 +51,5 @@ export {
   GrafanaAlertingAsCode,
   AlertManager,
   ElasticSearchDatasource,
+  LokiDatasource,
 };

@@ -28,6 +28,7 @@ import {
   IAM,
   JenkinsInstallation,
   KubernetesAnsible,
+  LokiDatasource,
   LokiLogQL,
   NginxAnsible,
   Pulumi,
@@ -104,8 +105,12 @@ function App() {
         <Route path="grafana" element={<GrafanaLayout />}>
           <Route path="alert-rules" element={<AlertRules />} />
           <Route path="loki-logql" element={<LokiLogQL />} />
-          <Route path="alertmanager" element={<AlertManager />} />
-          <Route path="elasticsearch" element={<ElasticSearchDatasource />} />
+          <Route path="alertmanager-datasource" element={<AlertManager />} />
+          <Route
+            path="elasticsearch-datasource"
+            element={<ElasticSearchDatasource />}
+          />
+          <Route path="loki-datasource" element={<LokiDatasource />} />
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" />} />

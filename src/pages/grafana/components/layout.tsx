@@ -11,12 +11,16 @@ const menu = [
     title: 'Loki LogQL',
   },
   {
-    url: 'alertmanager',
+    url: 'alertmanager-datasource',
     title: 'Alertmanager Datasource',
   },
   {
-    url: 'elasticsearch',
+    url: 'elasticsearch-datasource',
     title: 'Elasticsearch Datasource',
+  },
+  {
+    url: 'loki-datasource',
+    title: 'Loki Datasource',
   },
 ];
 
