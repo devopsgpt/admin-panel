@@ -21,6 +21,7 @@ import Pulumi from './pulumi/pulumi';
 import AlertRules from './grafana/alert-rules/alert-rules';
 import LokiLogQL from './grafana/loki-logql/loki-logql';
 import GrafanaAlertingAsCode from './terraform-template/grafana-alerting-as-code/grafana-alerting-as-code';
+import AlertManager from './grafana/alertmanager/alertmanager';
 
 export {
   Argocd,
@@ -46,4 +47,5 @@ export {
   AlertRules,
   LokiLogQL,
   GrafanaAlertingAsCode,
+  AlertManager,
 };

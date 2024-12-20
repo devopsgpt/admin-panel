@@ -8,6 +8,7 @@ import {
 import MainLayout from '@/components/layouts/main-layout/main-layout';
 import TerraformTemplate from '@/pages/terraform-template/components/layout';
 import {
+  AlertManager,
   AlertRules,
   Argocd,
   Auth,
@@ -102,6 +103,7 @@ function App() {
         <Route path="grafana" element={<GrafanaLayout />}>
           <Route path="alert-rules" element={<AlertRules />} />
           <Route path="loki-logql" element={<LokiLogQL />} />
+          <Route path="alertmanager" element={<AlertManager />} />
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" />} />

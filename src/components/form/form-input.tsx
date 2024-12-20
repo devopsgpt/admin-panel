@@ -27,7 +27,7 @@ export const FormInput = ({
   return (
     <Form.Field className={'form-field relative'} name={name}>
       {label && (
-        <div className="mb-1 flex items-baseline justify-between">
+        <div className="flex items-baseline justify-between mb-1">
           <Form.Label className="form-label">{label}</Form.Label>
         </div>
       )}
@@ -35,7 +35,7 @@ export const FormInput = ({
         <input
           type={inputType}
           className={cn(
-            'focus:border-orchid-light w-full rounded-md border border-gray-800 px-3 py-2 outline-none transition-all hover:border-gray-700',
+            'w-full rounded-md border border-gray-800 px-3 py-2 outline-none transition-all hover:border-gray-700 focus:border-orchid-light',
             inputClass,
             {
               'border-red-500': errorMessage,

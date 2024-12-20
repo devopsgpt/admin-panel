@@ -70,14 +70,14 @@ const Pulumi: FC = () => {
 
   if (getServices.isPending) {
     return (
-      <div className="flex h-full w-full items-center justify-center text-white">
+      <div className="flex items-center justify-center w-full h-full text-white">
         <PuffLoader color="#fff" />
       </div>
     );
   }
 
   return (
-    <div className="flex h-full w-full items-center justify-center text-white">
+    <div className="flex items-center justify-center w-full h-full text-white">
       <div className="w-full max-w-96">
         <FormWrapper methods={getServicesMethod} onSubmit={handleSubmitService}>
           <div className="space-y-3">
@@ -89,7 +89,7 @@ const Pulumi: FC = () => {
             <button
               type="submit"
               disabled={getServicePending}
-              className="btn w-full bg-orchid-medium text-white hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
+              className="w-full text-white btn bg-orchid-medium hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
             >
               Generate
             </button>
