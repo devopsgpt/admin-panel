@@ -27,6 +27,7 @@ import LokiDatasource from './grafana/loki-datasource/loki';
 import MySQLDatasource from './grafana/mysql-datasource/mysql';
 import PostgressDatasource from './grafana/postgress-datasource/postgress';
 import PrometheusDatasource from './grafana/prometheus-datasource/prometheus';
+import TempoDatasource from './grafana/tempo-datasource/tempo';
 
 export {
   Argocd,
@@ -58,4 +59,5 @@ export {
   MySQLDatasource,
   PostgressDatasource,
   PrometheusDatasource,
+  TempoDatasource,
 };

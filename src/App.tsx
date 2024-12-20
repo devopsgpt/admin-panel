@@ -35,6 +35,7 @@ import {
   PrometheusDatasource,
   Pulumi,
   S3,
+  TempoDatasource,
   TerraformInstallation,
 } from '@/pages';
 import { AnsibleLayout } from './pages/ansible/components/layout';
@@ -122,6 +123,7 @@ function App() {
             path="prometheus-datasource"
             element={<PrometheusDatasource />}
           />
+          <Route path="tempo-datasource" element={<TempoDatasource />} />
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" />} />

@@ -38,12 +38,16 @@ const menu = [
     url: 'prometheus-datasource',
     title: 'Prometheus Datasource',
   },
+  {
+    url: 'tempo-datasource',
+    title: 'Tempo Datasource',
+  },
 ];
 
 export const GrafanaLayout: FC = () => {
   return (
-    <div className="flex items-center h-full">
-      <div className="flex flex-col items-center justify-center w-full h-full max-w-96">
+    <div className="flex h-full items-center">
+      <div className="flex h-full w-full max-w-96 flex-col items-center justify-center">
         {menu.map((link) => (
           <NavLink
             key={link.url}
@@ -56,7 +60,7 @@ export const GrafanaLayout: FC = () => {
           </NavLink>
         ))}
       </div>
-      <div className="flex items-center justify-center w-2/3 h-full">
+      <div className="flex h-[calc(100vh-100px)] w-2/3 justify-center overflow-auto">
         <Outlet />
       </div>
     </div>
