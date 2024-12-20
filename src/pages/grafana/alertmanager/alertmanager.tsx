@@ -18,6 +18,14 @@ import { useDownload } from '@/hooks';
 import { isAxiosError } from 'axios';
 import { toast } from 'sonner';
 
+const defaultValues = {
+  name: 'Alertmanager',
+  url: 'http://localhost:9093',
+  uid: 'alertmanager',
+  handleGrafanaManagedAlerts: true,
+  editable: true,
+};
+
 const AlertManager: FC = () => {
   const generateTemplate = usePost<AlertManagerResponse, AlertManagerBody>(
     '/grafana/alertmanager',
@@ -31,8 +39,10 @@ const AlertManager: FC = () => {
   });
 
   const [basicAuth, setBasicAuth] = useState(false);
+
   const templateMethods = useForm<AlertManagerSchema>({
     resolver: zodResolver(alertManagerSchema),
+    defaultValues,
   });
 
   const handleGetTemplate = async (data: AlertManagerSchema) => {
