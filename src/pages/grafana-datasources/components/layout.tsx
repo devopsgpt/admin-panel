@@ -3,16 +3,12 @@ import { NavLink, Outlet } from 'react-router';
 
 const menu = [
   {
-    url: 'alert-rules',
-    title: 'Alert Rules',
-  },
-  {
-    url: 'loki-logql',
-    title: 'Loki LogQL',
+    url: 'alertmanager',
+    title: 'Alertmanager',
   },
 ];
 
-export const GrafanaLayout: FC = () => {
+export const GrafanaDataSourcesLayout: FC = () => {
   return (
     <div className="flex items-center h-full">
       <div className="flex flex-col items-center justify-center w-full h-full max-w-96">

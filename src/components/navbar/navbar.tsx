@@ -52,6 +52,10 @@ const navbar = [
         link: '/grafana',
       },
       {
+        title: 'Grafana Datasources',
+        link: '/grafana-datasources',
+      },
+      {
         title: 'Hashicorp Packer',
         link: '/hashicorp-packer',
       },
@@ -126,10 +130,10 @@ const Navbar: FC = () => {
   };
 
   return (
-    <div className="relative mt-4 flex w-full justify-center">
+    <div className="relative flex justify-center w-full mt-4">
       <nav
         ref={navRef}
-        className="isolate flex w-full items-center justify-between rounded-lg border border-gray-800 bg-gray-500/10 bg-clip-padding pr-4 backdrop-blur backdrop-contrast-100 backdrop-saturate-100 backdrop-filter"
+        className="flex items-center justify-between w-full pr-4 border border-gray-800 rounded-lg isolate bg-gray-500/10 bg-clip-padding backdrop-blur backdrop-contrast-100 backdrop-saturate-100 backdrop-filter"
       >
         <div className="flex items-center">
           {navbar.map((item, index) => (
@@ -137,7 +141,7 @@ const Navbar: FC = () => {
               ref={buttonRefs.current[index]}
               onClick={() => handleButtonClick(item.title)}
               key={item.title}
-              className="w-full cursor-pointer whitespace-nowrap px-4 py-3 text-center"
+              className="w-full px-4 py-3 text-center cursor-pointer whitespace-nowrap"
             >
               {item.title}
             </button>
@@ -153,7 +157,7 @@ const Navbar: FC = () => {
             left: position.left,
           }}
         >
-          <div className="flex h-fit w-full flex-col gap-2 rounded-lg border border-gray-800 bg-gray-400/10 bg-clip-padding backdrop-blur-lg backdrop-contrast-100 backdrop-saturate-100 backdrop-filter">
+          <div className="flex flex-col w-full gap-2 border border-gray-800 rounded-lg h-fit bg-gray-400/10 bg-clip-padding backdrop-blur-lg backdrop-contrast-100 backdrop-saturate-100 backdrop-filter">
             {menu &&
               navbar
                 .find((item) => item.title === menu)
