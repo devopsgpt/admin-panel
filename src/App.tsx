@@ -30,6 +30,7 @@ import {
   KubernetesAnsible,
   LokiDatasource,
   LokiLogQL,
+  MySQLDatasource,
   NginxAnsible,
   Pulumi,
   S3,
@@ -113,6 +114,7 @@ function App() {
           />
           <Route path="loki-datasource" element={<LokiDatasource />} />
           <Route path="mimir-datasource" element={<MimirDatasource />} />
+          <Route path="mysql-datasource" element={<MySQLDatasource />} />
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" />} />

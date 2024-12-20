@@ -24,6 +24,7 @@ import GrafanaAlertingAsCode from './terraform-template/grafana-alerting-as-code
 import AlertManager from './grafana/alertmanager-datasource/alertmanager';
 import ElasticSearchDatasource from './grafana/elasitcsearch-datasource/elasticsearch';
 import LokiDatasource from './grafana/loki-datasource/loki';
+import MySQLDatasource from './grafana/mysql-datasource/mysql';
 
 export {
   Argocd,
@@ -52,4 +53,5 @@ export {
   AlertManager,
   ElasticSearchDatasource,
   LokiDatasource,
+  MySQLDatasource,
 };

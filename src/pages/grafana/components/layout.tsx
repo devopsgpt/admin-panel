@@ -26,6 +26,10 @@ const menu = [
     url: 'mimir-datasource',
     title: 'Mimir Datasource',
   },
+  {
+    url: 'mysql-datasource',
+    title: 'MySQL Datasource',
+  },
 ];
 
 export const GrafanaLayout: FC = () => {
