@@ -74,8 +74,8 @@ const MimirDatasource: FC = () => {
   };
 
   return (
-    <div className="flex w-full items-center justify-center text-white">
-      <div className="w-full max-w-96">
+    <div className="flex h-full w-full items-start text-white sm:items-center">
+      <div className="mx-auto w-full max-w-96">
         <FormWrapper methods={templateMethods} onSubmit={handleGetTemplate}>
           <div className="flex flex-col gap-3">
             <FormInput label="Name" name="name" />

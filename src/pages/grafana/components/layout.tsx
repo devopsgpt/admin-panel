@@ -60,7 +60,7 @@ export const GrafanaLayout: FC = () => {
           </NavLink>
         ))}
       </div>
-      <div className="flex h-[calc(100vh-100px)] w-2/3 justify-center overflow-auto">
+      <div className="flex h-[calc(100vh-100px)] w-2/3 justify-center overflow-y-auto">
         <Outlet />
       </div>
     </div>
