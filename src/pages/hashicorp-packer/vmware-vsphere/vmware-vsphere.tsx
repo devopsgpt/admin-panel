@@ -7,33 +7,36 @@ import { toast } from 'sonner';
 import { FormSelect } from '@/components/form/form-select';
 import { PuffLoader } from 'react-spinners';
 import { externalTemplateInstance } from '@/lib/axios';
-import { alertRulesSchema, AlertRulesSchema } from './alert-rules.types';
+import {
+  HashiCorpVMWareSphereSchema,
+  hashiCropVMWareSphereSchema,
+} from './vmware-vsphere.types';
 
-const AlertRules: FC = () => {
+const VMWarevSphere: FC = () => {
   const getServices = useGet<string[], unknown>(
-    '/get-alertrules-list',
-    'get-alert-rules',
+    '/packer/vmware-vsphere-all',
+    'get-vmware-vsphere-all',
     false,
   );
 
-  const [cloudformationServices, setCloudFormationServices] = useState<
+  const [VMWareSphereServices, setVMWareSphereServices] = useState<
     { label: string; value: string }[] | undefined
   >();
   const [getServiceTemplatePending, setGetServiceTemplatePending] =
     useState(false);
 
-  const getServicesMethod = useForm<AlertRulesSchema>({
-    resolver: zodResolver(alertRulesSchema),
+  const getServicesMethod = useForm<HashiCorpVMWareSphereSchema>({
+    resolver: zodResolver(hashiCropVMWareSphereSchema),
   });
 
   useEffect(() => {
-    getAlertRulesServices();
+    getHashiCorpPackerServices();
   }, []);
 
-  async function getAlertRulesServices() {
+  async function getHashiCorpPackerServices() {
     try {
       const { data } = await getServices.mutateAsync(undefined);
-      setCloudFormationServices(
+      setVMWareSphereServices(
         data.map((item) => ({ label: item, value: item })),
       );
     } catch (error) {
@@ -42,11 +45,11 @@ const AlertRules: FC = () => {
     }
   }
 
-  async function handleSubmitService(body: AlertRulesSchema) {
+  async function handleSubmitService(body: HashiCorpVMWareSphereSchema) {
     try {
       setGetServiceTemplatePending(true);
       const { data } = await externalTemplateInstance.get(
-        `/alert-rule-get/${body.service.value}`,
+        `/packer/vmware-vsphere-get/${body.service.value}`,
         { responseType: 'blob' },
       );
 
@@ -86,14 +89,14 @@ const AlertRules: FC = () => {
             <FormSelect
               name="service"
               label="Services"
-              options={cloudformationServices as any}
+              options={VMWareSphereServices as any}
             />
             <button
               type="submit"
               disabled={getServiceTemplatePending}
               className="btn w-full bg-orchid-medium text-white hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
             >
-              Generate Alert Rule
+              Generate
             </button>
           </div>
         </FormWrapper>
@@ -102,4 +105,4 @@ const AlertRules: FC = () => {
   );
 };
 
-export default AlertRules;
+export default VMWarevSphere;

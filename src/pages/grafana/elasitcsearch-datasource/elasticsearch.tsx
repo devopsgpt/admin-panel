@@ -97,7 +97,7 @@ const ElasticSearchDatasource: FC = () => {
                 ? 'Wait...'
                 : downloadTemplate.isPending
                   ? 'Wait...'
-                  : 'Generate Terraform'}
+                  : 'Generate Datasource'}
             </button>
           </div>
         </FormWrapper>

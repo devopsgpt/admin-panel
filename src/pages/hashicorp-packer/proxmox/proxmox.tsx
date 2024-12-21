@@ -7,46 +7,44 @@ import { toast } from 'sonner';
 import { FormSelect } from '@/components/form/form-select';
 import { PuffLoader } from 'react-spinners';
 import { externalTemplateInstance } from '@/lib/axios';
-import { alertRulesSchema, AlertRulesSchema } from './alert-rules.types';
+import { HashiCorpPackerSchema, hashiCropPackerSchema } from './proxmox.types';
 
-const AlertRules: FC = () => {
+const Proxmox: FC = () => {
   const getServices = useGet<string[], unknown>(
-    '/get-alertrules-list',
-    'get-alert-rules',
+    '/packer/proxmox-all',
+    'get-promox-all',
     false,
   );
 
-  const [cloudformationServices, setCloudFormationServices] = useState<
+  const [promoxServices, setPromoxServices] = useState<
     { label: string; value: string }[] | undefined
   >();
   const [getServiceTemplatePending, setGetServiceTemplatePending] =
     useState(false);
 
-  const getServicesMethod = useForm<AlertRulesSchema>({
-    resolver: zodResolver(alertRulesSchema),
+  const getServicesMethod = useForm<HashiCorpPackerSchema>({
+    resolver: zodResolver(hashiCropPackerSchema),
   });
 
   useEffect(() => {
-    getAlertRulesServices();
+    getHashiCorpPackerServices();
   }, []);
 
-  async function getAlertRulesServices() {
+  async function getHashiCorpPackerServices() {
     try {
       const { data } = await getServices.mutateAsync(undefined);
-      setCloudFormationServices(
-        data.map((item) => ({ label: item, value: item })),
-      );
+      setPromoxServices(data.map((item) => ({ label: item, value: item })));
     } catch (error) {
       toast.error('Something went wrong');
     } finally {
     }
   }
 
-  async function handleSubmitService(body: AlertRulesSchema) {
+  async function handleSubmitService(body: HashiCorpPackerSchema) {
     try {
       setGetServiceTemplatePending(true);
       const { data } = await externalTemplateInstance.get(
-        `/alert-rule-get/${body.service.value}`,
+        `/packer/proxmox-get/${body.service.value}`,
         { responseType: 'blob' },
       );
 
@@ -86,14 +84,14 @@ const AlertRules: FC = () => {
             <FormSelect
               name="service"
               label="Services"
-              options={cloudformationServices as any}
+              options={promoxServices as any}
             />
             <button
               type="submit"
               disabled={getServiceTemplatePending}
               className="btn w-full bg-orchid-medium text-white hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
             >
-              Generate Alert Rule
+              Generate
             </button>
           </div>
         </FormWrapper>
@@ -102,4 +100,4 @@ const AlertRules: FC = () => {
   );
 };
 
-export default AlertRules;
+export default Proxmox;
