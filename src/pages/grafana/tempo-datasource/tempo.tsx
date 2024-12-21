@@ -62,7 +62,6 @@ const TempoDatasource: FC = () => {
     source: 'tempo',
   });
 
-  const [nodeGraph, setNodeGraph] = useState(false);
   const [serviceMap, setServiceMap] = useState(false);
   const [tracesToLogsV2, setTracesToLogsV2] = useState(false);
 
@@ -80,10 +79,6 @@ const TempoDatasource: FC = () => {
             ...data.datasources[0],
             jsonData: {
               ...data.datasources[0].jsonData,
-              nodeGraph: nodeGraph
-                ? data.datasources[0].jsonData.nodeGraph
-                : null,
-
               serviceMap: serviceMap
                 ? data.datasources[0].jsonData.serviceMap
                 : null,
@@ -192,33 +187,13 @@ const TempoDatasource: FC = () => {
                     'toggle border-gray-800 bg-gray-500',
                     'checked:bg-orchid-medium checked:bg-orchid-medium/70',
                   )}
-                  onChange={(e) => setNodeGraph(e.target.checked)}
+                  {...templateMethods.register(
+                    'datasources.0.jsonData.nodeGraph.enabled',
+                    {
+                      setValueAs: (value) => !!value,
+                    },
+                  )}
                 />
-              </div>
-              <div
-                className={cn('max-h-0 w-full overflow-hidden transition-all', {
-                  'max-h-96': nodeGraph,
-                })}
-              >
-                <div className="mt-3 flex items-center justify-between pl-4">
-                  <label htmlFor="enabled" className="cursor-pointer">
-                    Enabled
-                  </label>
-                  <input
-                    id="enabled"
-                    type="checkbox"
-                    className={cn(
-                      'toggle border-gray-800 bg-gray-500',
-                      'checked:bg-orchid-medium checked:bg-orchid-medium/70',
-                    )}
-                    {...templateMethods.register(
-                      'datasources.0.jsonData.nodeGraph.enabled',
-                      {
-                        setValueAs: (value) => !!value,
-                      },
-                    )}
-                  />
-                </div>
               </div>
             </div>
             <div>
