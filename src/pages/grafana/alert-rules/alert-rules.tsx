@@ -16,7 +16,7 @@ const AlertRules: FC = () => {
     false,
   );
 
-  const [cloudformationServices, setCloudFormationServices] = useState<
+  const [alertRulesServices, setAlertRulesServices] = useState<
     { label: string; value: string }[] | undefined
   >();
   const [getServiceTemplatePending, setGetServiceTemplatePending] =
@@ -33,9 +33,7 @@ const AlertRules: FC = () => {
   async function getAlertRulesServices() {
     try {
       const { data } = await getServices.mutateAsync(undefined);
-      setCloudFormationServices(
-        data.map((item) => ({ label: item, value: item })),
-      );
+      setAlertRulesServices(data.map((item) => ({ label: item, value: item })));
     } catch (error) {
       toast.error('Something went wrong');
     } finally {
@@ -86,7 +84,7 @@ const AlertRules: FC = () => {
             <FormSelect
               name="service"
               label="Services"
-              options={cloudformationServices as any}
+              options={alertRulesServices as any}
             />
             <button
               type="submit"

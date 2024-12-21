@@ -86,11 +86,11 @@ const GrafanaAlertingAsCode: FC = () => {
   };
 
   return (
-    <div className="w-full text-white max-w-96">
+    <div className="w-full max-w-96 text-white">
       <FormWrapper methods={getTfVarsFileMethods} onSubmit={handleGetTfVars}>
-        <div className="border border-gray-800 rounded-md">
+        <div className="rounded-md border border-gray-800">
           <div className="divide-y divide-gray-800">
-            <div className="px-3 py-2 space-y-1">
+            <div className="space-y-1 px-3 py-2">
               <div className="flex items-center justify-between">
                 <label htmlFor="ccp" className="font-semibold">
                   Create Contact Point
@@ -113,7 +113,7 @@ const GrafanaAlertingAsCode: FC = () => {
                 },
               )}
             >
-              <label className="justify-between w-full gap-2 py-3 pl-6 pr-3 cursor-pointer label">
+              <label className="label w-full cursor-pointer justify-between gap-2 py-3 pl-6 pr-3">
                 <span className="text-white">Use Email</span>
                 <input
                   id="use_email"
@@ -133,7 +133,7 @@ const GrafanaAlertingAsCode: FC = () => {
                 />
               </label>
 
-              <label className="justify-between w-full gap-2 py-3 pl-6 pr-3 cursor-pointer label">
+              <label className="label w-full cursor-pointer justify-between gap-2 py-3 pl-6 pr-3">
                 <span>Use Slack</span>
                 <input
                   type="checkbox"
@@ -151,27 +151,24 @@ const GrafanaAlertingAsCode: FC = () => {
                   )}
                 />
               </label>
-              <div className="px-3 py-2 space-y-1">
-                <label className="justify-between gap-2 cursor-pointer label">
-                  <span>Create Message Template</span>
-                  <input
-                    type="checkbox"
-                    className={cn('toggle border-gray-800 bg-gray-500', {
-                      'bg-orchid-medium hover:bg-orchid-medium/80':
-                        getTfVarsFileMethods.watch('create_message_template'),
-                    })}
-                    {...getTfVarsFileMethods.register(
-                      'create_message_template',
-                      {
-                        setValueAs: (v) => !!v,
-                      },
-                    )}
-                  />
-                </label>
-              </div>
             </div>
-            <div className="px-3 py-2 space-y-1">
-              <label className="justify-between gap-2 cursor-pointer label">
+            <div className="space-y-1 px-3 py-2">
+              <label className="label cursor-pointer justify-between gap-2">
+                <span>Create Message Template</span>
+                <input
+                  type="checkbox"
+                  className={cn('toggle border-gray-800 bg-gray-500', {
+                    'bg-orchid-medium hover:bg-orchid-medium/80':
+                      getTfVarsFileMethods.watch('create_message_template'),
+                  })}
+                  {...getTfVarsFileMethods.register('create_message_template', {
+                    setValueAs: (v) => !!v,
+                  })}
+                />
+              </label>
+            </div>
+            <div className="space-y-1 px-3 py-2">
+              <label className="label cursor-pointer justify-between gap-2">
                 <span>Create Mute Timing</span>
                 <input
                   type="checkbox"
@@ -185,8 +182,8 @@ const GrafanaAlertingAsCode: FC = () => {
                 />
               </label>
             </div>
-            <div className="px-3 py-2 space-y-1">
-              <label className="justify-between gap-2 cursor-pointer label">
+            <div className="space-y-1 px-3 py-2">
+              <label className="label cursor-pointer justify-between gap-2">
                 <span>Create Notification Policy</span>
                 <input
                   type="checkbox"
@@ -208,7 +205,7 @@ const GrafanaAlertingAsCode: FC = () => {
         <button
           type="submit"
           disabled={getTfvars.isPending || getTemplatePending}
-          className="w-full mt-3 text-white btn bg-orchid-medium hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
+          className="btn mt-3 w-full bg-orchid-medium text-white hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
         >
           Generate
         </button>
