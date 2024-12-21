@@ -93,7 +93,7 @@ const AlertRules: FC = () => {
               disabled={getServiceTemplatePending}
               className="btn w-full bg-orchid-medium text-white hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
             >
-              Generate
+              Generate Alert Rule
             </button>
           </div>
         </FormWrapper>
