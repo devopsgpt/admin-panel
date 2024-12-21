@@ -28,11 +28,13 @@ const HelmTemplate: FC = () => {
     usePost<HelmTemplateResponse, HelmTemplateBody>(
       API.HelmTemplate,
       'helm-template',
+      true,
     );
 
   const { download, isPending: downloadPending } = useDownload({
     source: 'helm',
     folderName: 'MyHelm',
+    isEngine: true,
   });
 
   const defaultValues = {
@@ -115,7 +117,7 @@ const HelmTemplate: FC = () => {
   };
 
   return (
-    <div className="flex h-[calc(100dvh-100px)] w-full justify-center overflow-y-auto p-4 text-white scrollbar-thin">
+    <div className="flex h-[calc(100dvh-74px)] w-full justify-center overflow-y-auto p-4 text-white scrollbar-thin">
       <div className="h-full w-full max-w-[768px]">
         <FormWrapper methods={methods} onSubmit={handleSubmit}>
           <div className="mb-4 flex w-full flex-col">

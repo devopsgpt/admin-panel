@@ -39,11 +39,13 @@ const NginxAnsible: FC = () => {
     usePost<NginxAnsibleResponse, NginxAnsibleBody>(
       AnsibleTemplateAPI.Nginx,
       'ansible-nginx',
+      true,
     );
 
   const { download, isPending: downloadPending } = useDownload({
     source: 'nginx',
     folderName: 'MyAnsible',
+    isEngine: true,
   });
 
   const handleSubmit = async (data: NginxAnsibleType) => {

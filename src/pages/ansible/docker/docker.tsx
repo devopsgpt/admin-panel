@@ -39,11 +39,13 @@ const DockerAnsible: FC = () => {
     usePost<DockerAnsibleResponse, DockerAnsibleBody>(
       AnsibleTemplateAPI.Docker,
       'ansible-docker',
+      true,
     );
 
   const { download, isPending: downloadPending } = useDownload({
     source: 'docker',
     folderName: 'MyAnsible',
+    isEngine: true,
   });
 
   const handleSubmit = async (data: DockerAnsibleType) => {

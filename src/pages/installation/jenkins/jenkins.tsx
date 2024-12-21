@@ -24,18 +24,21 @@ const JenkinsInstallation: FC = () => {
   } = usePost<JenkinsInstallationResponse, JenkinsInstallationBody>(
     INSTALLATION.Jenkins,
     'installation-jenkins',
+    true,
   );
 
   const { download: downloadCompose, isPending: downloadComposePending } =
     useDownload({
       source: 'jenkins',
       folderName: 'MyCompose',
+      isEngine: true,
     });
 
   const { download: downloadBash, isPending: downloadBashPending } =
     useDownload({
       source: 'jenkins',
       folderName: 'MyBash',
+      isEngine: true,
     });
 
   const methods = useForm<jenkinsInstallationType>({

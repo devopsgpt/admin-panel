@@ -12,6 +12,7 @@ const BugFix: FC = () => {
   const { mutateAsync } = usePost<BugFixResponse, BugFixBody>(
     API.BugFix,
     'bug-fix',
+    true,
   );
 
   const [minToken, setMinToken] = useState('100');

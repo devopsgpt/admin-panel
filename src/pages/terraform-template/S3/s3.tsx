@@ -11,10 +11,11 @@ const S3: FC = () => {
   const { mutateAsync: s3Mutate, isPending: s3Pending } = usePost<
     S3Response,
     S3Body
-  >(TerraformTemplateAPI.S3, 's3');
+  >(TerraformTemplateAPI.S3, 's3', false);
   const { download, isPending: downloadPending } = useDownload({
     folderName: 'MyTerraform',
     source: 's3',
+    isEngine: true,
   });
 
   const [services, setServices] = useState({

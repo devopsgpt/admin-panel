@@ -24,10 +24,12 @@ const GitlabInstallation: FC = () => {
   } = usePost<GitlabInstallationResponse, GitlabInstallationBody>(
     INSTALLATION.Gitlab,
     'installation-gitlab',
+    true,
   );
   const { download, isPending: downloadPending } = useDownload({
     source: 'gitlab',
     folderName: 'MyCompose',
+    isEngine: true,
   });
 
   const methods = useForm<gitlabInstallationType>({

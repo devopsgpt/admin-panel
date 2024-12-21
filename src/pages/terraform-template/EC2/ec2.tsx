@@ -11,10 +11,11 @@ const EC2: FC = () => {
   const { mutateAsync: ec2Mutate, isPending: ec2Pending } = usePost<
     EC2Response,
     EC2Body
-  >(TerraformTemplateAPI.EC2, 'ec2');
+  >(TerraformTemplateAPI.EC2, 'ec2', false);
   const { download, isPending: downloadPending } = useDownload({
     folderName: 'MyTerraform',
     source: 'ec2',
+    isEngine: true,
   });
 
   const [services, setServices] = useState({

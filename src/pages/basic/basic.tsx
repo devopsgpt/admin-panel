@@ -9,7 +9,11 @@ import { isAxiosError } from 'axios';
 import { cn } from '@/lib/utils';
 
 const Basic: FC = () => {
-  const { mutateAsync } = usePost<BasicResponse, BasicBody>(API.Basic, 'basic');
+  const { mutateAsync } = usePost<BasicResponse, BasicBody>(
+    API.Basic,
+    'basic',
+    true,
+  );
 
   const [minToken, setMinToken] = useState('100');
   const [maxToken, setMaxToken] = useState('500');

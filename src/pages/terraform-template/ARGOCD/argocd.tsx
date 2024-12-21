@@ -12,10 +12,11 @@ const Argocd: FC = () => {
   const { mutateAsync: argocdMutate, isPending: argocdPending } = usePost<
     ArgocdResponse,
     ArgocdBody
-  >(TerraformTemplateAPI.Argocd, 'argocd');
+  >(TerraformTemplateAPI.Argocd, 'argocd', false);
   const { download, isPending: downloadPending } = useDownload({
     folderName: 'MyTerraform',
     source: 'argocd',
+    isEngine: true,
   });
 
   const [dropdown, setDropdown] = useState({

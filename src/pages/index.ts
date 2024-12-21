@@ -15,6 +15,19 @@ import DockerInstallation from './installation/docker/docker';
 import JenkinsInstallation from './installation/jenkins/jenkins';
 import GitlabInstallation from './installation/gitlab/gitlab';
 import TerraformInstallation from './installation/terraform/terraform';
+import AWSCloudFormation from './aws-cloudformation/aws-cloudformation';
+import GithubActions from './github-actions/github-actions';
+import Pulumi from './pulumi/pulumi';
+import AlertRules from './grafana/alert-rules/alert-rules';
+import LokiLogQL from './grafana/loki-logql/loki-logql';
+import GrafanaAlertingAsCode from './terraform-template/grafana-alerting-as-code/grafana-alerting-as-code';
+import AlertManager from './grafana/alertmanager-datasource/alertmanager';
+import ElasticSearchDatasource from './grafana/elasitcsearch-datasource/elasticsearch';
+import LokiDatasource from './grafana/loki-datasource/loki';
+import MySQLDatasource from './grafana/mysql-datasource/mysql';
+import PostgressDatasource from './grafana/postgress-datasource/postgress';
+import PrometheusDatasource from './grafana/prometheus-datasource/prometheus';
+import TempoDatasource from './grafana/tempo-datasource/tempo';
 
 export {
   Argocd,
@@ -34,4 +47,17 @@ export {
   JenkinsInstallation,
   GitlabInstallation,
   TerraformInstallation,
+  AWSCloudFormation,
+  GithubActions,
+  Pulumi,
+  AlertRules,
+  LokiLogQL,
+  GrafanaAlertingAsCode,
+  AlertManager,
+  ElasticSearchDatasource,
+  LokiDatasource,
+  MySQLDatasource,
+  PostgressDatasource,
+  PrometheusDatasource,
+  TempoDatasource,
 };

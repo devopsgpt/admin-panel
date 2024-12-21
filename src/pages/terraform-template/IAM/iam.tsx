@@ -11,10 +11,11 @@ const IAM: FC = () => {
   const { mutateAsync: iamMutate, isPending: iamPending } = usePost<
     IAMResponse,
     IAMBody
-  >(TerraformTemplateAPI.Iam, 'iam');
+  >(TerraformTemplateAPI.Iam, 'iam', false);
   const { download, isPending: downloadPending } = useDownload({
     folderName: 'MyTerraform',
     source: 'iam',
+    isEngine: true,
   });
 
   const [services, setServices] = useState({

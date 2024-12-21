@@ -24,10 +24,12 @@ const TerraformInstallation: FC = () => {
   } = usePost<TerraformInstallationResponse, TerraformInstallationBody>(
     INSTALLATION.Terraform,
     'installation-terraform',
+    true,
   );
   const { download, isPending: downloadPending } = useDownload({
     source: 'terraform',
     folderName: 'MyBash',
+    isEngine: true,
   });
 
   const methods = useForm<terraformInstallationType>({

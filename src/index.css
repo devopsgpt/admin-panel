@@ -1,16 +1,17 @@
 @tailwind base;
 @tailwind components;
+
+@font-face {
+  font-family: 'figtree';
+  src: url('/fonts/Figtree-VariableFont_wght.ttf');
+  font-weight: 100 900;
+  font-display: 'swap';
+  font-style: 'normal';
+}
+
 @tailwind utilities;
 
 @layer base {
-  @font-face {
-    font-family: 'figtree';
-    src: url('/fonts/Figtree-VariableFont_wght.ttf');
-    font-weight: 100 900;
-    font-display: 'swap';
-    font-style: 'normal';
-  }
-
   body {
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
@@ -22,6 +23,9 @@
       -moz-appearance: textfield;
       appearance: textfield;
     }
-    @apply bg-vignette-radial font-figtree text-foreground transition-all;
+
+    @apply !font-figtree font-normal;
+
+    @apply bg-vignette-radial transition-all;
   }
 }
