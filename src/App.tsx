@@ -33,6 +33,7 @@ import {
   MySQLDatasource,
   NginxAnsible,
   PrometheusDatasource,
+  Proxmox,
   Pulumi,
   S3,
   TempoDatasource,
@@ -47,6 +48,7 @@ import InstallationLayout from './pages/installation/components/layout';
 import { GrafanaLayout } from './pages/grafana/components/layout';
 import MimirDatasource from './pages/grafana/mimir-datasource/mimir';
 import PostgresDatasource from './pages/grafana/postgress-datasource/postgress';
+import { HashicorpPackerLayout } from './pages/hashicorp-packer/components/layout';
 
 function App() {
   const location = useLocation();
@@ -124,6 +126,9 @@ function App() {
             element={<PrometheusDatasource />}
           />
           <Route path="tempo-datasource" element={<TempoDatasource />} />
+        </Route>
+        <Route path="hashicorp-packer" element={<HashicorpPackerLayout />}>
+          <Route path="proxmox" element={<Proxmox />} />
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" />} />
