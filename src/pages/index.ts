@@ -29,6 +29,7 @@ import PostgressDatasource from './grafana/postgress-datasource/postgress';
 import PrometheusDatasource from './grafana/prometheus-datasource/prometheus';
 import TempoDatasource from './grafana/tempo-datasource/tempo';
 import Proxmox from './hashicorp-packer/proxmox/proxmox';
+import VMWarevSphere from './hashicorp-packer/vmware-vsphere/vmware-vsphere';
 
 export {
   Argocd,
@@ -62,4 +63,5 @@ export {
   PrometheusDatasource,
   TempoDatasource,
   Proxmox,
+  VMWarevSphere,
 };

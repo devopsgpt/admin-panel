@@ -38,6 +38,7 @@ import {
   S3,
   TempoDatasource,
   TerraformInstallation,
+  VMWarevSphere,
 } from '@/pages';
 import { AnsibleLayout } from './pages/ansible/components/layout';
 import { useEffect, useState } from 'react';
@@ -129,6 +130,7 @@ function App() {
         </Route>
         <Route path="hashicorp-packer" element={<HashicorpPackerLayout />}>
           <Route path="proxmox" element={<Proxmox />} />
+          <Route path="vmware-vsphere" element={<VMWarevSphere />} />
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" />} />
