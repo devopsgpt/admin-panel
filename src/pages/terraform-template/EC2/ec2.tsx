@@ -1,22 +1,17 @@
 import { usePost } from '@/core/react-query';
-import { useDownload } from '@/hooks';
 import { cn } from '@/lib/utils';
 import { FC, FormEvent, useState } from 'react';
 import { EC2Body, EC2Response } from './ec2.types';
 import { TerraformTemplateAPI } from '@/enums/api.enums';
 import { toast } from 'sonner';
 import { isAxiosError } from 'axios';
+import { externalTemplateInstance } from '@/lib/axios';
 
 const EC2: FC = () => {
   const { mutateAsync: ec2Mutate, isPending: ec2Pending } = usePost<
     EC2Response,
     EC2Body
-  >(TerraformTemplateAPI.EC2, 'ec2', false);
-  const { download, isPending: downloadPending } = useDownload({
-    folderName: 'MyTerraform',
-    source: 'ec2',
-    isEngine: true,
-  });
+  >(TerraformTemplateAPI.EC2, 'ec2', true);
 
   const [services, setServices] = useState({
     key_pair: false,
@@ -24,6 +19,8 @@ const EC2: FC = () => {
     aws_instance: false,
     ami_from_instance: false,
   });
+
+  const [getTemplatePending, setGetTemplatePending] = useState(false);
 
   const handleServices = (serviceItem: keyof typeof services) => {
     setServices((prev) => ({
@@ -39,9 +36,30 @@ const EC2: FC = () => {
       const ec2Body: EC2Body = {
         ...services,
       };
-
-      await ec2Mutate(ec2Body);
-      await download({ fileName: 'EC2Terraform.zip' });
+      const { data } = await ec2Mutate(ec2Body);
+      const formData = new FormData();
+      const blob = new Blob([data]);
+      formData.append('tfvars_file', blob, 'terraform.tfvars');
+      setGetTemplatePending(true);
+      const { data: template } = await externalTemplateInstance.post(
+        '/terraform-get/ec2',
+        formData,
+        {
+          responseType: 'blob',
+          headers: { 'Content-Type': 'multipart/form-data' },
+        },
+      );
+      if (template) {
+        const zipBlob = new Blob([template], { type: 'application/zip' });
+        const url = window.URL.createObjectURL(zipBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'EC2Terraform.zip');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      }
     } catch (error) {
       if (isAxiosError(error)) {
         if (error.response?.data.detail) {
@@ -50,6 +68,8 @@ const EC2: FC = () => {
           toast.error('Something went wrong');
         }
       }
+    } finally {
+      setGetTemplatePending(false);
     }
   };
 
@@ -104,12 +124,12 @@ const EC2: FC = () => {
       </div>
       <button
         type="submit"
-        disabled={ec2Pending || downloadPending}
+        disabled={ec2Pending || getTemplatePending}
         className="btn mt-3 w-full bg-orchid-medium text-white hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
       >
         {ec2Pending
           ? 'Wait...'
-          : downloadPending
+          : getTemplatePending
             ? 'Wait...'
             : 'Generate Terraform'}
       </button>

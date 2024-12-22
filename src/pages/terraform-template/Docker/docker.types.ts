@@ -3,6 +3,4 @@ export interface DockerBody {
   docker_container: boolean;
 }
 
-export interface DockerResponse {
-  output: string;
-}
+export type DockerResponse = File;

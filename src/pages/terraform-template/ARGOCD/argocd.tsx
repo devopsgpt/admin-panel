@@ -5,19 +5,16 @@ import { TerraformTemplateAPI } from '@/enums/api.enums';
 import { usePost } from '@/core/react-query';
 import { ArgocdBody, ArgocdResponse } from './argocd.types';
 import { toast } from 'sonner';
-import { useDownload } from '@/hooks';
 import { isAxiosError } from 'axios';
+import { externalTemplateInstance } from '@/lib/axios';
 
 const Argocd: FC = () => {
   const { mutateAsync: argocdMutate, isPending: argocdPending } = usePost<
     ArgocdResponse,
     ArgocdBody
-  >(TerraformTemplateAPI.Argocd, 'argocd', false);
-  const { download, isPending: downloadPending } = useDownload({
-    folderName: 'MyTerraform',
-    source: 'argocd',
-    isEngine: true,
-  });
+  >(TerraformTemplateAPI.Argocd, 'argocd', true);
+
+  const [getTemplatePending, setGetTemplatePending] = useState(false);
 
   const [dropdown, setDropdown] = useState({
     argo_application: false,
@@ -27,7 +24,6 @@ const Argocd: FC = () => {
     auto_prune: false,
     self_heal: false,
     argocd_repository: false,
-    application_depends_repository: false,
   });
 
   const handleDropdown = (dropdownItem: keyof typeof dropdown) => {
@@ -58,11 +54,35 @@ const Argocd: FC = () => {
             }
           : null,
         argocd_repository: services.argocd_repository,
-        application_depends_repository: services.application_depends_repository,
       };
 
-      await argocdMutate(argocdBody);
-      await download({ fileName: 'ArgocdTerraform.zip' });
+      const { data } = await argocdMutate(argocdBody);
+
+      const formData = new FormData();
+      const blob = new Blob([data]);
+      formData.append('tfvars_file', blob, 'terraform.tfvars');
+      setGetTemplatePending(true);
+      const { data: template } = await externalTemplateInstance.post(
+        '/terraform-get/argocd',
+        formData,
+        {
+          responseType: 'blob',
+          headers: { 'Content-Type': 'multipart/form-data' },
+        },
+      );
+      if (template) {
+        const zipBlob = new Blob([template], { type: 'application/zip' });
+        console.log(`Blob size: ${zipBlob.size} bytes`);
+
+        const url = window.URL.createObjectURL(zipBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'ArgoCDTerraform.zip');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      }
     } catch (error) {
       if (isAxiosError(error)) {
         if (error.response?.data.detail) {
@@ -71,6 +91,8 @@ const Argocd: FC = () => {
           toast.error('Something went wrong');
         }
       }
+    } finally {
+      setGetTemplatePending(false);
     }
   };
 
@@ -151,27 +173,16 @@ const Argocd: FC = () => {
               onChange={() => handleServices('argocd_repository')}
             />
           </div>
-          <div className="flex w-full items-center justify-between px-3 py-3">
-            <p>Application Depends Repository</p>
-            <input
-              type="checkbox"
-              className={cn('toggle border-gray-800 bg-gray-500', {
-                'bg-orchid-medium hover:bg-orchid-medium/80':
-                  services.application_depends_repository,
-              })}
-              onChange={() => handleServices('application_depends_repository')}
-            />
-          </div>
         </div>
       </div>
       <button
         type="submit"
-        disabled={argocdPending || downloadPending}
+        disabled={argocdPending || getTemplatePending}
         className="btn mt-3 w-full bg-orchid-medium text-white hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
       >
         {argocdPending
           ? 'Wait...'
-          : downloadPending
+          : getTemplatePending
             ? 'Wait...'
             : 'Generate Terraform'}
       </button>

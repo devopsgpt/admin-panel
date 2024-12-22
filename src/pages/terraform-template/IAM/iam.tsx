@@ -3,25 +3,22 @@ import { cn } from '@/lib/utils';
 import { FC, FormEvent, useState } from 'react';
 import { IAMBody, IAMResponse } from './iam.types';
 import { TerraformTemplateAPI } from '@/enums/api.enums';
-import { useDownload } from '@/hooks';
 import { toast } from 'sonner';
 import { isAxiosError } from 'axios';
+import { externalTemplateInstance } from '@/lib/axios';
 
 const IAM: FC = () => {
   const { mutateAsync: iamMutate, isPending: iamPending } = usePost<
     IAMResponse,
     IAMBody
-  >(TerraformTemplateAPI.Iam, 'iam', false);
-  const { download, isPending: downloadPending } = useDownload({
-    folderName: 'MyTerraform',
-    source: 'iam',
-    isEngine: true,
-  });
+  >(TerraformTemplateAPI.Iam, 'iam', true);
 
   const [services, setServices] = useState({
     iam_user: false,
     iam_group: false,
   });
+
+  const [getTemplatePending, setGetTemplatePending] = useState(false);
 
   const handleServices = (serviceItem: keyof typeof services) => {
     setServices((prev) => ({
@@ -38,8 +35,33 @@ const IAM: FC = () => {
         ...services,
       };
 
-      await iamMutate(iamBody);
-      await download({ fileName: 'IamTerraform.zip' });
+      const { data } = await iamMutate(iamBody);
+
+      const formData = new FormData();
+      const blob = new Blob([data]);
+      formData.append('tfvars_file', blob, 'terraform.tfvars');
+      setGetTemplatePending(true);
+      const { data: template } = await externalTemplateInstance.post(
+        '/terraform-get/iam',
+        formData,
+        {
+          responseType: 'blob',
+          headers: { 'Content-Type': 'multipart/form-data' },
+        },
+      );
+      if (template) {
+        const zipBlob = new Blob([template], { type: 'application/zip' });
+        console.log(`Blob size: ${zipBlob.size} bytes`);
+
+        const url = window.URL.createObjectURL(zipBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'IAMTerraform.zip');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      }
     } catch (error) {
       if (isAxiosError(error)) {
         if (error.response?.data.detail) {
@@ -48,6 +70,8 @@ const IAM: FC = () => {
           toast.error('Something went wrong');
         }
       }
+    } finally {
+      setGetTemplatePending(false);
     }
   };
 
@@ -80,12 +104,12 @@ const IAM: FC = () => {
       </div>
       <button
         type="submit"
-        disabled={iamPending || downloadPending}
+        disabled={iamPending || getTemplatePending}
         className="btn mt-3 w-full bg-orchid-medium text-white hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
       >
         {iamPending
           ? 'Wait...'
-          : downloadPending
+          : getTemplatePending
             ? 'Wait...'
             : 'Generate Terraform'}
       </button>

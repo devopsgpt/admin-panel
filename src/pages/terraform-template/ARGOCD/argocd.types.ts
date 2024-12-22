@@ -6,9 +6,6 @@ export interface ArgocdBody {
     };
   } | null;
   argocd_repository: boolean;
-  application_depends_repository: boolean;
 }
 
-export interface ArgocdResponse {
-  output: 'string';
-}
+export type ArgocdResponse = File;
