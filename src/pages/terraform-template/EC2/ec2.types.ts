@@ -5,6 +5,4 @@ export interface EC2Body {
   ami_from_instance: boolean;
 }
 
-export interface EC2Response {
-  output: string;
-}
+export type EC2Response = File;
