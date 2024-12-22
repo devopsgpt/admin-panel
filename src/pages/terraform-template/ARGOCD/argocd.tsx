@@ -24,7 +24,6 @@ const Argocd: FC = () => {
     auto_prune: false,
     self_heal: false,
     argocd_repository: false,
-    application_depends_repository: false,
   });
 
   const handleDropdown = (dropdownItem: keyof typeof dropdown) => {
@@ -55,7 +54,6 @@ const Argocd: FC = () => {
             }
           : null,
         argocd_repository: services.argocd_repository,
-        application_depends_repository: services.application_depends_repository,
       };
 
       const { data } = await argocdMutate(argocdBody);
@@ -93,6 +91,8 @@ const Argocd: FC = () => {
           toast.error('Something went wrong');
         }
       }
+    } finally {
+      setGetTemplatePending(false);
     }
   };
 
@@ -171,17 +171,6 @@ const Argocd: FC = () => {
                   services.argocd_repository,
               })}
               onChange={() => handleServices('argocd_repository')}
-            />
-          </div>
-          <div className="flex w-full items-center justify-between px-3 py-3">
-            <p>Application Depends Repository</p>
-            <input
-              type="checkbox"
-              className={cn('toggle border-gray-800 bg-gray-500', {
-                'bg-orchid-medium hover:bg-orchid-medium/80':
-                  services.application_depends_repository,
-              })}
-              onChange={() => handleServices('application_depends_repository')}
             />
           </div>
         </div>
