@@ -65,7 +65,7 @@ const Argocd: FC = () => {
       formData.append('tfvars_file', blob, 'terraform.tfvars');
       setGetTemplatePending(true);
       const { data: template } = await externalTemplateInstance.post(
-        '/terraform-get/docker',
+        '/terraform-get/argocd',
         formData,
         {
           responseType: 'blob',

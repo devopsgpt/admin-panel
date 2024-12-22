@@ -3,6 +3,4 @@ export interface IAMBody {
   iam_group: boolean;
 }
 
-export interface IAMResponse {
-  output: string;
-}
+export type IAMResponse = File;

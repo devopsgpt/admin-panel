@@ -2,7 +2,6 @@ import { cn } from '@/lib/utils';
 import { FC, FormEvent, useState } from 'react';
 import { DockerBody, DockerResponse } from './docker.types';
 import { usePost } from '@/core/react-query';
-import { useDownload } from '@/hooks';
 import { TerraformTemplateAPI } from '@/enums/api.enums';
 import { toast } from 'sonner';
 import { isAxiosError } from 'axios';
