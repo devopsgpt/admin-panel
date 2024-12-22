@@ -56,7 +56,7 @@ const IAM: FC = () => {
         const url = window.URL.createObjectURL(zipBlob);
         const link = document.createElement('a');
         link.href = url;
-        link.setAttribute('download', 'ArgoCDTerraform.zip');
+        link.setAttribute('download', 'IAMTerraform.zip');
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);

@@ -1,27 +1,24 @@
 import { TerraformTemplateAPI } from '@/enums/api.enums';
-import { useDownload } from '@/hooks';
 import { cn } from '@/lib/utils';
 import { FC, FormEvent, useState } from 'react';
 import { S3Body, S3Response } from './s3.types';
 import { toast } from 'sonner';
 import { usePost } from '@/core/react-query';
 import { isAxiosError } from 'axios';
+import { externalTemplateInstance } from '@/lib/axios';
 
 const S3: FC = () => {
   const { mutateAsync: s3Mutate, isPending: s3Pending } = usePost<
     S3Response,
     S3Body
-  >(TerraformTemplateAPI.S3, 's3', false);
-  const { download, isPending: downloadPending } = useDownload({
-    folderName: 'MyTerraform',
-    source: 's3',
-    isEngine: true,
-  });
+  >(TerraformTemplateAPI.S3, 's3', true);
 
   const [services, setServices] = useState({
     s3_bucket: false,
     bucket_versioning: false,
   });
+
+  const [getTemplatePending, setGetTemplatePending] = useState(false);
 
   const handleServices = (serviceItem: keyof typeof services) => {
     setServices((prev) => ({
@@ -38,8 +35,31 @@ const S3: FC = () => {
         ...services,
       };
 
-      await s3Mutate(s3Body);
-      await download({ fileName: 'S3Terraform.zip' });
+      const { data } = await s3Mutate(s3Body);
+
+      const formData = new FormData();
+      const blob = new Blob([data]);
+      formData.append('tfvars_file', blob, 'terraform.tfvars');
+      setGetTemplatePending(true);
+      const { data: template } = await externalTemplateInstance.post(
+        '/terraform-get/s3',
+        formData,
+        {
+          responseType: 'blob',
+          headers: { 'Content-Type': 'multipart/form-data' },
+        },
+      );
+      if (template) {
+        const zipBlob = new Blob([template], { type: 'application/zip' });
+        const url = window.URL.createObjectURL(zipBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'S3Terraform.zip');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      }
     } catch (error) {
       if (isAxiosError(error)) {
         if (error.response?.data.detail) {
@@ -48,6 +68,8 @@ const S3: FC = () => {
           toast.error('Something went wrong');
         }
       }
+    } finally {
+      setGetTemplatePending(false);
     }
   };
 
@@ -81,12 +103,12 @@ const S3: FC = () => {
       </div>
       <button
         type="submit"
-        disabled={s3Pending || downloadPending}
+        disabled={s3Pending || getTemplatePending}
         className="btn mt-3 w-full bg-orchid-medium text-white hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
       >
         {s3Pending
           ? 'Wait...'
-          : downloadPending
+          : getTemplatePending
             ? 'Wait...'
             : 'Generate Terraform'}
       </button>

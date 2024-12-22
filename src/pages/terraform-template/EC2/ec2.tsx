@@ -51,8 +51,6 @@ const EC2: FC = () => {
       );
       if (template) {
         const zipBlob = new Blob([template], { type: 'application/zip' });
-        console.log(`Blob size: ${zipBlob.size} bytes`);
-
         const url = window.URL.createObjectURL(zipBlob);
         const link = document.createElement('a');
         link.href = url;

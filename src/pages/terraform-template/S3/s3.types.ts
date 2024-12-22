@@ -3,6 +3,4 @@ export interface S3Body {
   bucket_versioning: boolean;
 }
 
-export interface S3Response {
-  output: string;
-}
+export type S3Response = File;
