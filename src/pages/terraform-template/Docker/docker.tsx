@@ -80,7 +80,7 @@ const Docker: FC = () => {
       <div className="rounded-md border border-gray-800">
         <div className="divide-y divide-gray-800">
           <div className="flex w-full items-center justify-between px-3 py-3">
-            <p>Key Pair</p>
+            <p>Docker Image</p>
             <input
               type="checkbox"
               className={cn('toggle border-gray-800 bg-gray-500', {
@@ -91,7 +91,7 @@ const Docker: FC = () => {
             />
           </div>
           <div className="flex w-full items-center justify-between px-3 py-3">
-            <p>Security Group</p>
+            <p>Docker Container</p>
             <input
               type="checkbox"
               className={cn('toggle border-gray-800 bg-gray-500', {
