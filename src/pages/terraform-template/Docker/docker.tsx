@@ -6,17 +6,15 @@ import { useDownload } from '@/hooks';
 import { TerraformTemplateAPI } from '@/enums/api.enums';
 import { toast } from 'sonner';
 import { isAxiosError } from 'axios';
+import { externalTemplateInstance } from '@/lib/axios';
 
 const Docker: FC = () => {
   const { mutateAsync: dockerMutate, isPending: dockerPending } = usePost<
     DockerResponse,
     DockerBody
   >(TerraformTemplateAPI.Docker, 'docker', true);
-  const { download, isPending: downloadPending } = useDownload({
-    folderName: 'MyTerraform',
-    source: 'docker',
-    isEngine: true,
-  });
+
+  const [getTemplatePending, setGetTemplatePending] = useState(false);
 
   const [services, setServices] = useState({
     docker_image: false,
@@ -38,8 +36,33 @@ const Docker: FC = () => {
         ...services,
       };
 
-      await dockerMutate(dockerBody);
-      await download({ fileName: 'DockerTerraform.zip' });
+      const { data } = await dockerMutate(dockerBody);
+
+      const formData = new FormData();
+      const blob = new Blob([data]);
+      formData.append('tfvars_file', blob, 'terraform.tfvars');
+      setGetTemplatePending(true);
+      const { data: template } = await externalTemplateInstance.post(
+        '/terraform-get/docker',
+        formData,
+        {
+          responseType: 'blob',
+          headers: { 'Content-Type': 'multipart/form-data' },
+        },
+      );
+      if (template) {
+        const zipBlob = new Blob([template], { type: 'application/zip' });
+        console.log(`Blob size: ${zipBlob.size} bytes`);
+
+        const url = window.URL.createObjectURL(zipBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'DockerTerraform.zip');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      }
     } catch (error) {
       if (isAxiosError(error)) {
         if (error.response?.data.detail) {
@@ -48,6 +71,8 @@ const Docker: FC = () => {
           toast.error('Something went wrong');
         }
       }
+    } finally {
+      setGetTemplatePending(false);
     }
   };
 
@@ -81,12 +106,12 @@ const Docker: FC = () => {
       </div>
       <button
         type="submit"
-        disabled={dockerPending || downloadPending}
+        disabled={dockerPending || getTemplatePending}
         className="btn mt-3 w-full bg-orchid-medium text-white hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
       >
         {dockerPending
           ? 'Wait...'
-          : downloadPending
+          : getTemplatePending
             ? 'Wait...'
             : 'Generate Terraform'}
       </button>
