@@ -9,6 +9,4 @@ export interface ArgocdBody {
   application_depends_repository: boolean;
 }
 
-export interface ArgocdResponse {
-  output: 'string';
-}
+export type ArgocdResponse = File;
