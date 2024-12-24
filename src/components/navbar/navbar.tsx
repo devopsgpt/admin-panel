@@ -1,6 +1,7 @@
 import { createRef, FC, RefObject, useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router';
+import { NavLink, useLocation } from 'react-router';
 import { User } from './components/user';
+import { cn } from '@/lib/utils';
 
 const navbar = [
   {
@@ -84,12 +85,19 @@ const Navbar: FC = () => {
   const [menu, setMenu] = useState<'Chats' | 'Templates' | 'Installation'>();
   const [position, setPosition] = useState({ left: 0 });
 
+  const location = useLocation();
+
   const menuKeys = Object.keys(navbar);
   const buttonRefs = useRef<RefObject<HTMLButtonElement>[]>(
     menuKeys.map(() => createRef<HTMLButtonElement>()),
   );
   const menuRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLElement>(null);
+
+  const [activeMenu, setActiveMenu] = useState({
+    parentTitle: '',
+    subTitle: '',
+  });
 
   useEffect(() => {
     if (menu && menuRef.current) {
@@ -117,6 +125,31 @@ const Navbar: FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const findActiveMenu = () => {
+      let active = { parentTitle: '', subTitle: '' };
+
+      for (const parent of navbar) {
+        for (const subMenu of parent.subMenu) {
+          console.log(`Checking ${location.pathname} against ${subMenu.link}`);
+
+          // Check for exact match
+          if (location.pathname === subMenu.link) {
+            return { parentTitle: parent.title, subTitle: subMenu.title };
+          }
+
+          // Fallback to partial match
+          if (location.pathname.startsWith(subMenu.link)) {
+            active = { parentTitle: parent.title, subTitle: subMenu.title };
+          }
+        }
+      }
+
+      return active;
+    };
+    setActiveMenu(findActiveMenu());
+  }, [location.pathname, navbar]);
+
   const handleButtonClick = (menuItem: string) => {
     if (menu === menuItem) {
       setMenu(undefined);
@@ -137,7 +170,12 @@ const Navbar: FC = () => {
               ref={buttonRefs.current[index]}
               onClick={() => handleButtonClick(item.title)}
               key={item.title}
-              className="w-full cursor-pointer whitespace-nowrap px-4 py-3 text-center"
+              className={cn(
+                'w-full cursor-pointer whitespace-nowrap px-4 py-3 text-center',
+                {
+                  'text-orchid-medium': activeMenu.parentTitle === item.title,
+                },
+              )}
             >
               {item.title}
             </button>
@@ -158,13 +196,17 @@ const Navbar: FC = () => {
               navbar
                 .find((item) => item.title === menu)
                 ?.subMenu?.map((subItem) => (
-                  <Link
+                  <NavLink
                     key={subItem.title}
                     to={subItem.link}
-                    className="w-full px-8 py-3 text-center text-white"
+                    className={({ isActive }) =>
+                      cn('w-full px-8 py-3 text-center text-white', {
+                        'text-orchid-medium': isActive,
+                      })
+                    }
                   >
                     {subItem.title}
-                  </Link>
+                  </NavLink>
                 ))}
           </div>
         </div>

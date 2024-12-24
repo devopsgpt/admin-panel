@@ -1,19 +1,17 @@
 import { FC, FormEvent, useEffect, useRef, useState } from 'react';
 import { CornerRightUp, Settings } from 'lucide-react';
 import { toast } from 'sonner';
-import { usePost } from '@/core/react-query';
-import { BasicBody, BasicMessage, BasicResponse } from './basic.types';
-import { API } from '@/enums/api.enums';
+import { BasicMessage } from './basic.types';
 import { BeatLoader } from 'react-spinners';
 import { isAxiosError } from 'axios';
 import { cn } from '@/lib/utils';
 
 const Basic: FC = () => {
-  const { mutateAsync } = usePost<BasicResponse, BasicBody>(
-    API.Basic,
-    'basic',
-    true,
-  );
+  // const { mutateAsync } = usePost<BasicResponse, BasicBody>(
+  //   API.Basic,
+  //   'basic',
+  //   true,
+  // );
 
   const [minToken, setMinToken] = useState('100');
   const [maxToken, setMaxToken] = useState('500');
@@ -41,23 +39,23 @@ const Basic: FC = () => {
         { role: 'assistant', content: '', loading: true },
       ]);
 
-      const body: BasicBody = {
-        max_tokens: parseInt(maxToken),
-        min_tokens: parseInt(minToken),
-        service,
-        input,
-      };
-      const {
-        data: { output },
-      } = await mutateAsync(body);
-      setInput('');
-      setMessages((prev) =>
-        prev.map((message, index) =>
-          index === prev.length - 1
-            ? { ...message, content: output, loading: false }
-            : message,
-        ),
-      );
+      // const body: BasicBody = {
+      //   max_tokens: parseInt(maxToken),
+      //   min_tokens: parseInt(minToken),
+      //   service,
+      //   input,
+      // };
+      // const {
+      //   data: { output },
+      // } = await mutateAsync(body);
+      // setInput('');
+      // setMessages((prev) =>
+      //   prev.map((message, index) =>
+      //     index === prev.length - 1
+      //       ? { ...message, content: output, loading: false }
+      //       : message,
+      //   ),
+      // );
     } catch (error) {
       console.log(error);
       setMessages((prev) => prev.slice(0, -1));
@@ -78,8 +76,11 @@ const Basic: FC = () => {
 
   return (
     <div className="flex h-full w-full items-center justify-center text-white">
-      <div className="w-full max-w-[1024px]">
-        <div className="w-full rounded-md">
+      <div className="relative w-full max-w-[1024px]">
+        <p className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl font-semibold text-white">
+          Coming Soon...
+        </p>
+        <div className="w-full rounded-md blur-lg">
           <div
             ref={messagesRef}
             className="h-[600px] w-full overflow-y-auto rounded-md bg-gray-600/20 bg-clip-padding p-3 backdrop-blur-md backdrop-contrast-100 backdrop-saturate-100 backdrop-filter scrollbar-thin scrollbar-track-transparent scrollbar-corner-transparent"
