@@ -135,8 +135,6 @@ const Navbar: FC = () => {
 
       for (const parent of navbar) {
         for (const subMenu of parent.subMenu) {
-          console.log(`Checking ${location.pathname} against ${subMenu.link}`);
-
           if (location.pathname === subMenu.link) {
             return { parentTitle: parent.title, subTitle: subMenu.title };
           }

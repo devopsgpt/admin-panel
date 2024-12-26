@@ -10,6 +10,10 @@ const menu = [
     url: 'jenkins',
     title: 'Jenkins',
   },
+  {
+    url: 'gitlab-ci',
+    title: 'Gitlab CI',
+  },
 ];
 
 export const ArgoStackLayout: FC = () => {

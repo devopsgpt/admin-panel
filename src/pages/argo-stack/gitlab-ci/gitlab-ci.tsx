@@ -7,30 +7,29 @@ import { toast } from 'sonner';
 import { FormSelect } from '@/components/form/form-select';
 import { PuffLoader } from 'react-spinners';
 import { externalTemplateInstance } from '@/lib/axios';
-import { ArgoStackSchema, argoStackSchema } from './argo-stack.types';
+import { GitlabCISchema, gitlabCISchema } from './gitlab-ci.types';
 
-const ArgoCD: FC = () => {
+const GitlabCI: FC = () => {
   const getServices = useGet<string[], unknown>(
-    '/argocd-get-services',
-    'get-argocd-services',
+    '/gitlab-ci',
+    'get-gitlab-ci',
     false,
   );
 
   const [services, setServices] = useState<
     { label: string; value: string }[] | undefined
   >();
-  const [getServiceTemplatePending, setGetServiceTemplatePending] =
-    useState(false);
+  const [getTemplatePending, setGetTemplatePending] = useState(false);
 
-  const getServicesMethod = useForm<ArgoStackSchema>({
-    resolver: zodResolver(argoStackSchema),
+  const getTemplateMethod = useForm<GitlabCISchema>({
+    resolver: zodResolver(gitlabCISchema),
   });
 
   useEffect(() => {
-    getArgoStackServices();
+    getGitlabCITemplate();
   }, []);
 
-  async function getArgoStackServices() {
+  async function getGitlabCITemplate() {
     try {
       const { data } = await getServices.mutateAsync(undefined);
       setServices(data.map((item) => ({ label: item, value: item })));
@@ -40,31 +39,27 @@ const ArgoCD: FC = () => {
     }
   }
 
-  async function handleSubmitService(body: ArgoStackSchema) {
+  async function handleSubmitService(body: GitlabCISchema) {
     try {
-      setGetServiceTemplatePending(true);
+      setGetTemplatePending(true);
       const { data } = await externalTemplateInstance.get(
-        `/argocd-get/${body.service.value}`,
+        `/gitlab-ci/${body.template.value}`,
         { responseType: 'blob' },
       );
 
-      const blob = new Blob([data], { type: 'application/zip' });
-
+      const blob = new Blob([data], { type: 'text/plain' });
       const url = window.URL.createObjectURL(blob);
-
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `${body.service.value}.zip`);
-
+      link.setAttribute('download', `${body.template.value}`);
       document.body.appendChild(link);
       link.click();
-
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
     } catch (error) {
       toast.error('Something went wrong');
     } finally {
-      setGetServiceTemplatePending(false);
+      setGetTemplatePending(false);
     }
   }
 
@@ -79,16 +74,16 @@ const ArgoCD: FC = () => {
   return (
     <div className="flex h-full w-full items-center justify-center text-white">
       <div className="w-full max-w-96">
-        <FormWrapper methods={getServicesMethod} onSubmit={handleSubmitService}>
+        <FormWrapper methods={getTemplateMethod} onSubmit={handleSubmitService}>
           <div className="space-y-3">
             <FormSelect
-              name="service"
-              label="Services"
+              name="template"
+              label="Templates"
               options={services as any}
             />
             <button
               type="submit"
-              disabled={getServiceTemplatePending}
+              disabled={getTemplatePending}
               className="btn w-full bg-orchid-medium text-white hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
             >
               Generate
@@ -100,4 +95,4 @@ const ArgoCD: FC = () => {
   );
 };
 
-export default ArgoCD;
+export default GitlabCI;
