@@ -27,6 +27,7 @@ import {
   GrafanaAlertingAsCode,
   HelmTemplate,
   IAM,
+  Jenkins_ArgoStack,
   JenkinsInstallation,
   KubernetesAnsible,
   LokiDatasource,
@@ -137,6 +138,7 @@ function App() {
         </Route>
         <Route path="argo-stack" element={<ArgoStackLayout />}>
           <Route path="argocd" element={<ArgoCD_ArgoStack />} />
+          <Route path="jenkins" element={<Jenkins_ArgoStack />} />
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" />} />

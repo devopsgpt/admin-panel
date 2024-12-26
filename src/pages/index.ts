@@ -31,6 +31,7 @@ import TempoDatasource from './grafana/tempo-datasource/tempo';
 import Proxmox from './hashicorp-packer/proxmox/proxmox';
 import VMWarevSphere from './hashicorp-packer/vmware-vsphere/vmware-vsphere';
 import { default as ArgoCD_ArgoStack } from './argo-stack/argocd/argo-stack';
+import { default as Jenkins_ArgoStack } from './argo-stack/jenkins/jenkins';
 
 export {
   ArgoCD,
@@ -66,4 +67,5 @@ export {
   Proxmox,
   VMWarevSphere,
   ArgoCD_ArgoStack,
+  Jenkins_ArgoStack,
 };

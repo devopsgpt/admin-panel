@@ -6,6 +6,10 @@ const menu = [
     url: 'argocd',
     title: 'ArgoCD',
   },
+  {
+    url: 'jenkins',
+    title: 'Jenkins',
+  },
 ];
 
 export const ArgoStackLayout: FC = () => {

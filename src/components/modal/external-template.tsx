@@ -43,7 +43,7 @@ const ExportTemplateModal: FC<ExportTemplateModalProps> = ({
         { 'visible opacity-100': show },
       )}
     >
-      <div className="z-50 w-full max-w-96">
+      <div className="z-50 w-full max-w-[440px]">
         <div className="h-full w-full rounded-lg border border-gray-800 bg-gray-400/10 bg-clip-padding p-4 backdrop-blur-lg backdrop-contrast-100 backdrop-saturate-100 backdrop-filter">
           <div className="flex justify-end">
             <button onClick={onClose}>

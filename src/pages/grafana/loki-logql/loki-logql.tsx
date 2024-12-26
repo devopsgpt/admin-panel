@@ -97,7 +97,7 @@ const LokiLogQL: FC = () => {
           onSubmit={handleGetServiceTemplate}
         >
           <div className="space-y-3">
-            <FormSelect name="service" label="services" options={services} />
+            <FormSelect name="service" label="Services" options={services} />
             <button
               type="submit"
               disabled={getServicesPending}
