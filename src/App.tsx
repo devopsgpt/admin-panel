@@ -10,7 +10,8 @@ import TerraformTemplate from '@/pages/terraform-template/components/layout';
 import {
   AlertManager,
   AlertRules,
-  Argocd,
+  ArgoCD,
+  ArgoCD_ArgoStack,
   Auth,
   AWSCloudFormation,
   Basic,
@@ -50,6 +51,7 @@ import { GrafanaLayout } from './pages/grafana/components/layout';
 import MimirDatasource from './pages/grafana/mimir-datasource/mimir';
 import PostgresDatasource from './pages/grafana/postgress-datasource/postgress';
 import { HashicorpPackerLayout } from './pages/hashicorp-packer/components/layout';
+import { ArgoStackLayout } from './pages/argo-stack/components/layout';
 
 function App() {
   const location = useLocation();
@@ -57,25 +59,25 @@ function App() {
   const navigate = useNavigate();
   const { setUser } = useUserStore();
 
-  useEffect(() => {
-    async function getUserData() {
-      setLoading(true);
-      const { data, error } = await supabaseClient.auth.getUser();
-      if (error) {
-        navigate('/auth', { replace: true });
-      }
+  // useEffect(() => {
+  //   async function getUserData() {
+  //     setLoading(true);
+  //     const { data, error } = await supabaseClient.auth.getUser();
+  //     if (error) {
+  //       navigate('/auth', { replace: true });
+  //     }
 
-      if (data) {
-        setUser(data.user);
-      }
-      setLoading(false);
-    }
-    getUserData();
-  }, []);
+  //     if (data) {
+  //       setUser(data.user);
+  //     }
+  //     setLoading(false);
+  //   }
+  //   getUserData();
+  // }, []);
 
-  if (loading) {
-    return <MainLoading />;
-  }
+  // if (loading) {
+  //   return <MainLoading />;
+  // }
 
   return (
     <Routes location={location}>
@@ -88,12 +90,13 @@ function App() {
         <Route path="aws-cloudformation" element={<AWSCloudFormation />} />
         <Route path="github-actions" element={<GithubActions />} />
         <Route path="pulumi" element={<Pulumi />} />
+
         <Route path="terraform-template" element={<TerraformTemplate />}>
           <Route path="docker" element={<Docker />} />
           <Route path="ec2" element={<EC2 />} />
           <Route path="s3" element={<S3 />} />
           <Route path="iam" element={<IAM />} />
-          <Route path="argocd" element={<Argocd />} />
+          <Route path="argocd" element={<ArgoCD />} />
           <Route
             path="grafana-alerting-as-code"
             element={<GrafanaAlertingAsCode />}
@@ -131,6 +134,9 @@ function App() {
         <Route path="hashicorp-packer" element={<HashicorpPackerLayout />}>
           <Route path="proxmox" element={<Proxmox />} />
           <Route path="vmware-vsphere" element={<VMWarevSphere />} />
+        </Route>
+        <Route path="argo-stack" element={<ArgoStackLayout />}>
+          <Route path="argocd" element={<ArgoCD_ArgoStack />} />
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" />} />

@@ -56,6 +56,10 @@ const navbar = [
         title: 'Hashicorp Packer',
         link: '/hashicorp-packer',
       },
+      {
+        title: 'Argo Stack',
+        link: '/argo-stack',
+      },
     ],
   },
   {
@@ -133,12 +137,10 @@ const Navbar: FC = () => {
         for (const subMenu of parent.subMenu) {
           console.log(`Checking ${location.pathname} against ${subMenu.link}`);
 
-          // Check for exact match
           if (location.pathname === subMenu.link) {
             return { parentTitle: parent.title, subTitle: subMenu.title };
           }
 
-          // Fallback to partial match
           if (location.pathname.startsWith(subMenu.link)) {
             active = { parentTitle: parent.title, subTitle: subMenu.title };
           }

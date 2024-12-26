@@ -1,4 +1,4 @@
-import Argocd from './terraform-template/ARGOCD/argocd';
+import ArgoCD from './terraform-template/ARGOCD/argocd';
 import Docker from './terraform-template/Docker/docker';
 import EC2 from './terraform-template/EC2/ec2';
 import IAM from './terraform-template/IAM/iam';
@@ -30,9 +30,10 @@ import PrometheusDatasource from './grafana/prometheus-datasource/prometheus';
 import TempoDatasource from './grafana/tempo-datasource/tempo';
 import Proxmox from './hashicorp-packer/proxmox/proxmox';
 import VMWarevSphere from './hashicorp-packer/vmware-vsphere/vmware-vsphere';
+import { default as ArgoCD_ArgoStack } from './argo-stack/argocd/argo-stack';
 
 export {
-  Argocd,
+  ArgoCD,
   Docker,
   EC2,
   IAM,
@@ -64,4 +65,5 @@ export {
   TempoDatasource,
   Proxmox,
   VMWarevSphere,
+  ArgoCD_ArgoStack,
 };
