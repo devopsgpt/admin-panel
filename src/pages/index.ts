@@ -33,6 +33,7 @@ import VMWarevSphere from './hashicorp-packer/vmware-vsphere/vmware-vsphere';
 import { default as ArgoCD_ArgoStack } from './argocd/argo';
 import { default as Jenkins_ArgoStack } from './jenkins/jenkins';
 import { default as GitlabCI_ArgoStack } from './gitlab-ci/gitlab-ci';
+import CertManager from './cert-manager/cert-manager';
 
 export {
   ArgoCD,
@@ -70,4 +71,5 @@ export {
   ArgoCD_ArgoStack,
   Jenkins_ArgoStack,
   GitlabCI_ArgoStack,
+  CertManager,
 };

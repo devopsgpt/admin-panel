@@ -16,6 +16,7 @@ import {
   AWSCloudFormation,
   Basic,
   BugFix,
+  CertManager,
   Docker,
   DockerAnsible,
   DockerCompose,
@@ -60,25 +61,25 @@ function App() {
   const navigate = useNavigate();
   const { setUser } = useUserStore();
 
-  // useEffect(() => {
-  //   async function getUserData() {
-  //     setLoading(true);
-  //     const { data, error } = await supabaseClient.auth.getUser();
-  //     if (error) {
-  //       navigate('/auth', { replace: true });
-  //     }
+  useEffect(() => {
+    async function getUserData() {
+      setLoading(true);
+      const { data, error } = await supabaseClient.auth.getUser();
+      if (error) {
+        navigate('/auth', { replace: true });
+      }
 
-  //     if (data) {
-  //       setUser(data.user);
-  //     }
-  //     setLoading(false);
-  //   }
-  //   getUserData();
-  // }, []);
+      if (data) {
+        setUser(data.user);
+      }
+      setLoading(false);
+    }
+    getUserData();
+  }, []);
 
-  // if (loading) {
-  //   return <MainLoading />;
-  // }
+  if (loading) {
+    return <MainLoading />;
+  }
 
   return (
     <Routes location={location}>
@@ -136,6 +137,7 @@ function App() {
           <Route path="proxmox" element={<Proxmox />} />
           <Route path="vmware-vsphere" element={<VMWarevSphere />} />
         </Route>
+        <Route path="cert-manager" element={<CertManager />}></Route>
         <Route path="argo-cd" element={<ArgoCD_ArgoStack />} />
         <Route path="gitlab-ci" element={<GitlabCI_ArgoStack />} />
         <Route path="jenkins" element={<Jenkins_ArgoStack />} />
