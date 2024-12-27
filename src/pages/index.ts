@@ -30,9 +30,9 @@ import PrometheusDatasource from './grafana/prometheus-datasource/prometheus';
 import TempoDatasource from './grafana/tempo-datasource/tempo';
 import Proxmox from './hashicorp-packer/proxmox/proxmox';
 import VMWarevSphere from './hashicorp-packer/vmware-vsphere/vmware-vsphere';
-import { default as ArgoCD_ArgoStack } from './argo-stack/argocd/argo';
-import { default as Jenkins_ArgoStack } from './argo-stack/jenkins/jenkins';
-import { default as GitlabCI_ArgoStack } from './argo-stack/gitlab-ci/gitlab-ci';
+import { default as ArgoCD_ArgoStack } from './argocd/argo';
+import { default as Jenkins_ArgoStack } from './jenkins/jenkins';
+import { default as GitlabCI_ArgoStack } from './gitlab-ci/gitlab-ci';
 
 export {
   ArgoCD,

@@ -21,44 +21,109 @@ const navbar = [
     title: 'Template Generation',
     subMenu: [
       {
-        title: 'Terraform',
-        link: '/terraform-template',
+        title: 'Infrastructure as Code (IaC)',
+        subMenu: [
+          {
+            title: 'Hashicorp Terraform',
+            link: '/terraform-template',
+          },
+          {
+            title: 'CloudFormation',
+            link: '/cloudformation',
+          },
+          {
+            title: 'Pulumi',
+            link: '/pulumi',
+          },
+        ],
       },
       {
-        title: 'Helm',
-        link: '/helm-template',
+        title: 'Configuration Management',
+        subMenu: [
+          {
+            title: 'Ansible',
+            link: '/ansible-template',
+          },
+        ],
       },
       {
-        title: 'Ansible',
-        link: '/ansible-template',
+        title: 'Container Orchestration and Management',
+        subMenu: [
+          {
+            title: 'Helm',
+            link: '/helm-template',
+          },
+          {
+            title: 'Docker Compose',
+            link: '/docker-compose',
+          },
+        ],
       },
       {
-        title: 'Docker Compose',
-        link: '/docker-compose',
+        title: 'CI/CD Tools',
+        subMenu: [
+          {
+            title: 'Jenkins',
+            link: '/jenkins',
+          },
+          {
+            title: 'GitHub Actions',
+            link: '/github-actions',
+          },
+          {
+            title: 'GitLab CI',
+            link: '/gitlab-ci',
+          },
+          {
+            title: 'Argo CD',
+            link: '/argo-cd',
+          },
+        ],
       },
       {
-        title: 'AWS CloudFormation',
-        link: '/aws-cloudformation',
+        title: 'Workflow Orchestration',
+        subMenu: [
+          {
+            title: 'Argo Workflows',
+            link: '/argo-workflows',
+          },
+        ],
       },
       {
-        title: 'Pulumi',
-        link: '/pulumi',
+        title: 'Continuous Delivery and Progressive Delivery',
+        subMenu: [
+          {
+            title: 'Argo-Rollouts',
+            link: '/argo-rollouts',
+          },
+        ],
       },
       {
-        title: 'GitHub Actions',
-        link: '/github-actions',
+        title: 'Image Building',
+        subMenu: [
+          {
+            title: 'Hashicorp Packer',
+            link: '/hashicorp-packer',
+          },
+        ],
       },
       {
-        title: 'Grafana',
-        link: '/grafana',
+        title: 'Monitor',
+        subMenu: [
+          {
+            title: 'Grafana',
+            link: '/grafana',
+          },
+        ],
       },
       {
-        title: 'Hashicorp Packer',
-        link: '/hashicorp-packer',
-      },
-      {
-        title: 'Argo Stack',
-        link: '/argo-stack',
+        title: 'Secret Management',
+        subMenu: [
+          {
+            title: 'Cert Manager',
+            link: '/cert-manager',
+          },
+        ],
       },
     ],
   },
@@ -101,6 +166,7 @@ const Navbar: FC = () => {
   const [activeMenu, setActiveMenu] = useState({
     parentTitle: '',
     subTitle: '',
+    subSubTitle: '',
   });
 
   useEffect(() => {
@@ -131,16 +197,34 @@ const Navbar: FC = () => {
 
   useEffect(() => {
     const findActiveMenu = () => {
-      let active = { parentTitle: '', subTitle: '' };
+      let active = { parentTitle: '', subTitle: '', subSubTitle: '' };
 
       for (const parent of navbar) {
         for (const subMenu of parent.subMenu) {
-          if (location.pathname === subMenu.link) {
-            return { parentTitle: parent.title, subTitle: subMenu.title };
+          if (location.pathname === (subMenu as any).link) {
+            return {
+              parentTitle: parent.title,
+              subTitle: subMenu.title,
+              subSubTitle: '',
+            };
           }
 
-          if (location.pathname.startsWith(subMenu.link)) {
-            active = { parentTitle: parent.title, subTitle: subMenu.title };
+          if (location.pathname.startsWith((subMenu as any).link)) {
+            active = {
+              parentTitle: parent.title,
+              subTitle: subMenu.title,
+              subSubTitle: '',
+            };
+          }
+
+          if ('subMenu' in subMenu) {
+            for (const sub of subMenu.subMenu) {
+              return {
+                parentTitle: parent.title,
+                subTitle: subMenu.title,
+                subSubTitle: sub.title,
+              };
+            }
           }
         }
       }
@@ -156,6 +240,13 @@ const Navbar: FC = () => {
     } else {
       setMenu(menuItem as keyof typeof menu);
     }
+  };
+
+  const handleHoverMenuItem = (item: string) => {
+    setActiveMenu((prev) => ({
+      ...prev,
+      subSubTitle: item,
+    }));
   };
 
   return (
@@ -192,22 +283,63 @@ const Navbar: FC = () => {
           }}
         >
           <div className="flex h-fit w-full flex-col gap-2 rounded-lg border border-gray-800 bg-gray-400/10 bg-clip-padding backdrop-blur-lg backdrop-contrast-100 backdrop-saturate-100 backdrop-filter">
-            {menu &&
-              navbar
-                .find((item) => item.title === menu)
-                ?.subMenu?.map((subItem) => (
-                  <NavLink
-                    key={subItem.title}
-                    to={subItem.link}
-                    className={({ isActive }) =>
-                      cn('w-full px-8 py-3 text-center text-white', {
-                        'text-orchid-medium': isActive,
-                      })
-                    }
-                  >
-                    {subItem.title}
-                  </NavLink>
-                ))}
+            {navbar.map(
+              (item) =>
+                item.subMenu &&
+                item.title === menu &&
+                item.subMenu.map((subItem) =>
+                  'subMenu' in subItem ? (
+                    <button
+                      onMouseEnter={() => handleHoverMenuItem(subItem.title)}
+                      key={subItem.title}
+                      className={cn(
+                        'relative w-full px-4 py-3 text-center text-white',
+                        {
+                          'text-orchid-medium':
+                            activeMenu.subTitle === subItem.title,
+                        },
+                      )}
+                    >
+                      {subItem.title}
+                      <div
+                        onMouseLeave={() => handleHoverMenuItem('')}
+                        className={cn(
+                          'absolute left-full top-0 ml-2 hidden h-fit w-full flex-col gap-2 overflow-y-hidden rounded-lg border border-gray-800 bg-slate-900',
+                          {
+                            flex: activeMenu.subSubTitle === subItem.title,
+                          },
+                        )}
+                      >
+                        {subItem.subMenu.map((subSubItem) => (
+                          <NavLink
+                            to={(subSubItem as any).link}
+                            key={subSubItem.title}
+                            className={({ isActive }) =>
+                              cn('w-full px-8 py-3 text-center text-white', {
+                                'text-orchid-medium': isActive,
+                              })
+                            }
+                          >
+                            {subSubItem.title}
+                          </NavLink>
+                        ))}
+                      </div>
+                    </button>
+                  ) : (
+                    <NavLink
+                      to={(subItem as any).link}
+                      key={subItem.title}
+                      className={({ isActive }) =>
+                        cn('w-full px-8 py-3 text-center text-white', {
+                          'text-orchid-medium': isActive,
+                        })
+                      }
+                    >
+                      {subItem.title}
+                    </NavLink>
+                  ),
+                ),
+            )}
           </div>
         </div>
       )}

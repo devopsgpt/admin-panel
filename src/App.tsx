@@ -53,7 +53,6 @@ import { GrafanaLayout } from './pages/grafana/components/layout';
 import MimirDatasource from './pages/grafana/mimir-datasource/mimir';
 import PostgresDatasource from './pages/grafana/postgress-datasource/postgress';
 import { HashicorpPackerLayout } from './pages/hashicorp-packer/components/layout';
-import { ArgoStackLayout } from './pages/argo-stack/components/layout';
 
 function App() {
   const location = useLocation();
@@ -61,25 +60,25 @@ function App() {
   const navigate = useNavigate();
   const { setUser } = useUserStore();
 
-  useEffect(() => {
-    async function getUserData() {
-      setLoading(true);
-      const { data, error } = await supabaseClient.auth.getUser();
-      if (error) {
-        navigate('/auth', { replace: true });
-      }
+  // useEffect(() => {
+  //   async function getUserData() {
+  //     setLoading(true);
+  //     const { data, error } = await supabaseClient.auth.getUser();
+  //     if (error) {
+  //       navigate('/auth', { replace: true });
+  //     }
 
-      if (data) {
-        setUser(data.user);
-      }
-      setLoading(false);
-    }
-    getUserData();
-  }, []);
+  //     if (data) {
+  //       setUser(data.user);
+  //     }
+  //     setLoading(false);
+  //   }
+  //   getUserData();
+  // }, []);
 
-  if (loading) {
-    return <MainLoading />;
-  }
+  // if (loading) {
+  //   return <MainLoading />;
+  // }
 
   return (
     <Routes location={location}>
@@ -89,7 +88,7 @@ function App() {
         <Route path="bug-fix" element={<BugFix />} />
         <Route path="helm-template" element={<HelmTemplate />} />
         <Route path="docker-compose" element={<DockerCompose />} />
-        <Route path="aws-cloudformation" element={<AWSCloudFormation />} />
+        <Route path="cloudformation" element={<AWSCloudFormation />} />
         <Route path="github-actions" element={<GithubActions />} />
         <Route path="pulumi" element={<Pulumi />} />
 
@@ -137,11 +136,9 @@ function App() {
           <Route path="proxmox" element={<Proxmox />} />
           <Route path="vmware-vsphere" element={<VMWarevSphere />} />
         </Route>
-        <Route path="argo-stack" element={<ArgoStackLayout />}>
-          <Route path="argocd" element={<ArgoCD_ArgoStack />} />
-          <Route path="jenkins" element={<Jenkins_ArgoStack />} />
-          <Route path="gitlab-ci" element={<GitlabCI_ArgoStack />} />
-        </Route>
+        <Route path="argo-cd" element={<ArgoCD_ArgoStack />} />
+        <Route path="gitlab-ci" element={<GitlabCI_ArgoStack />} />
+        <Route path="jenkins" element={<Jenkins_ArgoStack />} />
       </Route>
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
