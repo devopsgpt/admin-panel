@@ -1,8 +1,6 @@
-import { FormSelect } from '@/components/form/form-select';
-import { FormWrapper } from '@/components/form/form-wrapper';
-import { usePost } from '@/core/react-query';
-import { INSTALLATION } from '@/enums/api.enums';
-import { useDownload } from '@/hooks';
+import { usePost } from '../../../core/react-query';
+import { INSTALLATION } from '../../../enums/api.enums';
+import { useDownload } from '../../../hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
@@ -16,8 +14,9 @@ import {
   terraformInstallationSchema,
   terraformInstallationType,
 } from './terraform.types';
+import { FormSelect, FormWrapper } from '../../../components/form';
 
-const TerraformInstallation: FC = () => {
+export const TerraformInstallation: FC = () => {
   const {
     mutateAsync: terraformInstallationMutate,
     isPending: terraformInstallationPending,
@@ -90,5 +89,3 @@ const TerraformInstallation: FC = () => {
     </div>
   );
 };
-
-export default TerraformInstallation;

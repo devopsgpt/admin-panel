@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils';
+import { cn } from '../../lib/utils';
 import { X } from 'lucide-react';
 import { FC, useEffect } from 'react';
 import { FormWrapper } from '../form/form-wrapper';

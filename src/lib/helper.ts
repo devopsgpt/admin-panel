@@ -1,4 +1,4 @@
-import { IServiceConfig } from '@/pages/docker-compose/docker-compose.type';
+import { IServiceConfig } from '../pages/template-generations/container-orchestration-and-management/docker-compose/docker-compose.type';
 
 export const getNestedValue = (obj: any, path: string) => {
   return path.split('.').reduce((acc, part) => acc && acc[part], obj);

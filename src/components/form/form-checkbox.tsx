@@ -1,7 +1,7 @@
 import * as Form from '@radix-ui/react-form';
 import { useFormContext } from 'react-hook-form';
 import { FormFieldProps } from '../../types/form.types';
-import { cn } from '@/lib/utils';
+import { cn } from '../../lib/utils';
 
 interface FormCheckboxProps extends FormFieldProps {
   labelPosition?: 'left' | 'right';

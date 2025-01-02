@@ -1,10 +1,10 @@
-import { cn } from '@/lib/utils';
+import { cn } from '../../lib/utils';
 import { FC, useState } from 'react';
 import { SignIn } from './components/sign-in';
 import { SignUp } from './components/sign-up';
-import { supabaseClient } from '@/lib/supabase';
+import { supabaseClient } from '../../lib/supabase';
 
-const Auth: FC = () => {
+export const Auth: FC = () => {
   const [authType, setAuthType] = useState('sign in');
 
   const handleAuthType = (type: 'sign in' | 'sign up') => {
@@ -77,5 +77,3 @@ const Auth: FC = () => {
     </section>
   );
 };
-
-export default Auth;

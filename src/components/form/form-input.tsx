@@ -1,8 +1,8 @@
 import * as Form from '@radix-ui/react-form';
 import { useFormContext } from 'react-hook-form';
 import { FormFieldProps } from '../../types/form.types';
-import { getNestedValue } from '@/lib/helper';
-import { cn } from '@/lib/utils';
+import { getNestedValue } from '../../lib/helper';
+import { cn } from '../../lib/utils';
 
 export const FormInput = ({
   name,
@@ -27,7 +27,7 @@ export const FormInput = ({
   return (
     <Form.Field className={'form-field relative'} name={name}>
       {label && (
-        <div className="flex items-baseline justify-between mb-1">
+        <div className="mb-1 flex items-baseline justify-between">
           <Form.Label className="form-label">{label}</Form.Label>
         </div>
       )}

@@ -1,4 +1,4 @@
-import { useGet } from '@/core/react-query';
+import { useGet } from '../core/react-query';
 
 type UseDownloadProps = {
   folderName: string;

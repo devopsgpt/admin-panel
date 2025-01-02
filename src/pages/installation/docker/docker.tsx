@@ -8,16 +8,15 @@ import {
   dockerInstallationSchema,
   dockerInstallationType,
 } from './docker.types';
-import { FormWrapper } from '@/components/form/form-wrapper';
-import { FormSelect } from '@/components/form/form-select';
 import { environmentOptions, osOptions } from './data/select-options';
-import { INSTALLATION } from '@/enums/api.enums';
-import { usePost } from '@/core/react-query';
+import { INSTALLATION } from '../../../enums/api.enums';
+import { usePost } from '../../../core/react-query';
 import { isAxiosError } from 'axios';
 import { toast } from 'sonner';
-import { useDownload } from '@/hooks';
+import { useDownload } from '../../../hooks';
+import { FormSelect, FormWrapper } from '../../../components/form';
 
-const DockerInstallation: FC = () => {
+export const DockerInstallation: FC = () => {
   const {
     mutateAsync: dockerInstallationMutate,
     isPending: dockerInstallationPending,
@@ -90,5 +89,3 @@ const DockerInstallation: FC = () => {
     </div>
   );
 };
-
-export default DockerInstallation;

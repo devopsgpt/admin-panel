@@ -5,55 +5,66 @@ import {
   useLocation,
   useNavigate,
 } from 'react-router';
-import MainLayout from '@/components/layouts/main-layout/main-layout';
-import TerraformTemplate from '@/pages/terraform-template/components/layout';
-import {
-  AlertManager,
-  AlertRules,
-  ArgoCD,
-  ArgoCD_ArgoStack,
-  Auth,
-  AWSCloudFormation,
-  Basic,
-  BugFix,
-  CertManager,
-  Docker,
-  DockerAnsible,
-  DockerCompose,
-  DockerInstallation,
-  EC2,
-  ElasticSearchDatasource,
-  GithubActions,
-  GitlabCI_ArgoStack,
-  GitlabInstallation,
-  GrafanaAlertingAsCode,
-  HelmTemplate,
-  IAM,
-  Jenkins_ArgoStack,
-  JenkinsInstallation,
-  KubernetesAnsible,
-  LokiDatasource,
-  LokiLogQL,
-  MySQLDatasource,
-  NginxAnsible,
-  PrometheusDatasource,
-  Proxmox,
-  Pulumi,
-  S3,
-  TempoDatasource,
-  TerraformInstallation,
-  VMWarevSphere,
-} from '@/pages';
-import { AnsibleLayout } from './pages/ansible/components/layout';
+import MainLayout from './components/layouts/main-layout/main-layout';
 import { useEffect, useState } from 'react';
 import { supabaseClient } from './lib/supabase';
 import MainLoading from './components/main-loading/main-loading';
 import { useUserStore } from './store';
-import InstallationLayout from './pages/installation/components/layout';
-import { GrafanaLayout } from './pages/grafana/components/layout';
-import MimirDatasource from './pages/grafana/mimir-datasource/mimir';
-import PostgresDatasource from './pages/grafana/postgress-datasource/postgress';
-import { HashicorpPackerLayout } from './pages/hashicorp-packer/components/layout';
+import Auth from './pages/auth';
+import { Basic, BugFix } from './pages/chats';
+import {
+  Helm,
+  DockerCompose,
+} from './pages/template-generations/container-orchestration-and-management';
+import {
+  ArgoCD,
+  CloudFormation,
+  Docker,
+  EC2,
+  GrafanaAlertingAsCode,
+  HashicorpTerraformLayout,
+  IAM,
+  Pulumi,
+  S3,
+} from './pages/template-generations/infrastructure-as-code';
+import {
+  AnsibleLayout,
+  DockerAnsible,
+  KubernetesAnsible,
+  NginxAnsible,
+} from './pages/template-generations/configuration-management';
+import {
+  ArgoCD as ArgoCD_CICD_Tools,
+  GithubActions,
+  GitlabCI,
+  Jenkins,
+} from './pages/template-generations/cicd-tools';
+import {
+  HashicorpPackerLayout,
+  Proxmox,
+  VMWarevSphere,
+} from './pages/template-generations/image-building';
+import {
+  AlertManager,
+  AlertRules,
+  ElasticSearchDatasource,
+  GrafanaLayout,
+  LokiDatasource,
+  LokiLogQL,
+  MimirDatasource,
+  MySQLDatasource,
+  PostgresDatasource,
+  PrometheusDatasource,
+  TempoDatasource,
+} from './pages/template-generations/monitor';
+import {
+  DockerInstallation,
+  InstallationLayout,
+  JenkinsInstallation,
+} from './pages/installation';
+import { GitlabInstallation } from './pages/installation/gitlab/gitlab';
+import { TerraformInstallation } from './pages/installation/terraform/terraform';
+import { CertManager } from './pages/template-generations/secret-management/cert-manager/cert-manager';
 
 function App() {
   const location = useLocation();
@@ -85,64 +96,98 @@ function App() {
     <Routes location={location}>
       <Route path="/auth" element={<Auth />} />
       <Route element={<MainLayout />}>
-        <Route index element={<Basic />} />
-        <Route path="bug-fix" element={<BugFix />} />
-        <Route path="helm-template" element={<HelmTemplate />} />
-        <Route path="docker-compose" element={<DockerCompose />} />
-        <Route path="cloudformation" element={<AWSCloudFormation />} />
-        <Route path="github-actions" element={<GithubActions />} />
-        <Route path="pulumi" element={<Pulumi />} />
+        <Route path="chats">
+          <Route path="basic" element={<Basic />} />
+          <Route path="bug-fix" element={<BugFix />} />
+        </Route>
 
-        <Route path="terraform-template" element={<TerraformTemplate />}>
-          <Route path="docker" element={<Docker />} />
-          <Route path="ec2" element={<EC2 />} />
-          <Route path="s3" element={<S3 />} />
-          <Route path="iam" element={<IAM />} />
-          <Route path="argocd" element={<ArgoCD />} />
-          <Route
-            path="grafana-alerting-as-code"
-            element={<GrafanaAlertingAsCode />}
-          />
+        <Route path="template-generation">
+          <Route path="container-orchestration-and-management">
+            <Route path="helm" element={<Helm />} />
+            <Route path="docker-compose" element={<DockerCompose />} />
+          </Route>
+
+          <Route path="infrastructure-as-code">
+            <Route
+              path="hashicorp-terraform"
+              element={<HashicorpTerraformLayout />}
+            >
+              <Route path="docker" element={<Docker />} />
+              <Route path="ec2" element={<EC2 />} />
+              <Route path="s3" element={<S3 />} />
+              <Route path="iam" element={<IAM />} />
+              <Route path="argocd" element={<ArgoCD />} />
+              <Route
+                path="grafana-alerting-as-code"
+                element={<GrafanaAlertingAsCode />}
+              />
+            </Route>
+            <Route path="cloudformation" element={<CloudFormation />} />
+            <Route path="pulumi" element={<Pulumi />} />
+          </Route>
+
+          <Route path="configuration-management">
+            <Route path="ansible" element={<AnsibleLayout />}>
+              <Route path="docker" element={<DockerAnsible />} />
+              <Route path="nginx" element={<NginxAnsible />} />
+              <Route path="kuber" element={<KubernetesAnsible />} />
+            </Route>
+          </Route>
+
+          <Route path="cicd-tools">
+            <Route path="argocd" element={<ArgoCD_CICD_Tools />} />
+            <Route path="jenkins" element={<Jenkins />} />
+            <Route path="github-actions" element={<GithubActions />} />
+            <Route path="gitlab-ci" element={<GitlabCI />} />
+          </Route>
+
+          <Route path="image-building">
+            <Route path="hashicorp-packer" element={<HashicorpPackerLayout />}>
+              <Route path="proxmox" element={<Proxmox />} />
+              <Route path="vmware-vsphere" element={<VMWarevSphere />} />
+            </Route>
+          </Route>
+
+          <Route path="monitor">
+            <Route path="grafana" element={<GrafanaLayout />}>
+              <Route path="alert-rules" element={<AlertRules />} />
+              <Route path="loki-logql" element={<LokiLogQL />} />
+              <Route
+                path="alertmanager-datasource"
+                element={<AlertManager />}
+              />
+              <Route
+                path="elasticsearch-datasource"
+                element={<ElasticSearchDatasource />}
+              />
+              <Route path="loki-datasource" element={<LokiDatasource />} />
+              <Route path="mimir-datasource" element={<MimirDatasource />} />
+              <Route path="mysql-datasource" element={<MySQLDatasource />} />
+              <Route
+                path="postgres-datasource"
+                element={<PostgresDatasource />}
+              />
+              <Route
+                path="prometheus-datasource"
+                element={<PrometheusDatasource />}
+              />
+              <Route path="tempo-datasource" element={<TempoDatasource />} />
+            </Route>
+          </Route>
+
+          <Route path="secret-management">
+            <Route path="cert-manager" element={<CertManager />} />
+          </Route>
         </Route>
-        <Route path="ansible-template" element={<AnsibleLayout />}>
-          <Route path="docker" element={<DockerAnsible />} />
-          <Route path="nginx" element={<NginxAnsible />} />
-          <Route path="kuber" element={<KubernetesAnsible />} />
-        </Route>
+
         <Route path="installation" element={<InstallationLayout />}>
           <Route path="docker" element={<DockerInstallation />} />
           <Route path="jenkins" element={<JenkinsInstallation />} />
           <Route path="gitlab" element={<GitlabInstallation />} />
           <Route path="terraform" element={<TerraformInstallation />} />
         </Route>
-        <Route path="grafana" element={<GrafanaLayout />}>
-          <Route path="alert-rules" element={<AlertRules />} />
-          <Route path="loki-logql" element={<LokiLogQL />} />
-          <Route path="alertmanager-datasource" element={<AlertManager />} />
-          <Route
-            path="elasticsearch-datasource"
-            element={<ElasticSearchDatasource />}
-          />
-          <Route path="loki-datasource" element={<LokiDatasource />} />
-          <Route path="mimir-datasource" element={<MimirDatasource />} />
-          <Route path="mysql-datasource" element={<MySQLDatasource />} />
-          <Route path="postgres-datasource" element={<PostgresDatasource />} />
-          <Route
-            path="prometheus-datasource"
-            element={<PrometheusDatasource />}
-          />
-          <Route path="tempo-datasource" element={<TempoDatasource />} />
-        </Route>
-        <Route path="hashicorp-packer" element={<HashicorpPackerLayout />}>
-          <Route path="proxmox" element={<Proxmox />} />
-          <Route path="vmware-vsphere" element={<VMWarevSphere />} />
-        </Route>
-        <Route path="cert-manager" element={<CertManager />}></Route>
-        <Route path="argo-cd" element={<ArgoCD_ArgoStack />} />
-        <Route path="gitlab-ci" element={<GitlabCI_ArgoStack />} />
-        <Route path="jenkins" element={<Jenkins_ArgoStack />} />
       </Route>
-      <Route path="*" element={<Navigate to="/" />} />
+      <Route path="*" element={<Navigate to="/chats/basic" />} />
     </Routes>
   );
 }

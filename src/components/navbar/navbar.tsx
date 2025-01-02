@@ -1,7 +1,7 @@
 import { createRef, FC, RefObject, useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router';
 import { User } from './components/user';
-import { cn } from '@/lib/utils';
+import { cn } from '../../lib/utils';
 
 const navbar = [
   {
@@ -9,11 +9,11 @@ const navbar = [
     subMenu: [
       {
         title: 'Basic',
-        link: '/',
+        link: '/chats/basic',
       },
       {
         title: 'Bug Fix',
-        link: '/bug-fix',
+        link: '/chats/bug-fix',
       },
     ],
   },
@@ -25,15 +25,15 @@ const navbar = [
         subMenu: [
           {
             title: 'Hashicorp Terraform',
-            link: '/terraform-template',
+            link: '/template-generation/infrastructure-as-code/hashicorp-terraform',
           },
           {
             title: 'CloudFormation',
-            link: '/cloudformation',
+            link: '/template-generation/infrastructure-as-code/cloudformation',
           },
           {
             title: 'Pulumi',
-            link: '/pulumi',
+            link: '/template-generation/infrastructure-as-code/pulumi',
           },
         ],
       },
@@ -42,7 +42,7 @@ const navbar = [
         subMenu: [
           {
             title: 'Ansible',
-            link: '/ansible-template',
+            link: '/template-generation/configuration-management/ansible',
           },
         ],
       },
@@ -51,11 +51,11 @@ const navbar = [
         subMenu: [
           {
             title: 'Helm',
-            link: '/helm-template',
+            link: '/template-generation/container-orchestration-and-management/helm',
           },
           {
             title: 'Docker Compose',
-            link: '/docker-compose',
+            link: '/template-generation/container-orchestration-and-management/docker-compose',
           },
         ],
       },
@@ -64,19 +64,19 @@ const navbar = [
         subMenu: [
           {
             title: 'Jenkins',
-            link: '/jenkins',
+            link: '/template-generation/cicd-tools/jenkins',
           },
           {
             title: 'GitHub Actions',
-            link: '/github-actions',
+            link: '/template-generation/cicd-tools/github-actions',
           },
           {
             title: 'GitLab CI',
-            link: '/gitlab-ci',
+            link: '/template-generation/cicd-tools/gitlab-ci',
           },
           {
             title: 'Argo CD',
-            link: '/argo-cd',
+            link: '/template-generation/cicd-tools/argocd',
           },
         ],
       },
@@ -103,7 +103,7 @@ const navbar = [
         subMenu: [
           {
             title: 'Hashicorp Packer',
-            link: '/hashicorp-packer',
+            link: '/template-generation/image-building/hashicorp-packer',
           },
         ],
       },
@@ -112,7 +112,7 @@ const navbar = [
         subMenu: [
           {
             title: 'Grafana',
-            link: '/grafana',
+            link: '/template-generation/monitor/grafana',
           },
         ],
       },
@@ -121,7 +121,7 @@ const navbar = [
         subMenu: [
           {
             title: 'Cert Manager',
-            link: '/cert-manager',
+            link: '/template-generation/secret-management/cert-manager',
           },
         ],
       },
@@ -209,26 +209,19 @@ const Navbar: FC = () => {
             };
           }
 
-          if (location.pathname.startsWith((subMenu as any).link)) {
-            active = {
-              parentTitle: parent.title,
-              subTitle: subMenu.title,
-              subSubTitle: '',
-            };
-          }
-
-          if ('subMenu' in subMenu) {
-            for (const sub of subMenu.subMenu) {
-              return {
-                parentTitle: parent.title,
-                subTitle: subMenu.title,
-                subSubTitle: sub.title,
-              };
+          if ('subMenu' in subMenu && subMenu.subMenu) {
+            for (const subSubMenu of subMenu.subMenu) {
+              if (location.pathname === subSubMenu.link) {
+                return {
+                  parentTitle: parent.title,
+                  subTitle: subMenu.title,
+                  subSubTitle: subSubMenu.title,
+                };
+              }
             }
           }
         }
       }
-
       return active;
     };
     setActiveMenu(findActiveMenu());

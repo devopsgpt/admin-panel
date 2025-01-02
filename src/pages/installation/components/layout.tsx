@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { NavLink, Outlet } from 'react-router';
 
 const menu = [
@@ -18,7 +19,7 @@ const menu = [
     title: 'Terraform',
   },
 ];
-const InstallationLayout = () => {
+export const InstallationLayout: FC = () => {
   return (
     <div className="flex h-full items-center">
       <div className="flex h-full w-full max-w-96 flex-col items-center justify-center">
@@ -40,5 +41,3 @@ const InstallationLayout = () => {
     </div>
   );
 };
-
-export default InstallationLayout;
