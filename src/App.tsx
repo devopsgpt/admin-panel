@@ -61,10 +61,11 @@ import {
   DockerInstallation,
   InstallationLayout,
   JenkinsInstallation,
+  TerraformInstallation,
+  GitlabInstallation,
 } from './pages/installation';
-import { GitlabInstallation } from './pages/installation/gitlab/gitlab';
-import { TerraformInstallation } from './pages/installation/terraform/terraform';
-import { CertManager } from './pages/template-generations/secret-management/cert-manager/cert-manager';
+import { CertManager } from './pages/template-generations/secret-management';
+import { ArgoRollouts } from './pages/template-generations/continuous-delivery-and-progressive-delivery';
 
 function App() {
   const location = useLocation();
@@ -177,6 +178,10 @@ function App() {
 
           <Route path="secret-management">
             <Route path="cert-manager" element={<CertManager />} />
+          </Route>
+
+          <Route path="continuous-delivery-and-progressive-delivery">
+            <Route path="argo-rollouts" element={<ArgoRollouts />} />
           </Route>
         </Route>
 

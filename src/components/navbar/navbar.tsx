@@ -101,8 +101,8 @@ const navbar = [
         title: 'Continuous Delivery and Progressive Delivery',
         subMenu: [
           {
-            title: 'Argo-Rollouts',
-            link: '/argo-rollouts',
+            title: 'Argo Rollouts',
+            link: '/template-generation/continuous-delivery-and-progressive-delivery/argo-rollouts',
           },
         ],
       },
