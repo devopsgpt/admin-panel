@@ -1,5 +1,5 @@
-import { supabaseClient } from '@/lib/supabase';
-import { useUserStore } from '@/store';
+import { supabaseClient } from '../../../lib/supabase';
+import { useUserStore } from '../../../store';
 import { FC, useState } from 'react';
 import { useNavigate } from 'react-router';
 

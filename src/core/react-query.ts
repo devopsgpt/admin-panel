@@ -5,7 +5,7 @@ import {
   AxiosResponse,
 } from 'axios';
 import { useMutation } from '@tanstack/react-query';
-import { engineInstance, externalTemplateInstance } from '@/lib/axios';
+import { engineInstance, externalTemplateInstance } from '../lib/axios';
 
 async function request<R, B, E = unknown>(
   axiosInstance: AxiosInstance,

@@ -1,4 +1,3 @@
-import { FormWrapper } from '@/components/form/form-wrapper';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
@@ -9,15 +8,16 @@ import {
   jenkinsInstallationSchema,
   jenkinsInstallationType,
 } from './jenkins.types';
-import { usePost } from '@/core/react-query';
-import { INSTALLATION } from '@/enums/api.enums';
-import { useDownload } from '@/hooks';
+import { usePost } from '../../../core/react-query';
+import { INSTALLATION } from '../../../enums/api.enums';
+import { useDownload } from '../../../hooks';
 import { isAxiosError } from 'axios';
 import { toast } from 'sonner';
-import { FormSelect } from '@/components/form/form-select';
+import { FormSelect } from '../../../components/form/form-select';
 import { environmentOptions, osOptions } from './data/select-options';
+import { FormWrapper } from '../../../components/form';
 
-const JenkinsInstallation: FC = () => {
+export const JenkinsInstallation: FC = () => {
   const {
     mutateAsync: jenkinsInstallationMutate,
     isPending: jenkinsInstallationPending,
@@ -104,5 +104,3 @@ const JenkinsInstallation: FC = () => {
     </div>
   );
 };
-
-export default JenkinsInstallation;

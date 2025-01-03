@@ -3,8 +3,8 @@ import * as Form from '@radix-ui/react-form';
 import { Controller, useFormContext } from 'react-hook-form';
 import { FormFieldProps } from '../../types/form.types';
 import Select from 'react-select';
-import { getNestedValue } from '@/lib/helper';
-import { selectStyle } from '@/styles/select.styles';
+import { getNestedValue } from '../../lib/helper';
+import { selectStyle } from '../../styles/select.styles';
 
 interface OptionType {
   value: string;

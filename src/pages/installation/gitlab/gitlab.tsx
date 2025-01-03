@@ -1,5 +1,3 @@
-import { FormSelect } from '@/components/form/form-select';
-import { FormWrapper } from '@/components/form/form-wrapper';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
@@ -10,14 +8,15 @@ import {
   gitlabInstallationSchema,
   gitlabInstallationType,
 } from './gitlab.types';
-import { usePost } from '@/core/react-query';
-import { INSTALLATION } from '@/enums/api.enums';
-import { useDownload } from '@/hooks';
+import { usePost } from '../../../core/react-query';
+import { INSTALLATION } from '../../../enums/api.enums';
+import { useDownload } from '../../../hooks';
 import { isAxiosError } from 'axios';
 import { toast } from 'sonner';
 import { environmentOptions } from './data/select-options';
+import { FormSelect, FormWrapper } from '../../../components/form';
 
-const GitlabInstallation: FC = () => {
+export const GitlabInstallation: FC = () => {
   const {
     mutateAsync: gitlabInstallationMutate,
     isPending: gitlabInstallationPending,
@@ -83,5 +82,3 @@ const GitlabInstallation: FC = () => {
     </div>
   );
 };
-
-export default GitlabInstallation;

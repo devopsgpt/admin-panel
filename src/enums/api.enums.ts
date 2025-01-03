@@ -1,15 +1,16 @@
-export enum TerraformTemplateAPI {
+export enum HashicorpTerraformAPI {
   Argocd = '/IaC-template/argocd',
   Iam = '/IaC-template/aws/iam',
   S3 = '/IaC-template/aws/s3',
   EC2 = '/IaC-template/aws/ec2',
   Docker = '/IaC-template/docker',
+  GrafanaAlertingAsCode = '/grafana/terraform',
 }
 
 export enum API {
   Basic = '/IaC-basic',
   BugFix = '/IaC-bugfix',
-  HelmTemplate = '/Helm-template',
+  Helm = '/Helm-template',
   DockerCompose = '/docker-compose',
 }
 

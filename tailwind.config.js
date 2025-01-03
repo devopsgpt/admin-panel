@@ -17,7 +17,12 @@ export default {
           medium: "#b230ca",
         }
       }
-    }
+    },
+    variants: {
+      extend: {
+        backdropBlur: ['hover', 'focus'],
+      },
+    },
   },
   corePlugins: {
     preflight: true,
