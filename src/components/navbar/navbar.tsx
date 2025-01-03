@@ -93,7 +93,7 @@ const navbar = [
         subMenu: [
           {
             title: 'Argo Workflows',
-            link: '/argo-workflows',
+            link: '/template-generation/workflow-orchestration/argo-workflows',
           },
         ],
       },

@@ -66,6 +66,7 @@ import {
 } from './pages/installation';
 import { CertManager } from './pages/template-generations/secret-management';
 import { ArgoRollouts } from './pages/template-generations/continuous-delivery-and-progressive-delivery';
+import { ArgoWorkflows } from './pages/template-generations/workflow-orchestration';
 
 function App() {
   const location = useLocation();
@@ -182,6 +183,10 @@ function App() {
 
           <Route path="continuous-delivery-and-progressive-delivery">
             <Route path="argo-rollouts" element={<ArgoRollouts />} />
+          </Route>
+
+          <Route path="workflow-orchestration">
+            <Route path="argo-workflows" element={<ArgoWorkflows />} />
           </Route>
         </Route>
 
