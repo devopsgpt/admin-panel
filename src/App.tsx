@@ -56,7 +56,7 @@ import {
   PostgresDatasource,
   PrometheusDatasource,
   TempoDatasource,
-} from './pages/template-generations/monitor';
+} from './pages/template-generations/monitoring';
 import {
   DockerInstallation,
   InstallationLayout,
@@ -150,7 +150,7 @@ function App() {
             </Route>
           </Route>
 
-          <Route path="monitor">
+          <Route path="monitoring">
             <Route path="grafana" element={<GrafanaLayout />}>
               <Route path="alert-rules" element={<AlertRules />} />
               <Route path="loki-logql" element={<LokiLogQL />} />

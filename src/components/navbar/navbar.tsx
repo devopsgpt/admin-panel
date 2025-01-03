@@ -116,11 +116,11 @@ const navbar = [
         ],
       },
       {
-        title: 'Monitor',
+        title: 'Monitoring',
         subMenu: [
           {
             title: 'Grafana',
-            link: '/template-generation/monitor/grafana',
+            link: '/template-generation/monitoring/grafana',
           },
         ],
       },
