@@ -33,6 +33,7 @@ import {
   SQS,
   Route53,
   KeyPair,
+  RDS,
 } from './pages/template-generations/infrastructure-as-code';
 import {
   AnsibleLayout,
@@ -137,6 +138,7 @@ function App() {
               <Route path="aws-sqs" element={<SQS />} />
               <Route path="aws-route53" element={<Route53 />} />
               <Route path="aws-kaypair" element={<KeyPair />} />
+              <Route path="aws-rds" element={<RDS />} />
             </Route>
             <Route path="cloudformation" element={<CloudFormation />} />
             <Route path="pulumi" element={<Pulumi />} />

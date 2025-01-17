@@ -12,6 +12,7 @@ export enum HashicorpTerraformAPI {
   SQS = 'IaC-template/aws/sqs',
   Route53 = 'IaC-template/aws/route53',
   KeyPair = 'IaC-template/aws/key_pair',
+  RDS = 'IaC-template/aws/rds',
 }
 
 export enum API {

@@ -54,6 +54,10 @@ const menu = [
     url: 'aws-kaypair',
     title: 'AWS Kay Pair',
   },
+  {
+    url: 'aws-rds',
+    title: 'AWS RDS',
+  },
 ];
 
 export const HashicorpTerraformLayout: FC = () => {
