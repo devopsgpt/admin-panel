@@ -30,6 +30,7 @@ import {
   CloudFront,
   SNS,
   AutoScaling,
+  SQS,
 } from './pages/template-generations/infrastructure-as-code';
 import {
   AnsibleLayout,
@@ -131,6 +132,7 @@ function App() {
               <Route path="aws-cloudfront" element={<CloudFront />} />
               <Route path="aws-sns" element={<SNS />} />
               <Route path="aws-autoscaling" element={<AutoScaling />} />
+              <Route path="aws-sqs" element={<SQS />} />
             </Route>
             <Route path="cloudformation" element={<CloudFormation />} />
             <Route path="pulumi" element={<Pulumi />} />

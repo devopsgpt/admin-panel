@@ -9,6 +9,7 @@ export enum HashicorpTerraformAPI {
   CloudFront = 'IaC-template/aws/cloudfront',
   SNS = 'IaC-template/aws/sns',
   AutoScaling = 'IaC-template/aws/autoscaling',
+  SQS = 'IaC-template/aws/sqs',
 }
 
 export enum API {

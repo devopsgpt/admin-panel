@@ -42,6 +42,10 @@ const menu = [
     url: 'aws-autoscaling',
     title: 'AWS AutoScaling',
   },
+  {
+    url: 'aws-sqs',
+    title: 'AWS SQS',
+  },
 ];
 
 export const HashicorpTerraformLayout: FC = () => {
