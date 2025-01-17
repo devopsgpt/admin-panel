@@ -30,6 +30,10 @@ const menu = [
     url: 'aws-alb',
     title: 'AWS ALB',
   },
+  {
+    url: 'aws-cloudfront',
+    title: 'AWS CloudFront',
+  },
 ];
 
 export const HashicorpTerraformLayout: FC = () => {

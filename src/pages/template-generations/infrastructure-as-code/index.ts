@@ -8,3 +8,4 @@ export * from './hashicorp-terraform/IAM/iam';
 export * from './hashicorp-terraform/S3/s3';
 export * from './hashicorp-terraform/grafana-alerting-as-code/grafana-alerting-as-code';
 export * from './hashicorp-terraform/ALB/alb';
+export * from './hashicorp-terraform/cloudfront/cloudfront';

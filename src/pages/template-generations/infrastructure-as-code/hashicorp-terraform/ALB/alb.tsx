@@ -8,6 +8,7 @@ import { isAxiosError } from 'axios';
 import { toast } from 'sonner';
 import { CircleAlert } from 'lucide-react';
 import alb from './alb.json';
+import { GuideTable } from '../components/guide-table';
 
 export const ALB: FC = () => {
   const [services, setServices] = useState({
@@ -95,24 +96,7 @@ export const ALB: FC = () => {
               />
             </div>
             {hoveredKey === 'alb_resources' && (
-              <div className="absolute -right-full top-0 z-50 rounded-lg bg-gray-700 p-4">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Resource</th>
-                      <th>Name</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {alb.alb_resources.map((resource) => (
-                      <tr>
-                        <td className="pr-4">{resource.resource}</td>
-                        <td>{resource.name}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+              <GuideTable guide={alb.alb_resources} />
             )}
           </div>
           <div className="relative flex w-full items-center justify-between px-3 py-3">
@@ -134,24 +118,7 @@ export const ALB: FC = () => {
               />
             </div>
             {hoveredKey === 'security_group' && (
-              <div className="absolute -right-full top-0 z-50 rounded-lg bg-gray-700 p-4">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Resource</th>
-                      <th>Name</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {alb.security_group.map((resource) => (
-                      <tr>
-                        <td className="pr-4">{resource.resource}</td>
-                        <td>{resource.name}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+              <GuideTable guide={alb.security_group} />
             )}
           </div>
         </div>

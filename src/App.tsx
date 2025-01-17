@@ -27,6 +27,7 @@ import {
   Pulumi,
   S3,
   ALB,
+  CloudFront,
 } from './pages/template-generations/infrastructure-as-code';
 import {
   AnsibleLayout,
@@ -125,6 +126,7 @@ function App() {
                 element={<GrafanaAlertingAsCode />}
               />
               <Route path="aws-alb" element={<ALB />} />
+              <Route path="aws-cloudfront" element={<CloudFront />} />
             </Route>
             <Route path="cloudformation" element={<CloudFormation />} />
             <Route path="pulumi" element={<Pulumi />} />

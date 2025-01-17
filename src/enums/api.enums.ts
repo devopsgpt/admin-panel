@@ -6,6 +6,7 @@ export enum HashicorpTerraformAPI {
   Docker = '/IaC-template/docker',
   GrafanaAlertingAsCode = '/grafana/terraform',
   ALB = '/IaC-template/aws/alb',
+  CloudFront = 'IaC-template/aws/cloudfront',
 }
 
 export enum API {
