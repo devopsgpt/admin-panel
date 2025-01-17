@@ -34,6 +34,10 @@ const menu = [
     url: 'aws-cloudfront',
     title: 'AWS CloudFront',
   },
+  {
+    url: 'aws-sns',
+    title: 'AWS SNS',
+  },
 ];
 
 export const HashicorpTerraformLayout: FC = () => {

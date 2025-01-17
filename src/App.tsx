@@ -28,6 +28,7 @@ import {
   S3,
   ALB,
   CloudFront,
+  SNS,
 } from './pages/template-generations/infrastructure-as-code';
 import {
   AnsibleLayout,
@@ -127,6 +128,7 @@ function App() {
               />
               <Route path="aws-alb" element={<ALB />} />
               <Route path="aws-cloudfront" element={<CloudFront />} />
+              <Route path="aws-sns" element={<SNS />} />
             </Route>
             <Route path="cloudformation" element={<CloudFormation />} />
             <Route path="pulumi" element={<Pulumi />} />
