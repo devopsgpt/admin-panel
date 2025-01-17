@@ -7,7 +7,7 @@
   ],
   "origin_access_control": [
     {
-      "resource": "aws_cloudfront_origin_access_identity",
+      "resource": "aws_cloudfront_origin_access_control",
       "name": "this"
     }
   ],
