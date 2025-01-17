@@ -10,6 +10,7 @@ export enum HashicorpTerraformAPI {
   SNS = 'IaC-template/aws/sns',
   AutoScaling = 'IaC-template/aws/autoscaling',
   SQS = 'IaC-template/aws/sqs',
+  Route53 = 'IaC-template/aws/route53',
 }
 
 export enum API {

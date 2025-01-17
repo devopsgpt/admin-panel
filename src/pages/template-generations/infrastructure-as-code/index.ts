@@ -12,3 +12,4 @@ export * from './hashicorp-terraform/cloudfront/cloudfront';
 export * from './hashicorp-terraform/SNS/sns';
 export * from './hashicorp-terraform/autoscaling/autoscaling';
 export * from './hashicorp-terraform/SQS/sqs';
+export * from './hashicorp-terraform/route53/route53';

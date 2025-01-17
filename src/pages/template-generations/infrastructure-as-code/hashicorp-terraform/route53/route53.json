@@ -1,0 +1,26 @@
+{
+  "zone": [
+    {
+      "resource": "aws_route53_zone",
+      "name": "this"
+    }
+  ],
+  "record": [
+    {
+      "resource": "aws_route53_record",
+      "name": "this"
+    }
+  ],
+  "delegation_set": [
+    {
+      "resource": "aws_route53_delegation_set",
+      "name": "this"
+    }
+  ],
+  "resolver_rule_association": [
+    {
+      "resource": "aws_route53_resolver_rule_association",
+      "name": "this"
+    }
+  ]
+}

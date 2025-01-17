@@ -46,6 +46,10 @@ const menu = [
     url: 'aws-sqs',
     title: 'AWS SQS',
   },
+  {
+    url: 'aws-route53',
+    title: 'AWS Route53',
+  },
 ];
 
 export const HashicorpTerraformLayout: FC = () => {
