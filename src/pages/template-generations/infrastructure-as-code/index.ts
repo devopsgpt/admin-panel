@@ -10,3 +10,4 @@ export * from './hashicorp-terraform/grafana-alerting-as-code/grafana-alerting-a
 export * from './hashicorp-terraform/ALB/alb';
 export * from './hashicorp-terraform/cloudfront/cloudfront';
 export * from './hashicorp-terraform/SNS/sns';
+export * from './hashicorp-terraform/autoscaling/autoscaling';

@@ -7,7 +7,8 @@ export enum HashicorpTerraformAPI {
   GrafanaAlertingAsCode = '/grafana/terraform',
   ALB = '/IaC-template/aws/alb',
   CloudFront = 'IaC-template/aws/cloudfront',
-  sns = 'IaC-template/aws/sns',
+  SNS = 'IaC-template/aws/sns',
+  AutoScaling = 'IaC-template/aws/autoscaling',
 }
 
 export enum API {

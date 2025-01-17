@@ -29,6 +29,7 @@ import {
   ALB,
   CloudFront,
   SNS,
+  AutoScaling,
 } from './pages/template-generations/infrastructure-as-code';
 import {
   AnsibleLayout,
@@ -129,6 +130,7 @@ function App() {
               <Route path="aws-alb" element={<ALB />} />
               <Route path="aws-cloudfront" element={<CloudFront />} />
               <Route path="aws-sns" element={<SNS />} />
+              <Route path="aws-autoscaling" element={<AutoScaling />} />
             </Route>
             <Route path="cloudformation" element={<CloudFormation />} />
             <Route path="pulumi" element={<Pulumi />} />

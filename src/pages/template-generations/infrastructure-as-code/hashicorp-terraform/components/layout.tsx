@@ -8,15 +8,15 @@ const menu = [
   },
   {
     url: 'ec2',
-    title: 'EC2 Service',
+    title: 'AWS EC2',
   },
   {
     url: 's3',
-    title: 'S3 Service',
+    title: 'AWS S3',
   },
   {
     url: 'iam',
-    title: 'IAM Service',
+    title: 'AWS IAM',
   },
   {
     url: 'argocd',
@@ -37,6 +37,10 @@ const menu = [
   {
     url: 'aws-sns',
     title: 'AWS SNS',
+  },
+  {
+    url: 'aws-autoscaling',
+    title: 'AWS AutoScaling',
   },
 ];
 

@@ -22,7 +22,7 @@ export const SNS: FC = () => {
   );
 
   const { mutateAsync, isPending } = usePost<SNSResponse, SNSBody>(
-    HashicorpTerraformAPI.sns,
+    HashicorpTerraformAPI.SNS,
     'sns',
     true,
   );
