@@ -13,3 +13,4 @@ export * from './hashicorp-terraform/SNS/sns';
 export * from './hashicorp-terraform/autoscaling/autoscaling';
 export * from './hashicorp-terraform/SQS/sqs';
 export * from './hashicorp-terraform/route53/route53';
+export * from './hashicorp-terraform/key-pair/key-pair';

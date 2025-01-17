@@ -1,0 +1,14 @@
+{
+  "key_pair": [
+    {
+      "resource": "aws_key_pair",
+      "name": "this"
+    }
+  ],
+  "private_key": [
+    {
+      "resource": "tls_private_key",
+      "name": "this"
+    }
+  ]
+}

@@ -11,6 +11,7 @@ export enum HashicorpTerraformAPI {
   AutoScaling = 'IaC-template/aws/autoscaling',
   SQS = 'IaC-template/aws/sqs',
   Route53 = 'IaC-template/aws/route53',
+  KeyPair = 'IaC-template/aws/key_pair',
 }
 
 export enum API {

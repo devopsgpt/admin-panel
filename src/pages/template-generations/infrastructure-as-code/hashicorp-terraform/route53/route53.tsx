@@ -23,7 +23,7 @@ export const Route53: FC = () => {
   );
 
   const { mutateAsync, isPending } = usePost<Route53Response, Route53Body>(
-    HashicorpTerraformAPI.AutoScaling,
+    HashicorpTerraformAPI.Route53,
     'route53',
     true,
   );

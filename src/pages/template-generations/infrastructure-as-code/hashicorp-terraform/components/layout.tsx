@@ -50,6 +50,10 @@ const menu = [
     url: 'aws-route53',
     title: 'AWS Route53',
   },
+  {
+    url: 'aws-kaypair',
+    title: 'AWS Kay Pair',
+  },
 ];
 
 export const HashicorpTerraformLayout: FC = () => {

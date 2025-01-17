@@ -32,6 +32,7 @@ import {
   AutoScaling,
   SQS,
   Route53,
+  KeyPair,
 } from './pages/template-generations/infrastructure-as-code';
 import {
   AnsibleLayout,
@@ -135,6 +136,7 @@ function App() {
               <Route path="aws-autoscaling" element={<AutoScaling />} />
               <Route path="aws-sqs" element={<SQS />} />
               <Route path="aws-route53" element={<Route53 />} />
+              <Route path="aws-kaypair" element={<KeyPair />} />
             </Route>
             <Route path="cloudformation" element={<CloudFormation />} />
             <Route path="pulumi" element={<Pulumi />} />
