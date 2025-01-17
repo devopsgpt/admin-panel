@@ -102,7 +102,7 @@ export const CloudFront: FC = () => {
             )}
           </div>
           <div className="relative flex w-full items-center justify-between px-3 py-3">
-            <p>Origin Access Identity"</p>
+            <p>Origin Access Identity</p>
             <div className="flex items-center gap-2">
               <button
                 onMouseEnter={() => setHoveredKey('origin_access_identity')}
@@ -124,7 +124,7 @@ export const CloudFront: FC = () => {
             )}
           </div>
           <div className="relative flex w-full items-center justify-between px-3 py-3">
-            <p>Origin Access Control"</p>
+            <p>Origin Access Control</p>
             <div className="flex items-center gap-2">
               <button
                 onMouseEnter={() => setHoveredKey('origin_access_control')}

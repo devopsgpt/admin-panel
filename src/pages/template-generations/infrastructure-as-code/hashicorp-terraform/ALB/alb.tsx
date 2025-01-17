@@ -12,8 +12,8 @@ import { GuideTable } from '../components/guide-table';
 
 export const ALB: FC = () => {
   const [services, setServices] = useState({
-    alb_resources: true,
-    security_group: true,
+    alb_resources: false,
+    security_group: false,
   });
   const [getTemplatePending, setGetTemplatePending] = useState(false);
   const [hoveredKey, setHoveredKey] = useState<keyof typeof services | null>(
@@ -90,7 +90,7 @@ export const ALB: FC = () => {
                 type="checkbox"
                 className={cn('toggle border-gray-800 bg-gray-500', {
                   'bg-orchid-medium hover:bg-orchid-medium/80':
-                    !services.alb_resources,
+                    services.alb_resources,
                 })}
                 onChange={() => handleServiceChange('alb_resources')}
               />
@@ -112,7 +112,7 @@ export const ALB: FC = () => {
                 type="checkbox"
                 className={cn('toggle border-gray-800 bg-gray-500', {
                   'bg-orchid-medium hover:bg-orchid-medium/80':
-                    !services.security_group,
+                    services.security_group,
                 })}
                 onChange={() => handleServiceChange('security_group')}
               />
