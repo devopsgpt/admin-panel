@@ -26,6 +26,10 @@ const menu = [
     url: 'grafana-alerting-as-code',
     title: 'Grafana Alerting As Code',
   },
+  {
+    url: 'aws-alb',
+    title: 'AWS ALB',
+  },
 ];
 
 export const HashicorpTerraformLayout: FC = () => {
