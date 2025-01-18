@@ -1,0 +1,48 @@
+{
+  "autoscaling_group": [
+    {
+      "resource": "aws_autoscaling_group",
+      "name": "this"
+    },
+    {
+      "resource": "aws_autoscaling_group",
+      "name": "idc"
+    },
+    {
+      "resource": "aws_autoscaling_traffic_source_attachment",
+      "name": "this"
+    }
+  ],
+  "launch_template": [
+    {
+      "resource": "aws_launch_template",
+      "name": "this"
+    }
+  ],
+  "schedule": [
+    {
+      "resource": "aws_autoscaling_schedule",
+      "name": "this"
+    }
+  ],
+  "scaling_policy": [
+    {
+      "resource": "aws_autoscaling_policy",
+      "name": "this"
+    }
+  ],
+  "iam_instance_profile": [
+    {
+      "resource": "aws_iam_role",
+      "name": "this"
+    },
+    {
+      "resource": "aws_iam_role_policy_attachment",
+      "name": "this"
+    },
+    {
+      "resource": "aws_iam_instance_profile",
+      "name": "this"
+    }
+  ]
+}

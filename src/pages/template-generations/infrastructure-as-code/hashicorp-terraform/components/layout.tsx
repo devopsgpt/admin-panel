@@ -7,18 +7,6 @@ const menu = [
     title: 'Docker Service',
   },
   {
-    url: 'ec2',
-    title: 'EC2 Service',
-  },
-  {
-    url: 's3',
-    title: 'S3 Service',
-  },
-  {
-    url: 'iam',
-    title: 'IAM Service',
-  },
-  {
     url: 'argocd',
     title: 'ArgoCD Service',
   },
@@ -26,11 +14,15 @@ const menu = [
     url: 'grafana-alerting-as-code',
     title: 'Grafana Alerting As Code',
   },
+  {
+    url: 'aws',
+    title: 'AWS',
+  },
 ];
 
 export const HashicorpTerraformLayout: FC = () => {
   return (
-    <div className="flex h-full items-center">
+    <div className="flex h-full items-center gap-6">
       <div className="flex h-full w-full max-w-96 flex-col items-center justify-center">
         {menu.map((link) => (
           <NavLink

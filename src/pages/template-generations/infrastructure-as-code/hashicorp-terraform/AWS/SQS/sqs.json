@@ -1,0 +1,44 @@
+{
+  "sqs_queue": [
+    {
+      "resource": "aws_sqs_queue",
+      "name": "this"
+    },
+    {
+      "resource": "aws_sqs_queue_redrive_policy",
+      "name": "this"
+    },
+    {
+      "resource": "aws_sqs_queue_redrive_allow_policy",
+      "name": "this"
+    }
+  ],
+  "queue_policy": [
+    {
+      "resource": "aws_sqs_queue_policy",
+      "name": "this"
+    }
+  ],
+  "dlq": [
+    {
+      "resource": "aws_sqs_queue",
+      "name": "dlq"
+    },
+    {
+      "resource": "aws_sqs_queue_redrive_policy",
+      "name": "dlq"
+    }
+  ],
+  "dlq_redrive_allow_policy": [
+    {
+      "resource": "aws_sqs_queue_redrive_allow_policy",
+      "name": "dlq"
+    }
+  ],
+  "dlq_queue_policy": [
+    {
+      "resource": "aws_sqs_queue_policy",
+      "name": "dlq"
+    }
+  ]
+}

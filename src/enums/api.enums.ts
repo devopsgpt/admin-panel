@@ -5,6 +5,14 @@ export enum HashicorpTerraformAPI {
   EC2 = '/IaC-template/aws/ec2',
   Docker = '/IaC-template/docker',
   GrafanaAlertingAsCode = '/grafana/terraform',
+  ALB = '/IaC-template/aws/alb',
+  CloudFront = 'IaC-template/aws/cloudfront',
+  SNS = 'IaC-template/aws/sns',
+  AutoScaling = 'IaC-template/aws/autoscaling',
+  SQS = 'IaC-template/aws/sqs',
+  Route53 = 'IaC-template/aws/route53',
+  KeyPair = 'IaC-template/aws/key_pair',
+  RDS = 'IaC-template/aws/rds',
 }
 
 export enum API {

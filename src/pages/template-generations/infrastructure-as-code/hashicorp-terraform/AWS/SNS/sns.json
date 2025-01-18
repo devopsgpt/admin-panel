@@ -1,0 +1,24 @@
+{
+  "sns_topic": [
+    {
+      "resource": "aws_sns_topic",
+      "name": "this"
+    },
+    {
+      "resource": "aws_sns_topic_data_protection_policy",
+      "name": "this"
+    }
+  ],
+  "topic_policy": [
+    {
+      "resource": "aws_sns_topic_policy",
+      "name": "this"
+    }
+  ],
+  "subscription": [
+    {
+      "resource": "aws_sns_topic_subscription",
+      "name": "this"
+    }
+  ]
+}

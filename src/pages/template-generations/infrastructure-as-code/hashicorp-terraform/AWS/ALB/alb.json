@@ -1,0 +1,54 @@
+{
+  "alb_resources": [
+    {
+      "resource": "aws_lb",
+      "name": "this"
+    },
+    {
+      "resource": "aws_lb_listener",
+      "name": "this"
+    },
+    {
+      "resource": "aws_lb_listener_rule",
+      "name": "this"
+    },
+    {
+      "resource": "aws_lb_listener_certificate",
+      "name": "this"
+    },
+    {
+      "resource": "aws_lb_target_group",
+      "name": "this"
+    },
+    {
+      "resource": "aws_lb_target_group_attachment",
+      "name": "this"
+    },
+    {
+      "resource": "aws_lb_target_group_attachment",
+      "name": "additional"
+    },
+    {
+      "resource": "aws_lambda_permission",
+      "name": "this"
+    },
+    {
+      "resource": "aws_route53_record",
+      "name": "this"
+    }
+  ],
+  "security_group": [
+    {
+      "resource": "aws_security_group",
+      "name": "this"
+    },
+    {
+      "resource": "aws_vpc_security_group_egress_rule",
+      "name": "this"
+    },
+    {
+      "resource": "aws_vpc_security_group_ingress_rule",
+      "name": "this"
+    }
+  ]
+}

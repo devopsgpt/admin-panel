@@ -1,0 +1,32 @@
+{
+  "origin_access_identity": [
+    {
+      "resource": "aws_cloudfront_origin_access_identity",
+      "name": "this"
+    }
+  ],
+  "origin_access_control": [
+    {
+      "resource": "aws_cloudfront_origin_access_control",
+      "name": "this"
+    }
+  ],
+  "distribution": [
+    {
+      "resource": "aws_cloudfront_distribution",
+      "name": "this"
+    }
+  ],
+  "vpc_origin": [
+    {
+      "resource": "aws_cloudfront_vpc_origin",
+      "name": "this"
+    }
+  ],
+  "monitoring_subscription": [
+    {
+      "resource": "aws_cloudfront_monitoring_subscription",
+      "name": "this"
+    }
+  ]
+}
