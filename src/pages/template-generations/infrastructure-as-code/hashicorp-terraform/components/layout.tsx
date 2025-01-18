@@ -7,18 +7,6 @@ const menu = [
     title: 'Docker Service',
   },
   {
-    url: 'ec2',
-    title: 'AWS EC2',
-  },
-  {
-    url: 's3',
-    title: 'AWS S3',
-  },
-  {
-    url: 'iam',
-    title: 'AWS IAM',
-  },
-  {
     url: 'argocd',
     title: 'ArgoCD Service',
   },
@@ -27,42 +15,14 @@ const menu = [
     title: 'Grafana Alerting As Code',
   },
   {
-    url: 'aws-alb',
-    title: 'AWS ALB',
-  },
-  {
-    url: 'aws-cloudfront',
-    title: 'AWS CloudFront',
-  },
-  {
-    url: 'aws-sns',
-    title: 'AWS SNS',
-  },
-  {
-    url: 'aws-autoscaling',
-    title: 'AWS AutoScaling',
-  },
-  {
-    url: 'aws-sqs',
-    title: 'AWS SQS',
-  },
-  {
-    url: 'aws-route53',
-    title: 'AWS Route53',
-  },
-  {
-    url: 'aws-kaypair',
-    title: 'AWS Kay Pair',
-  },
-  {
-    url: 'aws-rds',
-    title: 'AWS RDS',
+    url: 'aws',
+    title: 'AWS',
   },
 ];
 
 export const HashicorpTerraformLayout: FC = () => {
   return (
-    <div className="flex h-full items-center">
+    <div className="flex h-full items-center gap-6">
       <div className="flex h-full w-full max-w-96 flex-col items-center justify-center">
         {menu.map((link) => (
           <NavLink

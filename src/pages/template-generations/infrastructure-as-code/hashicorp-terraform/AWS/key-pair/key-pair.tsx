@@ -1,30 +1,40 @@
-import { FC, FormEvent, useState } from 'react';
-import { cn } from '../../../../../lib/utils';
-import { usePost } from '../../../../../core/react-query';
-import { HashicorpTerraformAPI } from '../../../../../enums/api.enums';
-import { ALBBody, ALBResponse } from './alb.types';
-import { externalTemplateInstance } from '../../../../../lib/axios';
+import { FC, FormEvent, useEffect, useState } from 'react';
+import { usePost } from '../../../../../../core/react-query';
+import { HashicorpTerraformAPI } from '../../../../../../enums/api.enums';
+import { KeyPairBody, KeyPairResponse } from './kay-pair.types';
 import { isAxiosError } from 'axios';
 import { toast } from 'sonner';
+import { externalTemplateInstance } from '../../../../../../lib/axios';
 import { CircleAlert } from 'lucide-react';
-import alb from './alb.json';
-import { GuideTable } from '../components/guide-table';
+import { cn } from '../../../../../../lib/utils';
+import { GuideTable } from '../../components/guide-table';
+import key_pair from './key-pair.json';
 
-export const ALB: FC = () => {
+export const KeyPair: FC = () => {
   const [services, setServices] = useState({
-    alb_resources: false,
-    security_group: false,
+    key_pair: false,
+    private_key: false,
   });
+
   const [getTemplatePending, setGetTemplatePending] = useState(false);
   const [hoveredKey, setHoveredKey] = useState<keyof typeof services | null>(
     null,
   );
 
-  const { mutateAsync, isPending } = usePost<ALBResponse, ALBBody>(
-    HashicorpTerraformAPI.ALB,
-    'alb',
+  const { mutateAsync, isPending } = usePost<KeyPairResponse, KeyPairBody>(
+    HashicorpTerraformAPI.KeyPair,
+    'key_pair',
     true,
   );
+
+  useEffect(() => {
+    if (services.key_pair === false) {
+      setServices((prev) => ({
+        ...prev,
+        private_key: false,
+      }));
+    }
+  }, [services.key_pair]);
 
   const handleServiceChange = (service: keyof typeof services) => {
     setServices((prev) => ({
@@ -42,7 +52,7 @@ export const ALB: FC = () => {
       formData.append('tfvars_file', blob, 'terraform.tfvars');
       setGetTemplatePending(true);
       const { data: template } = await externalTemplateInstance.post(
-        '/terraform-get/alb',
+        '/terraform-get/key_pair',
         formData,
         {
           responseType: 'blob',
@@ -54,7 +64,7 @@ export const ALB: FC = () => {
         const url = window.URL.createObjectURL(zipBlob);
         const link = document.createElement('a');
         link.href = url;
-        link.setAttribute('download', 'ALBTerraform.zip');
+        link.setAttribute('download', 'Key_PairTerraform.zip');
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -76,50 +86,63 @@ export const ALB: FC = () => {
   return (
     <form onSubmit={handleForm} className="w-full max-w-96 text-white">
       <div className="rounded-md border border-gray-800">
-        <div className="divide-y divide-gray-800">
+        <div className="flex flex-col divide-y divide-gray-800">
           <div className="relative flex w-full items-center justify-between px-3 py-3">
-            <p>ALB Resources</p>
+            <p>Key Pair</p>
             <div className="flex items-center gap-2">
               <button
-                onMouseEnter={() => setHoveredKey('alb_resources')}
+                onMouseEnter={() => setHoveredKey('key_pair')}
                 onMouseLeave={() => setHoveredKey(null)}
               >
                 <CircleAlert className="size-4 text-gray-300" />
               </button>
               <input
                 type="checkbox"
+                checked={services.key_pair}
                 className={cn('toggle border-gray-800 bg-gray-500', {
                   'bg-orchid-medium hover:bg-orchid-medium/80':
-                    services.alb_resources,
+                    services.key_pair,
                 })}
-                onChange={() => handleServiceChange('alb_resources')}
+                onChange={() => handleServiceChange('key_pair')}
               />
             </div>
-            {hoveredKey === 'alb_resources' && (
-              <GuideTable guide={alb.alb_resources} />
+            {hoveredKey === 'key_pair' && (
+              <GuideTable guide={key_pair.key_pair} />
             )}
           </div>
-          <div className="relative flex w-full items-center justify-between px-3 py-3">
-            <p>Security Group</p>
-            <div className="flex items-center gap-2">
-              <button
-                onMouseEnter={() => setHoveredKey('security_group')}
-                onMouseLeave={() => setHoveredKey(null)}
-              >
-                <CircleAlert className="size-4 text-gray-300" />
-              </button>
-              <input
-                type="checkbox"
-                className={cn('toggle border-gray-800 bg-gray-500', {
-                  'bg-orchid-medium hover:bg-orchid-medium/80':
-                    services.security_group,
-                })}
-                onChange={() => handleServiceChange('security_group')}
-              />
+          <div className="relative">
+            <div
+              className={cn(
+                'max-h-0 w-full divide-y divide-gray-700 overflow-y-hidden transition-all',
+                {
+                  'max-h-96 overflow-x-visible': services.key_pair,
+                },
+              )}
+            >
+              <div className="flex items-center justify-between bg-white/10 px-3 py-3">
+                <p>Private Key</p>
+                <div className="flex items-center gap-2">
+                  <button
+                    onMouseEnter={() => setHoveredKey('private_key')}
+                    onMouseLeave={() => setHoveredKey(null)}
+                  >
+                    <CircleAlert className="size-4 text-gray-300" />
+                  </button>
+                  <input
+                    checked={services.private_key}
+                    type="checkbox"
+                    className={cn('toggle border-gray-800 bg-gray-500', {
+                      'bg-orchid-medium hover:bg-orchid-medium/80':
+                        services.private_key,
+                    })}
+                    onChange={() => handleServiceChange('private_key')}
+                  />
+                </div>
+                {hoveredKey === 'private_key' && (
+                  <GuideTable guide={key_pair.private_key} />
+                )}
+              </div>
             </div>
-            {hoveredKey === 'security_group' && (
-              <GuideTable guide={alb.security_group} />
-            )}
           </div>
         </div>
       </div>

@@ -1,14 +1,14 @@
 import { CircleAlert } from 'lucide-react';
 import { FC, FormEvent, useEffect, useState } from 'react';
-import { GuideTable } from '../components/guide-table';
+import { GuideTable } from '../../components/guide-table';
 import sqs from './sqs.json';
-import { cn } from '../../../../../lib/utils';
-import { usePost } from '../../../../../core/react-query';
-import { HashicorpTerraformAPI } from '../../../../../enums/api.enums';
+import { cn } from '../../../../../../lib/utils';
+import { usePost } from '../../../../../../core/react-query';
+import { HashicorpTerraformAPI } from '../../../../../../enums/api.enums';
 import { SQSBody, SQSResponse } from './sqs.types';
 import { isAxiosError } from 'axios';
 import { toast } from 'sonner';
-import { externalTemplateInstance } from '../../../../../lib/axios';
+import { externalTemplateInstance } from '../../../../../../lib/axios';
 
 export const SQS: FC = () => {
   const [services, setServices] = useState({

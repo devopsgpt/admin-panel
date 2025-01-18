@@ -1,21 +1,21 @@
-import { usePost } from '../../../../../core/react-query';
-import { cn } from '../../../../../lib/utils';
+import { usePost } from '../../../../../../core/react-query';
+import { cn } from '../../../../../../lib/utils';
 import { FC, FormEvent, useState } from 'react';
-import { HashicorpTerraformAPI } from '../../../../../enums/api.enums';
+import { HashicorpTerraformAPI } from '../../../../../../enums/api.enums';
 import { toast } from 'sonner';
 import { isAxiosError } from 'axios';
-import { externalTemplateInstance } from '../../../../../lib/axios';
-import { IAMBody, IAMResponse } from './iam.types';
+import { externalTemplateInstance } from '../../../../../../lib/axios';
+import { S3Body, S3Response } from './s3.types';
 
-export const IAM: FC = () => {
-  const { mutateAsync: iamMutate, isPending: iamPending } = usePost<
-    IAMResponse,
-    IAMBody
-  >(HashicorpTerraformAPI.Iam, 'iam', true);
+export const S3: FC = () => {
+  const { mutateAsync: s3Mutate, isPending: s3Pending } = usePost<
+    S3Response,
+    S3Body
+  >(HashicorpTerraformAPI.S3, 's3', true);
 
   const [services, setServices] = useState({
-    iam_user: false,
-    iam_group: false,
+    s3_bucket: false,
+    bucket_versioning: false,
   });
 
   const [getTemplatePending, setGetTemplatePending] = useState(false);
@@ -31,18 +31,18 @@ export const IAM: FC = () => {
     e.preventDefault();
 
     try {
-      const iamBody: IAMBody = {
+      const s3Body: S3Body = {
         ...services,
       };
 
-      const { data } = await iamMutate(iamBody);
+      const { data } = await s3Mutate(s3Body);
 
       const formData = new FormData();
       const blob = new Blob([data]);
       formData.append('tfvars_file', blob, 'terraform.tfvars');
       setGetTemplatePending(true);
       const { data: template } = await externalTemplateInstance.post(
-        '/terraform-get/iam',
+        '/terraform-get/s3',
         formData,
         {
           responseType: 'blob',
@@ -51,12 +51,10 @@ export const IAM: FC = () => {
       );
       if (template) {
         const zipBlob = new Blob([template], { type: 'application/zip' });
-        console.log(`Blob size: ${zipBlob.size} bytes`);
-
         const url = window.URL.createObjectURL(zipBlob);
         const link = document.createElement('a');
         link.href = url;
-        link.setAttribute('download', 'IAMTerraform.zip');
+        link.setAttribute('download', 'S3Terraform.zip');
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -80,34 +78,35 @@ export const IAM: FC = () => {
       <div className="rounded-md border border-gray-800">
         <div className="divide-y divide-gray-800">
           <div className="flex w-full items-center justify-between px-3 py-3">
-            <p>IAM User</p>
-            <input
-              type="checkbox"
-              className={cn('toggle border-gray-800 bg-gray-500', {
-                'bg-orchid-medium hover:bg-orchid-medium/80': services.iam_user,
-              })}
-              onChange={() => handleServices('iam_user')}
-            />
-          </div>
-          <div className="flex w-full items-center justify-between px-3 py-3">
-            <p>IAM Group</p>
+            <p>S3 Bucket</p>
             <input
               type="checkbox"
               className={cn('toggle border-gray-800 bg-gray-500', {
                 'bg-orchid-medium hover:bg-orchid-medium/80':
-                  services.iam_group,
+                  services.s3_bucket,
               })}
-              onChange={() => handleServices('iam_group')}
+              onChange={() => handleServices('s3_bucket')}
+            />
+          </div>
+          <div className="flex w-full items-center justify-between px-3 py-3">
+            <p>Bucket Versioning</p>
+            <input
+              type="checkbox"
+              className={cn('toggle border-gray-800 bg-gray-500', {
+                'bg-orchid-medium hover:bg-orchid-medium/80':
+                  services.bucket_versioning,
+              })}
+              onChange={() => handleServices('bucket_versioning')}
             />
           </div>
         </div>
       </div>
       <button
         type="submit"
-        disabled={iamPending || getTemplatePending}
+        disabled={s3Pending || getTemplatePending}
         className="btn mt-3 w-full bg-orchid-medium text-white hover:bg-orchid-medium/70 disabled:bg-orchid-medium/50 disabled:text-white/70"
       >
-        {iamPending
+        {s3Pending
           ? 'Wait...'
           : getTemplatePending
             ? 'Wait...'

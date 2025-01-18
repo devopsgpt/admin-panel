@@ -34,6 +34,7 @@ import {
   Route53,
   KeyPair,
   RDS,
+  AWSLayout,
 } from './pages/template-generations/infrastructure-as-code';
 import {
   AnsibleLayout,
@@ -123,22 +124,24 @@ function App() {
               element={<HashicorpTerraformLayout />}
             >
               <Route path="docker" element={<Docker />} />
-              <Route path="ec2" element={<EC2 />} />
-              <Route path="s3" element={<S3 />} />
-              <Route path="iam" element={<IAM />} />
               <Route path="argocd" element={<ArgoCD />} />
               <Route
                 path="grafana-alerting-as-code"
                 element={<GrafanaAlertingAsCode />}
               />
-              <Route path="aws-alb" element={<ALB />} />
-              <Route path="aws-cloudfront" element={<CloudFront />} />
-              <Route path="aws-sns" element={<SNS />} />
-              <Route path="aws-autoscaling" element={<AutoScaling />} />
-              <Route path="aws-sqs" element={<SQS />} />
-              <Route path="aws-route53" element={<Route53 />} />
-              <Route path="aws-kaypair" element={<KeyPair />} />
-              <Route path="aws-rds" element={<RDS />} />
+              <Route path="aws" element={<AWSLayout />}>
+                <Route path="ec2" element={<EC2 />} />
+                <Route path="s3" element={<S3 />} />
+                <Route path="iam" element={<IAM />} />
+                <Route path="alb" element={<ALB />} />
+                <Route path="cloudfront" element={<CloudFront />} />
+                <Route path="sns" element={<SNS />} />
+                <Route path="autoscaling" element={<AutoScaling />} />
+                <Route path="sqs" element={<SQS />} />
+                <Route path="route53" element={<Route53 />} />
+                <Route path="kaypair" element={<KeyPair />} />
+                <Route path="rds" element={<RDS />} />
+              </Route>
             </Route>
             <Route path="cloudformation" element={<CloudFormation />} />
             <Route path="pulumi" element={<Pulumi />} />

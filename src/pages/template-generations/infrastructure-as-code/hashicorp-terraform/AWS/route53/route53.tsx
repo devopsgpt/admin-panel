@@ -1,32 +1,32 @@
-import { CircleAlert } from 'lucide-react';
-import { FC, FormEvent, useState } from 'react';
-import { cn } from '../../../../../lib/utils';
-import cloudfront from './cloudfront.json';
-import { GuideTable } from '../components/guide-table';
-import { usePost } from '../../../../../core/react-query';
-import { HashicorpTerraformAPI } from '../../../../../enums/api.enums';
-import { CloudFrontBody, CloudFrontResponse } from './cloudfront.types';
 import { isAxiosError } from 'axios';
+import { FC, FormEvent, useState } from 'react';
 import { toast } from 'sonner';
-import { externalTemplateInstance } from '../../../../../lib/axios';
+import { externalTemplateInstance } from '../../../../../../lib/axios';
+import { usePost } from '../../../../../../core/react-query';
+import route53 from './route53.json';
+import { HashicorpTerraformAPI } from '../../../../../../enums/api.enums';
+import { Route53Body, Route53Response } from './route53.types';
+import { CircleAlert } from 'lucide-react';
+import { GuideTable } from '../../components/guide-table';
+import { cn } from '../../../../../../lib/utils';
 
-export const CloudFront: FC = () => {
+export const Route53: FC = () => {
   const [services, setServices] = useState({
-    distribution: false,
-    origin_access_identity: false,
-    origin_access_control: false,
-    monitoring_subscription: false,
-    vpc_origin: false,
+    zone: false,
+    record: false,
+    delegation_set: false,
+    resolver_rule_association: false,
   });
+  const [getTemplatePending, setGetTemplatePending] = useState(false);
   const [hoveredKey, setHoveredKey] = useState<keyof typeof services | null>(
     null,
   );
-  const [getTemplatePending, setGetTemplatePending] = useState(false);
 
-  const { mutateAsync, isPending } = usePost<
-    CloudFrontResponse,
-    CloudFrontBody
-  >(HashicorpTerraformAPI.CloudFront, 'cloudfront', true);
+  const { mutateAsync, isPending } = usePost<Route53Response, Route53Body>(
+    HashicorpTerraformAPI.Route53,
+    'route53',
+    true,
+  );
 
   const handleServiceChange = (service: keyof typeof services) => {
     setServices((prev) => ({
@@ -44,7 +44,7 @@ export const CloudFront: FC = () => {
       formData.append('tfvars_file', blob, 'terraform.tfvars');
       setGetTemplatePending(true);
       const { data: template } = await externalTemplateInstance.post(
-        '/terraform-get/cloudfront',
+        '/terraform-get/route53',
         formData,
         {
           responseType: 'blob',
@@ -56,7 +56,7 @@ export const CloudFront: FC = () => {
         const url = window.URL.createObjectURL(zipBlob);
         const link = document.createElement('a');
         link.href = url;
-        link.setAttribute('download', 'CloudFrontTerraform.zip');
+        link.setAttribute('download', 'Route53Terraform.zip');
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -78,115 +78,93 @@ export const CloudFront: FC = () => {
   return (
     <form onSubmit={handleForm} className="w-full max-w-96 text-white">
       <div className="rounded-md border border-gray-800">
-        <div className="divide-y divide-gray-800">
+        <div className="flex flex-col divide-y divide-gray-800">
           <div className="relative flex w-full items-center justify-between px-3 py-3">
-            <p>Distribution</p>
+            <p>Zone</p>
             <div className="flex items-center gap-2">
               <button
-                onMouseEnter={() => setHoveredKey('distribution')}
+                onMouseEnter={() => setHoveredKey('zone')}
                 onMouseLeave={() => setHoveredKey(null)}
               >
                 <CircleAlert className="size-4 text-gray-300" />
               </button>
               <input
                 type="checkbox"
+                checked={services.zone}
                 className={cn('toggle border-gray-800 bg-gray-500', {
-                  'bg-orchid-medium hover:bg-orchid-medium/80':
-                    services.distribution,
+                  'bg-orchid-medium hover:bg-orchid-medium/80': services.zone,
                 })}
-                onChange={() => handleServiceChange('distribution')}
+                onChange={() => handleServiceChange('zone')}
               />
             </div>
-            {hoveredKey === 'distribution' && (
-              <GuideTable guide={cloudfront.distribution} />
+            {hoveredKey === 'zone' && <GuideTable guide={route53.zone} />}
+          </div>
+          <div className="relative flex w-full items-center justify-between px-3 py-3">
+            <p>Record</p>
+            <div className="flex items-center gap-2">
+              <button
+                onMouseEnter={() => setHoveredKey('record')}
+                onMouseLeave={() => setHoveredKey(null)}
+              >
+                <CircleAlert className="size-4 text-gray-300" />
+              </button>
+              <input
+                type="checkbox"
+                checked={services.record}
+                className={cn('toggle border-gray-800 bg-gray-500', {
+                  'bg-orchid-medium hover:bg-orchid-medium/80': services.record,
+                })}
+                onChange={() => handleServiceChange('record')}
+              />
+            </div>
+            {hoveredKey === 'record' && <GuideTable guide={route53.record} />}
+          </div>
+          <div className="relative flex w-full items-center justify-between px-3 py-3">
+            <p>Delegation Set</p>
+            <div className="flex items-center gap-2">
+              <button
+                onMouseEnter={() => setHoveredKey('delegation_set')}
+                onMouseLeave={() => setHoveredKey(null)}
+              >
+                <CircleAlert className="size-4 text-gray-300" />
+              </button>
+              <input
+                type="checkbox"
+                checked={services.delegation_set}
+                className={cn('toggle border-gray-800 bg-gray-500', {
+                  'bg-orchid-medium hover:bg-orchid-medium/80':
+                    services.delegation_set,
+                })}
+                onChange={() => handleServiceChange('delegation_set')}
+              />
+            </div>
+            {hoveredKey === 'delegation_set' && (
+              <GuideTable guide={route53.delegation_set} />
             )}
           </div>
           <div className="relative flex w-full items-center justify-between px-3 py-3">
-            <p>Origin Access Identity</p>
+            <p>Resolver Rule Association</p>
             <div className="flex items-center gap-2">
               <button
-                onMouseEnter={() => setHoveredKey('origin_access_identity')}
+                onMouseEnter={() => setHoveredKey('resolver_rule_association')}
                 onMouseLeave={() => setHoveredKey(null)}
               >
                 <CircleAlert className="size-4 text-gray-300" />
               </button>
               <input
                 type="checkbox"
+                checked={services.resolver_rule_association}
                 className={cn('toggle border-gray-800 bg-gray-500', {
                   'bg-orchid-medium hover:bg-orchid-medium/80':
-                    services.origin_access_identity,
+                    services.resolver_rule_association,
                 })}
-                onChange={() => handleServiceChange('origin_access_identity')}
+                onChange={() =>
+                  handleServiceChange('resolver_rule_association')
+                }
               />
             </div>
-            {hoveredKey === 'origin_access_identity' && (
-              <GuideTable guide={cloudfront.origin_access_identity} />
-            )}
-          </div>
-          <div className="relative flex w-full items-center justify-between px-3 py-3">
-            <p>Origin Access Control</p>
-            <div className="flex items-center gap-2">
-              <button
-                onMouseEnter={() => setHoveredKey('origin_access_control')}
-                onMouseLeave={() => setHoveredKey(null)}
-              >
-                <CircleAlert className="size-4 text-gray-300" />
-              </button>
-              <input
-                type="checkbox"
-                className={cn('toggle border-gray-800 bg-gray-500', {
-                  'bg-orchid-medium hover:bg-orchid-medium/80':
-                    services.origin_access_control,
-                })}
-                onChange={() => handleServiceChange('origin_access_control')}
-              />
-            </div>
-            {hoveredKey === 'origin_access_control' && (
-              <GuideTable guide={cloudfront.origin_access_control} />
-            )}
-          </div>
-          <div className="relative flex w-full items-center justify-between px-3 py-3">
-            <p>Monitoring Subscription</p>
-            <div className="flex items-center gap-2">
-              <button
-                onMouseEnter={() => setHoveredKey('monitoring_subscription')}
-                onMouseLeave={() => setHoveredKey(null)}
-              >
-                <CircleAlert className="size-4 text-gray-300" />
-              </button>
-              <input
-                type="checkbox"
-                className={cn('toggle border-gray-800 bg-gray-500', {
-                  'bg-orchid-medium hover:bg-orchid-medium/80':
-                    services.monitoring_subscription,
-                })}
-                onChange={() => handleServiceChange('monitoring_subscription')}
-              />
-            </div>
-            {hoveredKey === 'monitoring_subscription' && (
-              <GuideTable guide={cloudfront.monitoring_subscription} />
-            )}
-          </div>
-          <div className="relative flex w-full items-center justify-between px-3 py-3">
-            <p>VPC Origin</p>
-            <div className="flex items-center gap-2">
-              <button
-                onMouseEnter={() => setHoveredKey('vpc_origin')}
-                onMouseLeave={() => setHoveredKey(null)}
-              >
-                <CircleAlert className="size-4 text-gray-300" />
-              </button>
-              <input
-                type="checkbox"
-                className={cn('toggle border-gray-800 bg-gray-500', {
-                  'bg-orchid-medium hover:bg-orchid-medium/80':
-                    services.vpc_origin,
-                })}
-                onChange={() => handleServiceChange('vpc_origin')}
-              />
-            </div>
-            {hoveredKey === 'vpc_origin' && (
-              <GuideTable guide={cloudfront.vpc_origin} />
+            {hoveredKey === 'resolver_rule_association' && (
+              <GuideTable guide={route53.resolver_rule_association} />
             )}
           </div>
         </div>

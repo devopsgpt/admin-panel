@@ -1,46 +1,45 @@
+import { CircleAlert } from 'lucide-react';
 import { FC, FormEvent, useEffect, useState } from 'react';
-import { usePost } from '../../../../../core/react-query';
-import { HashicorpTerraformAPI } from '../../../../../enums/api.enums';
-import { RDSBody, RDSResponse } from './rds.types';
+import { GuideTable } from '../../components/guide-table';
+import autoscaling from './autoscaling.json';
+import { cn } from '../../../../../../lib/utils';
+import { usePost } from '../../../../../../core/react-query';
+import { HashicorpTerraformAPI } from '../../../../../../enums/api.enums';
+import { AutoScalingBody, AutoScalingResponse } from './autoscaling.types';
 import { isAxiosError } from 'axios';
 import { toast } from 'sonner';
-import { externalTemplateInstance } from '../../../../../lib/axios';
-import { CircleAlert } from 'lucide-react';
-import rds from './rds.json';
-import { cn } from '../../../../../lib/utils';
-import { GuideTable } from '../components/guide-table';
+import { externalTemplateInstance } from '../../../../../../lib/axios';
 
-export const RDS: FC = () => {
+export const AutoScaling: FC = () => {
   const [services, setServices] = useState({
-    db_instance: false,
-    db_option_group: false,
-    db_parameter_group: false,
-    db_subnet_group: false,
-    monitoring_role: false,
-    cloudwatch_log_group: false,
-    master_user_password_rotation: false,
+    autoscaling_group: false,
+    launch_template: false,
+    schedule: false,
+    scaling_policy: false,
+    iam_instance_profile: false,
   });
+
   const [getTemplatePending, setGetTemplatePending] = useState(false);
   const [hoveredKey, setHoveredKey] = useState<keyof typeof services | null>(
     null,
   );
 
-  const { mutateAsync, isPending } = usePost<RDSResponse, RDSBody>(
-    HashicorpTerraformAPI.RDS,
-    'rds',
-    true,
-  );
+  const { mutateAsync, isPending } = usePost<
+    AutoScalingResponse,
+    AutoScalingBody
+  >(HashicorpTerraformAPI.AutoScaling, 'autoscaling', true);
 
   useEffect(() => {
-    if (services.db_instance === false) {
+    if (services.autoscaling_group === false) {
       setServices((prev) => ({
         ...prev,
-        cloudwatch_log_group: false,
-        master_user_password_rotation: false,
-        monitoring_role: false,
+        iam_instance_profile: false,
+        launch_template: false,
+        scaling_policy: false,
+        schedule: false,
       }));
     }
-  }, [services.db_instance]);
+  }, [services.autoscaling_group]);
 
   const handleServiceChange = (service: keyof typeof services) => {
     setServices((prev) => ({
@@ -58,7 +57,7 @@ export const RDS: FC = () => {
       formData.append('tfvars_file', blob, 'terraform.tfvars');
       setGetTemplatePending(true);
       const { data: template } = await externalTemplateInstance.post(
-        '/terraform-get/rds',
+        '/terraform-get/autoscaling',
         formData,
         {
           responseType: 'blob',
@@ -66,9 +65,7 @@ export const RDS: FC = () => {
         },
       );
       if (template) {
-        const zipBlob = new Blob([template], {
-          type: 'application/zip',
-        });
+        const zipBlob = new Blob([template], { type: 'application/zip' });
         const url = window.URL.createObjectURL(zipBlob);
         const link = document.createElement('a');
         link.href = url;
@@ -96,26 +93,26 @@ export const RDS: FC = () => {
       <div className="rounded-md border border-gray-800">
         <div className="flex flex-col divide-y divide-gray-800">
           <div className="relative flex w-full items-center justify-between px-3 py-3">
-            <p>DB Instance</p>
+            <p>AutoScaling Group</p>
             <div className="flex items-center gap-2">
               <button
-                onMouseEnter={() => setHoveredKey('db_instance')}
+                onMouseEnter={() => setHoveredKey('autoscaling_group')}
                 onMouseLeave={() => setHoveredKey(null)}
               >
                 <CircleAlert className="size-4 text-gray-300" />
               </button>
               <input
                 type="checkbox"
-                checked={services.db_instance}
+                checked={services.autoscaling_group}
                 className={cn('toggle border-gray-800 bg-gray-500', {
                   'bg-orchid-medium hover:bg-orchid-medium/80':
-                    services.db_instance,
+                    services.autoscaling_group,
                 })}
-                onChange={() => handleServiceChange('db_instance')}
+                onChange={() => handleServiceChange('autoscaling_group')}
               />
             </div>
-            {hoveredKey === 'db_instance' && (
-              <GuideTable guide={rds.db_instance} />
+            {hoveredKey === 'autoscaling_group' && (
+              <GuideTable guide={autoscaling.autoscaling_group} />
             )}
           </div>
           <div className="relative">
@@ -123,152 +120,102 @@ export const RDS: FC = () => {
               className={cn(
                 'max-h-0 w-full divide-y divide-gray-700 overflow-y-hidden transition-all',
                 {
-                  'max-h-96 overflow-x-visible': services.db_instance,
+                  'max-h-96 overflow-x-visible': services.autoscaling_group,
                 },
               )}
             >
               <div className="flex items-center justify-between bg-white/10 px-3 py-3">
-                <p>Cloudwatch Log Group</p>
+                <p>Schedule</p>
                 <div className="flex items-center gap-2">
                   <button
-                    onMouseEnter={() => setHoveredKey('cloudwatch_log_group')}
+                    onMouseEnter={() => setHoveredKey('schedule')}
                     onMouseLeave={() => setHoveredKey(null)}
                   >
                     <CircleAlert className="size-4 text-gray-300" />
                   </button>
                   <input
+                    checked={services.schedule}
                     type="checkbox"
-                    checked={services.cloudwatch_log_group}
                     className={cn('toggle border-gray-800 bg-gray-500', {
                       'bg-orchid-medium hover:bg-orchid-medium/80':
-                        services.cloudwatch_log_group,
+                        services.schedule,
                     })}
-                    onChange={() => handleServiceChange('cloudwatch_log_group')}
+                    onChange={() => handleServiceChange('schedule')}
                   />
                 </div>
-                {hoveredKey === 'cloudwatch_log_group' && (
-                  <GuideTable guide={rds.cloudwatch_log_group} />
+                {hoveredKey === 'schedule' && (
+                  <GuideTable guide={autoscaling.schedule} />
                 )}
               </div>
               <div className="flex items-center justify-between bg-white/10 px-3 py-3">
-                <p>Master User Password Rotation</p>
+                <p>Scaling Policy</p>
                 <div className="flex items-center gap-2">
                   <button
-                    onMouseEnter={() =>
-                      setHoveredKey('master_user_password_rotation')
-                    }
+                    onMouseEnter={() => setHoveredKey('scaling_policy')}
                     onMouseLeave={() => setHoveredKey(null)}
                   >
                     <CircleAlert className="size-4 text-gray-300" />
                   </button>
                   <input
+                    checked={services.scaling_policy}
                     type="checkbox"
-                    checked={services.master_user_password_rotation}
                     className={cn('toggle border-gray-800 bg-gray-500', {
                       'bg-orchid-medium hover:bg-orchid-medium/80':
-                        services.master_user_password_rotation,
+                        services.scaling_policy,
                     })}
-                    onChange={() =>
-                      handleServiceChange('master_user_password_rotation')
-                    }
+                    onChange={() => handleServiceChange('scaling_policy')}
                   />
                 </div>
-                {hoveredKey === 'master_user_password_rotation' && (
-                  <GuideTable guide={rds.master_user_password_rotation} />
+                {hoveredKey === 'scaling_policy' && (
+                  <GuideTable guide={autoscaling.scaling_policy} />
                 )}
               </div>
               <div className="flex items-center justify-between bg-white/10 px-3 py-3">
-                <p>Monitoring Role</p>
+                <p>IAM Instance Profile</p>
                 <div className="flex items-center gap-2">
                   <button
-                    onMouseEnter={() => setHoveredKey('monitoring_role')}
+                    onMouseEnter={() => setHoveredKey('iam_instance_profile')}
                     onMouseLeave={() => setHoveredKey(null)}
                   >
                     <CircleAlert className="size-4 text-gray-300" />
                   </button>
                   <input
+                    checked={services.iam_instance_profile}
                     type="checkbox"
-                    checked={services.monitoring_role}
                     className={cn('toggle border-gray-800 bg-gray-500', {
                       'bg-orchid-medium hover:bg-orchid-medium/80':
-                        services.monitoring_role,
+                        services.iam_instance_profile,
                     })}
-                    onChange={() => handleServiceChange('monitoring_role')}
+                    onChange={() => handleServiceChange('iam_instance_profile')}
                   />
                 </div>
-                {hoveredKey === 'monitoring_role' && (
-                  <GuideTable guide={rds.monitoring_role} />
+                {hoveredKey === 'iam_instance_profile' && (
+                  <GuideTable guide={autoscaling.iam_instance_profile} />
                 )}
               </div>
             </div>
           </div>
           <div className="relative flex w-full items-center justify-between px-3 py-3">
-            <p>DB Option Group</p>
+            <p>Launch Template</p>
             <div className="flex items-center gap-2">
               <button
-                onMouseEnter={() => setHoveredKey('db_option_group')}
+                onMouseEnter={() => setHoveredKey('launch_template')}
                 onMouseLeave={() => setHoveredKey(null)}
               >
                 <CircleAlert className="size-4 text-gray-300" />
               </button>
               <input
                 type="checkbox"
-                checked={services.db_option_group}
+                checked={services.launch_template}
                 className={cn('toggle border-gray-800 bg-gray-500', {
                   'bg-orchid-medium hover:bg-orchid-medium/80':
-                    services.db_option_group,
+                    services.launch_template,
                 })}
-                onChange={() => handleServiceChange('db_option_group')}
+                onChange={() => handleServiceChange('launch_template')}
               />
             </div>
-            {hoveredKey === 'db_option_group' && (
-              <GuideTable guide={rds.db_option_group} />
-            )}
-          </div>
-          <div className="relative flex w-full items-center justify-between px-3 py-3">
-            <p>DB Parameter Group</p>
-            <div className="flex items-center gap-2">
-              <button
-                onMouseEnter={() => setHoveredKey('db_parameter_group')}
-                onMouseLeave={() => setHoveredKey(null)}
-              >
-                <CircleAlert className="size-4 text-gray-300" />
-              </button>
-              <input
-                type="checkbox"
-                checked={services.db_parameter_group}
-                className={cn('toggle border-gray-800 bg-gray-500', {
-                  'bg-orchid-medium hover:bg-orchid-medium/80':
-                    services.db_parameter_group,
-                })}
-                onChange={() => handleServiceChange('db_parameter_group')}
-              />
-            </div>
-            {hoveredKey === 'db_parameter_group' && (
-              <GuideTable guide={rds.db_parameter_group} />
-            )}
-          </div>
-          <div className="relative flex w-full items-center justify-between px-3 py-3">
-            <p>DB Subnet Group</p>
-            <div className="flex items-center gap-2">
-              <button
-                onMouseEnter={() => setHoveredKey('db_subnet_group')}
-                onMouseLeave={() => setHoveredKey(null)}
-              >
-                <CircleAlert className="size-4 text-gray-300" />
-              </button>
-              <input
-                type="checkbox"
-                checked={services.db_subnet_group}
-                className={cn('toggle border-gray-800 bg-gray-500', {
-                  'bg-orchid-medium hover:bg-orchid-medium/80':
-                    services.db_subnet_group,
-                })}
-                onChange={() => handleServiceChange('db_subnet_group')}
-              />
-            </div>
-            {hoveredKey === 'db_subnet_group' && (
-              <GuideTable guide={rds.db_subnet_group} />
+            {hoveredKey === 'launch_template' && (
+              <GuideTable guide={autoscaling.launch_template} />
             )}
           </div>
         </div>

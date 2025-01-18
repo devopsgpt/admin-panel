@@ -1,12 +1,12 @@
 import { CircleAlert } from 'lucide-react';
 import { FC, FormEvent, useEffect, useState } from 'react';
-import { cn } from '../../../../../lib/utils';
+import { cn } from '../../../../../../lib/utils';
 import sns from './sns.json';
-import { GuideTable } from '../components/guide-table';
-import { usePost } from '../../../../../core/react-query';
+import { GuideTable } from '../../components/guide-table';
+import { usePost } from '../../../../../../core/react-query';
 import { SNSBody, SNSResponse } from './sns.types';
-import { HashicorpTerraformAPI } from '../../../../../enums/api.enums';
-import { externalTemplateInstance } from '../../../../../lib/axios';
+import { HashicorpTerraformAPI } from '../../../../../../enums/api.enums';
+import { externalTemplateInstance } from '../../../../../../lib/axios';
 import { isAxiosError } from 'axios';
 import { toast } from 'sonner';
 
