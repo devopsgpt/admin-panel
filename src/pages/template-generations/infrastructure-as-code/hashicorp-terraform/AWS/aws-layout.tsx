@@ -1,3 +1,4 @@
+import { MoveLeft } from 'lucide-react';
 import { FC, useEffect, useRef } from 'react';
 import { Link, Outlet, useLocation } from 'react-router';
 
@@ -94,8 +95,21 @@ export const AWSLayout: FC = () => {
         ))}
       </div>
       <div className="w-full min-w-full flex-1">
-        <div className="flex h-full items-center justify-center">
-          <Outlet />
+        <div className="w-full">
+          <div className="flex h-full w-full flex-col items-center justify-center">
+            {location.pathname.includes('/aws/') && (
+              <div className="mb-3 flex w-full max-w-96 justify-start text-sm">
+                <Link
+                  to="/template-generation/infrastructure-as-code/hashicorp-terraform/aws"
+                  className="flex items-center gap-2"
+                >
+                  <MoveLeft className="size-4" />
+                  Back to Services
+                </Link>
+              </div>
+            )}
+            <Outlet />
+          </div>
         </div>
       </div>
     </div>
