@@ -82,32 +82,43 @@ jobs:
           "VITE_SUPABASE_ANON_KEY=${{ secrets.VITE_SUPABASE_ANON_KEY_DEV }}"
           "VITE_EXTERNAL_TEMPLATE_API=${{ secrets.VITE_EXTERNAL_TEMPLATE_API_DEV }}"
 
-    - name: Deploying adminPanel prod on the remote server
+    - name: Deploying adminPanel on production server
       if: github.ref == 'refs/heads/master'
       uses: appleboy/ssh-action@v1.2.0
       with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.HOST_USERNAME }}
-        password: ${{ secrets.HOST_PASSWORD }}
+        host: ${{ secrets.HOST_PROD }}
+        username: ${{ secrets.HOST_USERNAME_PROD }}
+        password: ${{ secrets.HOST_PASSWORD_PROD }}
         port: ${{ secrets.HOST_PORT }}
         script: docker compose -f devopsgpt-adminPanel/docker-compose-adminPanel.yml down adminPanel_prod && docker compose -f devopsgpt-adminPanel/docker-compose-adminPanel.yml up -d --pull always adminPanel_prod
 
-    - name: Deploying adminPanel dev on the remote server
+    - name: Deploying adminPanel on dev server
       if: github.ref == 'refs/heads/dev'
       uses: appleboy/ssh-action@v1.2.0
       with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.HOST_USERNAME }}
-        password: ${{ secrets.HOST_PASSWORD }}
+        host: ${{ secrets.HOST_DEV }}
+        username: ${{ secrets.HOST_USERNAME_DEV }}
+        password: ${{ secrets.HOST_PASSWORD_DEV }}
         port: ${{ secrets.HOST_PORT }}
         script: docker compose -f devopsgpt-adminPanel/docker-compose-adminPanel.yml down adminPanel_dev && docker compose -f devopsgpt-adminPanel/docker-compose-adminPanel.yml up -d --pull always adminPanel_dev
 
-    - name: Removing dangle images on the remote server
+    - name: Removing dangle images on production server
+      if: github.ref == 'refs/heads/master'
       uses: appleboy/ssh-action@v1.2.0
       with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.HOST_USERNAME }}
-        password: ${{ secrets.HOST_PASSWORD }}
+        host: ${{ secrets.HOST_PROD }}
+        username: ${{ secrets.HOST_USERNAME_PROD }}
+        password: ${{ secrets.HOST_PASSWORD_PROD }}
+        port: ${{ secrets.HOST_PORT }}
+        script: docker image prune -f
+
+    - name: Removing dangle images on dev server
+      if: github.ref == 'refs/heads/dev'
+      uses: appleboy/ssh-action@v1.2.0
+      with:
+        host: ${{ secrets.HOST_DEV }}
+        username: ${{ secrets.HOST_USERNAME_DEV }}
+        password: ${{ secrets.HOST_PASSWORD_DEV }}
         port: ${{ secrets.HOST_PORT }}
         script: docker image prune -f
 
