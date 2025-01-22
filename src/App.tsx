@@ -11,7 +11,6 @@ import { supabaseClient } from './lib/supabase';
 import MainLoading from './components/main-loading/main-loading';
 import { useUserStore } from './store';
 import Auth from './pages/auth';
-import { Basic, BugFix } from './pages/chats';
 import {
   Helm,
   DockerCompose,
@@ -76,6 +75,7 @@ import {
 import { CertManager } from './pages/template-generations/secret-management';
 import { ArgoRollouts } from './pages/template-generations/continuous-delivery-and-progressive-delivery';
 import { ArgoWorkflows } from './pages/template-generations/workflow-orchestration';
+import { Chat } from './pages/chat';
 
 function App() {
   const location = useLocation();
@@ -107,11 +107,7 @@ function App() {
     <Routes location={location}>
       <Route path="/auth" element={<Auth />} />
       <Route element={<MainLayout />}>
-        <Route path="chats">
-          <Route path="basic" element={<Basic />} />
-          <Route path="bug-fix" element={<BugFix />} />
-        </Route>
-
+        <Route path="chat" element={<Chat />} />
         <Route path="template-generation">
           <Route path="container-orchestration-and-management">
             <Route path="helm" element={<Helm />} />
@@ -216,7 +212,7 @@ function App() {
           <Route path="terraform" element={<TerraformInstallation />} />
         </Route>
       </Route>
-      <Route path="*" element={<Navigate to="/chats/basic" />} />
+      <Route path="*" element={<Navigate to="/chat" />} />
     </Routes>
   );
 }

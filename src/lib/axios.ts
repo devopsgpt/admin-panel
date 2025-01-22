@@ -14,3 +14,5 @@ export const externalTemplateInstance: AxiosInstance = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+export const chatInstance: AxiosInstance = axios.create();

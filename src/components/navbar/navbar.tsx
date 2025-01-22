@@ -7,23 +7,14 @@ import {
   useRef,
   useState,
 } from 'react';
-import { NavLink, useLocation } from 'react-router';
+import { Link, NavLink, useLocation } from 'react-router';
 import { User } from './components/user';
 import { cn } from '../../lib/utils';
 
 const navbar = [
   {
-    title: 'Chats',
-    subMenu: [
-      {
-        title: 'Basic',
-        link: '/chats/basic',
-      },
-      {
-        title: 'Bug Fix',
-        link: '/chats/bug-fix',
-      },
-    ],
+    title: 'Chat',
+    link: '/chat',
   },
   {
     title: 'Template Generation',
@@ -215,25 +206,35 @@ const Navbar: FC = () => {
       let active = { parentTitle: '', subTitle: '', subSubTitle: '' };
 
       for (const parent of navbar) {
-        for (const subMenu of parent.subMenu) {
-          if (location.pathname === (subMenu as any).link) {
-            return {
-              parentTitle: parent.title,
-              subTitle: subMenu.title,
-              subSubTitle: '',
-            };
-          }
+        if (parent.subMenu) {
+          for (const subMenu of parent.subMenu) {
+            if (location.pathname === (subMenu as any).link) {
+              return {
+                parentTitle: parent.title,
+                subTitle: subMenu.title,
+                subSubTitle: '',
+              };
+            }
 
-          if ('subMenu' in subMenu && subMenu.subMenu) {
-            for (const subSubMenu of subMenu.subMenu) {
-              if (location.pathname === subSubMenu.link) {
-                return {
-                  parentTitle: parent.title,
-                  subTitle: subMenu.title,
-                  subSubTitle: subSubMenu.title,
-                };
+            if ('subMenu' in subMenu && subMenu.subMenu) {
+              for (const subSubMenu of subMenu.subMenu) {
+                if (location.pathname === subSubMenu.link) {
+                  return {
+                    parentTitle: parent.title,
+                    subTitle: subMenu.title,
+                    subSubTitle: subSubMenu.title,
+                  };
+                }
               }
             }
+          }
+        } else {
+          if (location.pathname === parent.link) {
+            return {
+              parentTitle: parent.title,
+              subTitle: '',
+              subSubTitle: '',
+            };
           }
         }
       }
@@ -269,21 +270,38 @@ const Navbar: FC = () => {
           className="isolate z-10 flex w-full items-center justify-between rounded-lg border border-gray-800 bg-gray-500/10 bg-clip-padding pr-4 backdrop-blur backdrop-contrast-100 backdrop-saturate-100 backdrop-filter"
         >
           <div className="flex items-center">
-            {navbar.map((item, index) => (
-              <button
-                ref={buttonRefs.current[index]}
-                onClick={() => handleButtonClick(item.title)}
-                key={item.title}
-                className={cn(
-                  'w-full cursor-pointer whitespace-nowrap px-4 py-3 text-center',
-                  {
-                    'text-orchid-medium': activeMenu.parentTitle === item.title,
-                  },
-                )}
-              >
-                {item.title}
-              </button>
-            ))}
+            {navbar.map((item, index) =>
+              item.subMenu ? (
+                <button
+                  ref={buttonRefs.current[index]}
+                  onClick={() => handleButtonClick(item.title)}
+                  key={item.title}
+                  className={cn(
+                    'w-full cursor-pointer whitespace-nowrap px-4 py-3 text-center',
+                    {
+                      'text-orchid-medium':
+                        activeMenu.parentTitle === item.title,
+                    },
+                  )}
+                >
+                  {item.title}
+                </button>
+              ) : (
+                <Link
+                  key={item.title}
+                  to={item.link}
+                  className={cn(
+                    'w-full cursor-pointer whitespace-nowrap px-4 py-3 text-center',
+                    {
+                      'text-orchid-medium':
+                        activeMenu.parentTitle === item.title,
+                    },
+                  )}
+                >
+                  {item.title}
+                </Link>
+              ),
+            )}
           </div>
           <User />
         </nav>

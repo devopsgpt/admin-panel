@@ -20,6 +20,7 @@ export enum API {
   BugFix = '/IaC-bugfix',
   Helm = '/Helm-template',
   DockerCompose = '/docker-compose',
+  HobsAgent = '/hobs-agent',
 }
 
 export enum AnsibleTemplateAPI {
