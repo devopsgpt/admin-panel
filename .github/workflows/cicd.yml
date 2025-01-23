@@ -67,6 +67,7 @@ jobs:
           "VITE_SUPABASE_URL=${{ secrets.VITE_SUPABASE_URL_PROD }}"
           "VITE_SUPABASE_ANON_KEY=${{ secrets.VITE_SUPABASE_ANON_KEY_PROD }}"
           "VITE_EXTERNAL_TEMPLATE_API=${{ secrets.VITE_EXTERNAL_TEMPLATE_API_PROD }}"
+          "VITE_CHAT_API=${{ secrets.VITE_CHAT_API_PROD }}"
 
     - name: Build and Push Docker Image of AdminPanel dev
       if: github.ref == 'refs/heads/dev'
@@ -81,6 +82,7 @@ jobs:
           "VITE_SUPABASE_URL=${{ secrets.VITE_SUPABASE_URL_DEV }}"
           "VITE_SUPABASE_ANON_KEY=${{ secrets.VITE_SUPABASE_ANON_KEY_DEV }}"
           "VITE_EXTERNAL_TEMPLATE_API=${{ secrets.VITE_EXTERNAL_TEMPLATE_API_DEV }}"
+          "VITE_CHAT_API=${{ secrets.VITE_CHAT_API_DEV }}"
 
     - name: Deploying adminPanel on production server
       if: github.ref == 'refs/heads/master'
