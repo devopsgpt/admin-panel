@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, FormEvent, useEffect, useRef, useState } from 'react';
 import { CornerRightUp, Mic } from 'lucide-react';
 import { toast } from 'sonner';
 import { Chats, ChatResponse } from './chat.types';
@@ -7,6 +7,7 @@ import { isAxiosError } from 'axios';
 import { chatInstance } from '../../lib/axios';
 import { CHAT_API } from '../../config/global';
 import { cn } from '../../lib/utils';
+import { ReactTyped } from 'react-typed';
 
 export const Chat: FC = () => {
   const [chats, setChats] = useState<Chats[]>([]);
@@ -16,6 +17,7 @@ export const Chat: FC = () => {
   const [recognition, setRecognition] = useState<SpeechRecognition | null>(
     null,
   );
+  const [isSupportSpeech, setIsSupportSpeech] = useState<boolean>(false);
 
   const messagesRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLParagraphElement>(null);
@@ -31,14 +33,15 @@ export const Chat: FC = () => {
       recognitionInstance.lang = 'en-US';
       recognitionInstance.interimResults = true;
       recognitionInstance.continuous = true;
-
+      setIsSupportSpeech(true);
       setRecognition(recognitionInstance);
     } else {
-      alert('Your browser does not support speech recognition.');
+      setIsSupportSpeech(false);
     }
   }, []);
 
   useEffect(() => {
+    console.log(chats);
     if (messagesRef.current) {
       messagesRef.current.scrollTo({
         top: messagesRef.current.scrollHeight,
@@ -90,6 +93,8 @@ export const Chat: FC = () => {
       if (!inputRef.current.textContent?.trim()) {
         inputRef.current.setAttribute('data-placeholder', 'Message HobsAi');
         inputRef.current.innerHTML = '';
+      } else {
+        inputRef.current.setAttribute('data-placeholder', '');
       }
     }
 
@@ -142,26 +147,45 @@ export const Chat: FC = () => {
       .map((result) => result[0].transcript)
       .join(' ');
     inputRef.current!.innerText = transcriptArray;
-
+    setContent(transcriptArray);
     resetSilenceTimer();
+  };
+
+  const handleEnter = (e: React.KeyboardEvent<HTMLParagraphElement>) => {
+    if (e.key === 'Enter' && e.shiftKey) {
+      return;
+    } else if (
+      e.key === 'Enter' &&
+      inputRef.current?.textContent?.length !== 0 &&
+      !loading
+    ) {
+      handleSendMessage();
+    }
+  };
+
+  const handleInput = (e: FormEvent<HTMLParagraphElement>) => {
+    if (inputRef.current) {
+      setContent(e.currentTarget.innerText);
+    }
   };
 
   const handleSendMessage = async () => {
     if (!inputRef.current) return;
-    const msg = inputRef.current.innerText;
+    const msg = inputRef.current.innerHTML;
+    const input = inputRef.current.innerText;
+    inputRef.current.innerText = '';
+    setContent('');
+    setLoading(true);
     try {
-      setLoading(true);
       setChats((prev) => [
         ...prev,
-        { role: 'user', content: msg },
+        { role: 'user', content: input },
         { role: 'assistant', content: '', loading: true },
       ]);
 
       const {
         data: { response },
       } = await chatInstance.post<ChatResponse>(`${CHAT_API}?prompt=${msg}`);
-      inputRef.current.innerText = '';
-      setContent('');
       setChats((prev) =>
         prev.map((message, index) =>
           index === prev.length - 1
@@ -189,26 +213,30 @@ export const Chat: FC = () => {
 
   return (
     <div className="flex h-full w-full items-center justify-center text-white">
-      <div className="relative flex h-full max-h-[85%] w-full max-w-full">
-        <div
-          ref={messagesRef}
-          className="flex h-full w-full flex-col justify-between gap-2 overflow-y-auto rounded-md bg-gray-600/20 bg-clip-padding p-3 backdrop-blur-md backdrop-contrast-100 backdrop-saturate-100 backdrop-filter scrollbar-thin scrollbar-track-transparent scrollbar-corner-transparent"
-        >
-          <div className="flex-1">
+      <div className="relative flex h-full max-h-[800px] w-full max-w-full">
+        <div className="flex h-full w-full flex-col justify-between gap-2 rounded-md bg-gray-600/20 bg-clip-padding p-3 backdrop-blur-md backdrop-contrast-100 backdrop-saturate-100 backdrop-filter">
+          <div
+            className="flex-1 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-corner-transparent"
+            ref={messagesRef}
+          >
             {chats.map((chat, index) =>
               chat.role === 'user' ? (
                 <div key={index} className="chat chat-end max-w-full">
-                  <div className="chat-bubble w-fit max-w-[50%] bg-orchid-medium/80 text-white">
+                  <div className="chat-bubble w-fit max-w-[50%] whitespace-pre-wrap bg-orchid-medium/80 text-white">
                     {chat.content}
                   </div>
                 </div>
               ) : (
                 <div key={index} className="chat chat-start max-w-full">
-                  <div className="chat-bubble w-fit max-w-[50%] bg-orchid-medium/50 text-white">
+                  <div className="chat-bubble w-fit max-w-[50%] whitespace-pre-wrap bg-orchid-medium/50 text-white">
                     {chat.loading ? (
                       <BeatLoader color="#e3e3e3" size={10} />
                     ) : (
-                      chat.content
+                      <ReactTyped
+                        typeSpeed={10}
+                        strings={[chat.content.replaceAll(/<br>/g, '\n')]}
+                        showCursor={false}
+                      />
                     )}
                   </div>
                 </div>
@@ -220,20 +248,24 @@ export const Chat: FC = () => {
               ref={inputRef}
               contentEditable
               suppressContentEditableWarning={true}
-              onInput={(e) => setContent(e.currentTarget.innerText)}
+              onInput={handleInput}
+              onKeyDown={handleEnter}
               data-placeholder="Message_HobsAi"
-              className="relative min-h-[32px] w-full rounded-md before:left-0 before:top-0 before:text-gray-400 before:content-[attr(data-placeholder)] placeholder:before:absolute placeholder:before:text-gray-400 focus:outline-none"
+              className="relative max-h-36 min-h-[32px] w-full overflow-y-auto rounded-md scrollbar-thin before:left-0 before:top-0 before:text-gray-400 before:content-[attr(data-placeholder)] placeholder:before:absolute placeholder:before:text-gray-400 focus:outline-none"
             ></p>
             <div className="flex items-center justify-between">
               <button
                 onClick={handleListening}
-                disabled={loading}
+                disabled={loading || !isSupportSpeech}
                 className={cn(
                   'flex size-9 items-center justify-center rounded-full bg-white transition-all disabled:opacity-50',
                   {
                     'bg-red-500': isListening,
                   },
                 )}
+                {...(!isSupportSpeech && {
+                  title: 'Your browser does not support speech recognition.',
+                })}
               >
                 <Mic
                   className={cn('size-5 stroke-black', {

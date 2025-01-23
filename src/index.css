@@ -1,5 +1,8 @@
-@tailwind base;
-@tailwind components;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+
+@import './pages/chat/chat.css';
+@import 'tailwindcss/utilities';
 
 @font-face {
   font-family: 'figtree';
@@ -8,8 +11,6 @@
   font-display: 'swap';
   font-style: 'normal';
 }
-
-@tailwind utilities;
 
 @layer base {
   body {
