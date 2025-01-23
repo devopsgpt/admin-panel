@@ -41,13 +41,7 @@ export const Chat: FC = () => {
   }, []);
 
   useEffect(() => {
-    console.log(chats);
-    if (messagesRef.current) {
-      messagesRef.current.scrollTo({
-        top: messagesRef.current.scrollHeight,
-        behavior: 'smooth',
-      });
-    }
+    scrollToEnd();
   }, [chats]);
 
   useEffect(() => {
@@ -106,6 +100,15 @@ export const Chat: FC = () => {
       }
     };
   }, [content]);
+
+  const scrollToEnd = () => {
+    if (messagesRef.current) {
+      messagesRef.current.scrollTo({
+        top: messagesRef.current.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   const clearSilenceTimer = () => {
     if (silenceTimer.current) {
@@ -222,7 +225,7 @@ export const Chat: FC = () => {
             {chats.map((chat, index) =>
               chat.role === 'user' ? (
                 <div key={index} className="chat chat-end max-w-full">
-                  <div className="chat-bubble w-fit max-w-[50%] whitespace-pre-wrap bg-orchid-medium/80 text-white">
+                  <div className="chat-bubble w-fit max-w-[50%] whitespace-pre-wrap break-words bg-orchid-medium/80 text-white">
                     {chat.content}
                   </div>
                 </div>
@@ -233,9 +236,11 @@ export const Chat: FC = () => {
                       <BeatLoader color="#e3e3e3" size={10} />
                     ) : (
                       <ReactTyped
+                        onComplete={scrollToEnd}
                         typeSpeed={10}
                         strings={[chat.content.replaceAll(/<br>/g, '\n')]}
                         showCursor={false}
+                        className="break-words"
                       />
                     )}
                   </div>
