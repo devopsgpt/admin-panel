@@ -157,6 +157,7 @@ const Navbar: FC = () => {
     top: 0,
     left: 0,
   });
+  const [isHoveringMenu, setIsHoveringMenu] = useState(false);
 
   const location = useLocation();
 
@@ -166,6 +167,7 @@ const Navbar: FC = () => {
   );
   const menuRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLElement>(null);
+  const subMenuRef = useRef<HTMLDivElement>(null);
 
   const [activeMenu, setActiveMenu] = useState({
     parentTitle: '',
@@ -243,6 +245,13 @@ const Navbar: FC = () => {
     setActiveMenu(findActiveMenu());
   }, [location.pathname, navbar]);
 
+  useEffect(() => {
+    if (!isHoveringMenu) {
+      setMenu(undefined);
+      setActiveSubSubMenu(undefined);
+    }
+  }, [isHoveringMenu]);
+
   const handleButtonClick = (menuItem: string) => {
     if (menu === menuItem) {
       setMenu(undefined);
@@ -257,10 +266,15 @@ const Navbar: FC = () => {
       const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
       setSubSubMenuPosition({
         top: rect.top,
-        left: rect.left + rect.width + 10,
+        left: rect.left + rect.width,
       });
     }
   };
+
+  const handleSubmenuMouseEnter = () => setIsHoveringMenu(true);
+  const handleSubmenuMouseLeave = () => setIsHoveringMenu(false);
+  const handleMenuMouseEnter = () => setIsHoveringMenu(true);
+  const handleMenuMouseLeave = () => setIsHoveringMenu(false);
 
   return (
     <>
@@ -274,7 +288,7 @@ const Navbar: FC = () => {
               item.subMenu ? (
                 <button
                   ref={buttonRefs.current[index]}
-                  onClick={() => handleButtonClick(item.title)}
+                  onMouseEnter={() => handleButtonClick(item.title)}
                   key={item.title}
                   className={cn(
                     'w-full cursor-pointer whitespace-nowrap px-4 py-3 text-center',
@@ -307,6 +321,8 @@ const Navbar: FC = () => {
         </nav>
         {menu && (
           <div
+            onMouseEnter={handleMenuMouseEnter}
+            onMouseLeave={handleMenuMouseLeave}
             ref={menuRef}
             className="absolute top-14 z-[60] w-fit rounded-md border border-gray-800 bg-gray-400/10 bg-clip-padding backdrop-blur-lg backdrop-contrast-100 backdrop-saturate-100 backdrop-filter transition-all"
             style={{
@@ -353,31 +369,38 @@ const Navbar: FC = () => {
         )}
       </div>
       <div
-        onMouseLeave={() => handleHoverMenuItem(undefined)}
+        ref={subMenuRef}
+        onMouseEnter={handleSubmenuMouseEnter}
+        onMouseLeave={handleSubmenuMouseLeave}
+        className="absolute z-50"
         style={{
           left: subSubMenuPosition.left,
           top: subSubMenuPosition.top,
         }}
-        className={cn(
-          'absolute left-full top-0 z-50 ml-2 hidden h-fit w-96 flex-col gap-2 overflow-y-hidden rounded-lg border border-gray-800 bg-gray-400/10 bg-clip-padding backdrop-blur-lg backdrop-contrast-100 backdrop-saturate-100 backdrop-filter',
-          {
-            flex: activeSubSubMenu,
-          },
-        )}
       >
-        {(activeSubSubMenu as any)?.subMenu.map((subSubItem: any) => (
-          <NavLink
-            to={(subSubItem as any).link}
-            key={subSubItem.title}
-            className={({ isActive }) =>
-              cn('w-full px-8 py-3 text-center text-white', {
-                'text-orchid-medium': isActive,
-              })
-            }
-          >
-            {subSubItem.title}
-          </NavLink>
-        ))}
+        <div
+          onMouseLeave={() => handleHoverMenuItem(undefined)}
+          className={cn(
+            'left-full top-0 z-50 ml-2 hidden h-fit w-96 flex-col gap-2 overflow-y-hidden rounded-lg border border-gray-800 bg-gray-400/10 bg-clip-padding backdrop-blur-lg backdrop-contrast-100 backdrop-saturate-100 backdrop-filter',
+            {
+              flex: activeSubSubMenu,
+            },
+          )}
+        >
+          {(activeSubSubMenu as any)?.subMenu.map((subSubItem: any) => (
+            <NavLink
+              to={(subSubItem as any).link}
+              key={subSubItem.title}
+              className={({ isActive }) =>
+                cn('w-full px-8 py-3 text-center text-white', {
+                  'text-orchid-medium': isActive,
+                })
+              }
+            >
+              {subSubItem.title}
+            </NavLink>
+          ))}
+        </div>
       </div>
     </>
   );
